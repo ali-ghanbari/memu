@@ -1,0 +1,5267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>MinimizeExitPoints.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2009 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Preconditions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.AbstractCompiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.CompilerPass;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.NodeTraversal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.NodeTraversal.AbstractPostOrderCallback;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.NodeUtil;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.IR;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Token;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.jstype.TernaryValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Transform the structure of the AST so that the number of explicit exits</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * are minimized.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author johnlenz@google.com (John Lenz)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class MinimizeExitPoints</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    extends AbstractPostOrderCallback</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    implements CompilerPass {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  AbstractCompiler compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_42'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  MinimizeExitPoints(AbstractCompiler compiler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_43'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.compiler = compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void process(Node externs, Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_48'>1</a>
+<span>
+1. process : removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    NodeTraversal.traverse(compiler, root, this);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void visit(NodeTraversal t, Node n, Node parent) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    switch (n.getType()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.LABEL:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_55'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tryMinimizeExits(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            n.getLastChild(), Token.BREAK, n.getFirstChild().getString());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.FOR:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.WHILE:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_61'/>
+61
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_61'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tryMinimizeExits(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            NodeUtil.getLoopCodeBlock(n), Token.CONTINUE, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_63'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.DO:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_66'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tryMinimizeExits(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            NodeUtil.getLoopCodeBlock(n), Token.CONTINUE, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node cond = NodeUtil.getConditionExpression(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_70'>1</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (NodeUtil.getImpureBooleanValue(cond) == TernaryValue.FALSE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // Normally, we wouldn&#39;t be able to optimize BREAKs inside a loop</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // but as we know the condition will always false, we can treat them</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // as we would a CONTINUE.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_74'/>
+74
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_74'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          tryMinimizeExits(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              n.getFirstChild(), Token.BREAK, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.FUNCTION:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_80'/>
+80
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_80'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tryMinimizeExits(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            n.getLastChild(), Token.RETURN, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_84'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Attempts to minimize the number of explicit exit points in a control</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * structure to take advantage of the implied exit at the end of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * structure.  This is accomplished by removing redundant statements, and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * moving statements following a qualifying IF node into that node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * For example:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * function () {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *   if (x) return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *   else blah();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *   foo();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * becomes:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * function () {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *  if (x) ;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *  else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *    blah();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *    foo();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param n The execution node of a parent to inspect.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param exitType The type of exit to look for.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param labelName If parent is a label the name of the label to look for,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *   null otherwise.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @nullable labelName non-null only for breaks within labels.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  void tryMinimizeExits(Node n, int exitType, String labelName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Just an &#39;exit&#39;.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_117'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (matchingExitNode(n, exitType, labelName)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_118'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/NodeUtil::removeChild &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      NodeUtil.removeChild(n.getParent(), n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_119'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/AbstractCompiler::reportCodeChange &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      compiler.reportCodeChange();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_120'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Just an &#39;if&#39;.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_124'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (n.isIf()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_125'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node ifBlock = n.getFirstChild().getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_126'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      tryMinimizeExits(ifBlock, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_127'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node elseBlock = ifBlock.getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_128'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (elseBlock != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_129'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tryMinimizeExits(elseBlock, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_131'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Just a &#39;try/catch/finally&#39;.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_135'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (n.isTry()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node tryBlock = n.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_137'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      tryMinimizeExits(tryBlock, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_138'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node allCatchNodes = NodeUtil.getCatchBlock(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_139'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (NodeUtil.hasCatchHandler(allCatchNodes)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_140'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Preconditions.checkState(allCatchNodes.hasOneChild());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_141'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node catchNode = allCatchNodes.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_142'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node catchCodeBlock = catchNode.getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_143'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tryMinimizeExits(catchCodeBlock, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_145'/>
+145
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_145'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (NodeUtil.hasFinally(n)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_146'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node finallyBlock = n.getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_147'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tryMinimizeExits(finallyBlock, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Just a &#39;label&#39;.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_152'/>
+152
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_152'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (n.isLabel()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_153'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node labelBlock = n.getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_154'/>
+154
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_154'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      tryMinimizeExits(labelBlock, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // TODO(johnlenz): The last case of SWITCH statement?</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // The rest assumes a block with at least one child, bail on anything else.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_160'/>
+160
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_160'>2</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+2. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!n.isBlock() || n.getLastChild() == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_161'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Multiple if-exits can be converted in a single pass.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Convert &#34;if (blah) break;  if (blah2) break; other_stmt;&#34; to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // become &#34;if (blah); else { if (blah2); else { other_stmt; } }&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // which will get converted to &#34;if (!blah &#38;&#38; !blah2) { other_stmt; }&#34;.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_168'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (Node c : n.children()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // An &#39;if&#39; block to process below.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_171'/>
+171
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_171'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (c.isIf()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_172'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node ifTree = c;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Node trueBlock, falseBlock;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // First, the true condition block.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_176'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        trueBlock = ifTree.getFirstChild().getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_177'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        falseBlock = trueBlock.getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_178'/>
+178
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_178'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeIfBlockExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tryMinimizeIfBlockExits(trueBlock, falseBlock,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            ifTree, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Now the else block.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // The if blocks may have changed, get them again.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_183'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        trueBlock = ifTree.getFirstChild().getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_184'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        falseBlock = trueBlock.getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_185'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (falseBlock != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_186'/>
+186
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_186'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeIfBlockExits &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          tryMinimizeIfBlockExits(falseBlock, trueBlock,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              ifTree, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_191'/>
+191
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_191'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (c == n.getLastChild()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_192'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_194'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Now try to minimize the exits of the last child, if it is removed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // look at what has become the last child.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_198'/>
+198
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_198'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (Node c = n.getLastChild(); c != null; c = n.getLastChild()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_199'>1</a>
+<span>
+1. tryMinimizeExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      tryMinimizeExits(c, exitType, labelName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // If the node is still the last child, we are done.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_201'/>
+201
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_201'>1</a>
+<span>
+1. tryMinimizeExits : negated conditional &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      if (c == n.getLastChild()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_202'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_205'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Look for exits (returns, breaks, or continues, depending on the context) at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * the end of a block and removes them by moving the if node&#39;s siblings,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * if any, into the opposite condition block.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param srcBlock The block to inspect.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param destBlock The block to move sibling nodes into.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param ifNode The if node to work with.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param exitType The type of exit to look for.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param labelName The name associated with the exit, if any.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @nullable labelName null for anything excepted for named-break associated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *           with a label.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void tryMinimizeIfBlockExits(Node srcBlock, Node destBlock,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Node ifNode, int exitType, String labelName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_222'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node exitNodeParent = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_223'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node exitNode = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Pick an exit node candidate.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_226'/>
+226
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_226'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (srcBlock.isBlock()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_227'/>
+227
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_227'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (!srcBlock.hasChildren()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_228'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_230'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      exitNodeParent = srcBlock;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_231'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      exitNode = exitNodeParent.getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Just a single statement, if it isn&#39;t an exit bail.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_234'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      exitNodeParent = ifNode;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_235'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      exitNode = srcBlock;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Verify the candidate.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_239'/>
+239
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_239'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!matchingExitNode(exitNode, exitType, labelName)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_240'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Take case of the if nodes siblings, if any.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_244'/>
+244
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_244'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (ifNode.getNext() != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Move siblings of the if block into the opposite</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // logic block of the exit.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_247'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node newDestBlock = IR.block().srcref(ifNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_248'/>
+248
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_248'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (destBlock == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Only possible if this is the false block.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_250'/>
+250
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_250'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        ifNode.addChildToBack(newDestBlock);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_251'/>
+251
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_251'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      } else if (destBlock.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Use the new block.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_253'/>
+253
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_253'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : removed call to com/google/javascript/rhino/Node::replaceChild &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        ifNode.replaceChild(destBlock, newDestBlock);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_254'/>
+254
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_254'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      } else if (destBlock.isBlock()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Reuse the existing block.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_256'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        newDestBlock = destBlock;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Add the existing statement to the new block.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_259'/>
+259
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_259'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : removed call to com/google/javascript/rhino/Node::replaceChild &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        ifNode.replaceChild(destBlock, newDestBlock);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_260'/>
+260
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_260'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        newDestBlock.addChildToBack(destBlock);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_263'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Move all the if node&#39;s following siblings.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_264'/>
+264
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_264'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : removed call to com/google/javascript/jscomp/MinimizeExitPoints::moveAllFollowing &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      moveAllFollowing(ifNode, ifNode.getParent(), newDestBlock);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_265'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_266'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_267'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Get rid of the &#34;exit&#34;, replace with an empty item if needed.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_268'/>
+268
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_268'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : removed call to com/google/javascript/jscomp/NodeUtil::removeChild &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    NodeUtil.removeChild(exitNodeParent, exitNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_269'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_270'/>
+270
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_270'>1</a>
+<span>
+1. tryMinimizeIfBlockExits : removed call to com/google/javascript/jscomp/AbstractCompiler::reportCodeChange &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    compiler.reportCodeChange();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_271'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_272'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_273'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_274'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Determines if n matches the type and name for the following types of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_275'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * &#34;exits&#34;:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_276'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *    - return without values</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_277'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *    - continues and breaks with or without names.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_278'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param n The node to inspect.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_279'/>
+279
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_279'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param type The Token type to look for.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_280'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param labelName The name that must be associated with the exit type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_281'/>
+281
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_281'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @nullable labelName non-null only for breaks associated with labels.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_282'/>
+282
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_282'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return Whether the node matches the specified block-exit type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_283'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_284'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  static private boolean matchingExitNode(Node n, int type, String labelName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_285'/>
+285
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_285'>1</a>
+<span>
+1. matchingExitNode : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (n.getType() == type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_286'/>
+286
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_286'>1</a>
+<span>
+1. matchingExitNode : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (type == Token.RETURN) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_287'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // only returns without expressions.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_288'/>
+288
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_288'>2</a>
+<span>
+1. matchingExitNode : negated conditional &rarr; KILLED<br/>
+2. matchingExitNode : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return !n.hasChildren();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_289'/>
+289
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_289'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_290'/>
+290
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_290'>1</a>
+<span>
+1. matchingExitNode : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (labelName == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_291'/>
+291
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_291'>2</a>
+<span>
+1. matchingExitNode : negated conditional &rarr; KILLED<br/>
+2. matchingExitNode : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return !n.hasChildren();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_292'/>
+292
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_292'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_293'/>
+293
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_293'>3</a>
+<span>
+1. matchingExitNode : negated conditional &rarr; KILLED<br/>
+2. matchingExitNode : negated conditional &rarr; KILLED<br/>
+3. matchingExitNode : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return n.hasChildren()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_294'/>
+294
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_294'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            &#38;&#38; labelName.equals(n.getFirstChild().getString());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_295'/>
+295
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_295'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_296'/>
+296
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_296'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_297'/>
+297
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_297'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_298'/>
+298
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_298'>1</a>
+<span>
+1. matchingExitNode : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_299'/>
+299
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_299'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_300'/>
+300
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_300'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_301'/>
+301
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_301'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_302'/>
+302
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_302'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Move all the child nodes following start in srcParent to the end of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_303'/>
+303
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_303'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * destParent&#39;s child list.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_304'/>
+304
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_304'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param start The start point in the srcParent child list.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_305'/>
+305
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_305'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param srcParent The parent node of start.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_306'/>
+306
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_306'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param destParent The destination node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_307'/>
+307
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_307'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_308'/>
+308
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_308'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  static private void moveAllFollowing(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_309'/>
+309
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_309'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Node start, Node srcParent, Node destParent) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_310'/>
+310
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_310'>1</a>
+<span>
+1. moveAllFollowing : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (Node n = start.getNext(); n != null; n = start.getNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_311'/>
+311
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_311'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      boolean isFunctionDeclaration =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_312'/>
+312
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_312'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          NodeUtil.isFunctionDeclaration(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_313'/>
+313
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_313'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_314'/>
+314
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_314'>1</a>
+<span>
+1. moveAllFollowing : removed call to com/google/javascript/rhino/Node::removeChild &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      srcParent.removeChild(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_315'/>
+315
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_315'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_316'/>
+316
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_316'>1</a>
+<span>
+1. moveAllFollowing : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (isFunctionDeclaration) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_317'/>
+317
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_317'>1</a>
+<span>
+1. moveAllFollowing : removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        destParent.addChildToFront(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_318'/>
+318
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_318'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_319'/>
+319
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_319'>1</a>
+<span>
+1. moveAllFollowing : removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        destParent.addChildToBack(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_320'/>
+320
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_320'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_321'/>
+321
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_321'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_322'/>
+322
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_322'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1bce128e_323'/>
+323
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_323'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.IntegrationTest.testMinimizeExits(com.google.javascript.jscomp.IntegrationTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testBreakOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testDoContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testDoContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testDoContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testFunctionReturnOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::removeChild &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::reportCodeChange &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_140'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_145'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testFunctionReturnOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testFunctionReturnOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_152'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_154'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_160'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_171'>171</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_171'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_178'>178</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_178'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeIfBlockExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testFunctionReturnOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_186'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeIfBlockExits &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_191'>191</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_191'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testFold2(com.google.javascript.jscomp.CreateSyntheticBlocksTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_198'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::tryMinimizeExits &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_201'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeExits<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_226'>226</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_226'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_227'>227</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_227'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_239'>239</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_239'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_244'>244</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_244'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_248'>248</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_248'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_250'>250</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_250'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_251'>251</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_251'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_253'>253</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_253'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/rhino/Node::replaceChild &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_254'>254</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_254'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_259'>259</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_259'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/rhino/Node::replaceChild &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_260'>260</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_260'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_264'>264</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_264'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/MinimizeExitPoints::moveAllFollowing &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_268'>268</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_268'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/NodeUtil::removeChild &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_270'>270</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_270'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryMinimizeIfBlockExits<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::reportCodeChange &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_285'>285</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_285'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_286'>286</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_286'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testBreakOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_288'>288</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_288'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testFunctionReturnOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testFunctionReturnOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_290'>290</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_290'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_291'>291</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_291'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_293'>293</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_293'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testBreakOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testBreakOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testBreakOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_298'>298</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_298'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>matchingExitNode<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_310'>310</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_310'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveAllFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_314'>314</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_314'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveAllFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/rhino/Node::removeChild &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_316'>316</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_316'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveAllFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_317'>317</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_317'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveAllFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testCodeMotionDoesntBreakFunctionHoisting(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1bce128e_319'>319</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1bce128e_319'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>moveAllFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testFoldWithMarkers2(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleJSON(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals2(com.google.javascript.jscomp.IntegrationTest) (16 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting2(com.google.javascript.jscomp.CommandLineRunnerTest) (30 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMDAndProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputSameAsInput(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testDenormalize(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals4(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMD(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testStarModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.MinimizeExitPointsTest.testDoContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest) (21 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag4(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testNonMarkingUse(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn4(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testAdvancedModeRemovesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (257 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue81(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testChainModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (28 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (80 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOnWithAdvancedMode(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputModuleGraphJson(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessClosurePrimitives(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRenamePrefixNamespaceProtectSideEffects(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering4(com.google.javascript.jscomp.CommandLineRunnerTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.MinimizeExitPointsTest.testBreakOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testFoldWithMarkers1a(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testHiddenSideEffect(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals3(com.google.javascript.jscomp.IntegrationTest) (22 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSingletonGetter1(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGoogAssertStripping(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJSWithModuleOutput(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testMissingReturnCheckOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testFoldWithMarkers1(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass3(com.google.javascript.jscomp.IntegrationTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride1(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testInlineVariables(com.google.javascript.jscomp.CommandLineRunnerTest) (34 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFlowSensitiveInlineVariables2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCharSetExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testInvalid1(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testMinimizeExits(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testContainingBlockPreservation(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testBug4152835(com.google.javascript.jscomp.IntegrationTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFunctionStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInlineProperties(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testUnmatchedEndMarker1(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSimpleModeLeavesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testReflectedMethods(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue550(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue724(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRegExp2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5Strict(com.google.javascript.jscomp.CommandLineRunnerTest) (45 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRegExp1(com.google.javascript.jscomp.IntegrationTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOffForDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordWithEs5ChecksOff(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testFold2(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNegativeZero(com.google.javascript.jscomp.IntegrationTest) (19 ms)</li><li>com.google.javascript.jscomp.MinimizeExitPointsTest.testWhileContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest) (19 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testExpose(com.google.javascript.jscomp.IntegrationTest) (52 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue115(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testForwardDeclareDroppedTypes(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.MinimizeExitPointsTest.testCodeMotionDoesntBreakFunctionHoisting(com.google.javascript.jscomp.MinimizeExitPointsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testFold1(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties2(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CompilerTest.testLocalUndefined(com.google.javascript.jscomp.CompilerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn6(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOverrideForVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleWrapperBaseNameExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testInvalid2(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals6(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testNoCompile(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue297(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testUnmatchedStartMarker(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (2 ms)</li><li>com.google.javascript.jscomp.MinimizeExitPointsTest.testFunctionReturnOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest) (33 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksInVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testPrintAstFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting1(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOnlyClosureDependenciesOneEntryPoint(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn8(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCoaleseVariables(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue90(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testLateStatementFusion(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrict(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.MinimizeExitPointsTest.testForContinueOptimization(com.google.javascript.jscomp.MinimizeExitPointsTest) (18 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals7(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.CreateSyntheticBlocksTest.testUnmatchedEndMarker2(com.google.javascript.jscomp.CreateSyntheticBlocksTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testQuietMode(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testLateConstantReordering(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGetMsgWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (46 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue730(com.google.javascript.jscomp.IntegrationTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testHiddenSideEffect(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFormattingSingleQuote(com.google.javascript.jscomp.CommandLineRunnerTest) (38 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass1(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOff(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testScriptStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride2(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGenerateExports(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals5(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNamelessParameter(com.google.javascript.jscomp.IntegrationTest) (18 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrictMultipleInputs(com.google.javascript.jscomp.CommandLineRunnerTest) (19 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDepreciationWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSyntheticExterns(com.google.javascript.jscomp.CommandLineRunnerTest) (16 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue504(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testJQueryStringSplitLoops(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass2(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypedAdvanced(com.google.javascript.jscomp.CommandLineRunnerTest) (41 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn7(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckConstants1(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties3(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue787(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals1(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601b(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldConstants(com.google.javascript.jscomp.IntegrationTest) (19 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue846(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601c(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCssNameWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

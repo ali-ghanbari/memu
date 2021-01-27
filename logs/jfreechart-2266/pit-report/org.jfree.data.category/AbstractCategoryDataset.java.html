@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>AbstractCategoryDataset.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/* ===========================================================</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * JFreeChart : a free chart library for the Java(tm) platform</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ===========================================================</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (C) Copyright 2000-2009, by Object Refinery Limited and Contributors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Project Info:  http://www.jfree.org/jfreechart/index.html</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This library is free software; you can redistribute it and/or modify it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * under the terms of the GNU Lesser General Public License as published by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the Free Software Foundation; either version 2.1 of the License, or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (at your option) any later version.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This library is distributed in the hope that it will be useful, but</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * License for more details.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You should have received a copy of the GNU Lesser General Public</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * License along with this library; if not, write to the Free Software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * USA.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * [Java is a trademark or registered trademark of Sun Microsystems, Inc.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * in the United States and other countries.]</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ----------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * AbstractCategoryDataset.java</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ----------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (C) Copyright 2009, by Object Refinery Limited.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Original Author:  David Gilbert (for Object Refinery Limited);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Contributor(s):   -;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Changes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * -------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * 30-Jun-2009 : Version 1 (DG);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.jfree.data.category;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jfree.chart.event.DatasetChangeInfo;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.jfree.data.general.AbstractDataset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A base class that is convenient for implementing the {@link CategoryDataset}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * interface.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class AbstractCategoryDataset extends AbstractDataset {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The dataset selection state (possibly &#60;code&#62;null&#60;/code&#62;).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 1.2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private CategoryDatasetSelectionState selectionState;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Default constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public AbstractCategoryDataset() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_65'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the selection state for this dataset, if any.  The default</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * value is &#60;code&#62;null&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return The selection state (possibly &#60;code&#62;null&#60;/code&#62;).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 1.2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CategoryDatasetSelectionState getSelectionState() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_76'/>
+76
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_76'>1</a>
+<span>
+1. getSelectionState : mutated return of Object value for org/jfree/data/category/AbstractCategoryDataset::getSelectionState to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return this.selectionState;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Sets the selection state for this dataset.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param state  the selection state (&#60;code&#62;null&#60;/code&#62; permitted).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 1.2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void setSelectionState(CategoryDatasetSelectionState state) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_87'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.selectionState = state;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_88'/>
+88
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_88'>1</a>
+<span>
+1. setSelectionState : removed call to org/jfree/data/category/AbstractCategoryDataset::fireDatasetChanged &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        fireDatasetChanged(new DatasetChangeInfo());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // TODO:  fill in real change details</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_90'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // TODO: should we override equals() and check the selection state?  I</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // think yes...and we need cloning and serialization too...</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@565eb7e2_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@565eb7e2_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_76'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getSelectionState<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/jfree/data/category/AbstractCategoryDataset::getSelectionState to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@565eb7e2_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@565eb7e2_88'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setSelectionState<br/><b>Killed by : </b>none</span></span> removed call to org/jfree/data/category/AbstractCategoryDataset::fireDatasetChanged &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testPublicCloneable(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindStackedRangeBounds_CategoryDataset1(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testGetValue2(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (0 ms)</li><li>org.jfree.chart.plot.junit.MultiplePiePlotTests.testConstructor(org.jfree.chart.plot.junit.MultiplePiePlotTests) (0 ms)</li><li>org.jfree.chart.axis.junit.NumberAxisTests.testAutoRange1(org.jfree.chart.axis.junit.NumberAxisTests) (1 ms)</li><li>org.jfree.chart.junit.LineChartTests.testSetSeriesURLGenerator(org.jfree.chart.junit.LineChartTests) (1 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testCumulativeRange2(org.jfree.data.general.junit.DatasetUtilitiesTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList2b(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.junit.AreaChartTests.testSetSeriesURLGenerator(org.jfree.chart.junit.AreaChartTests) (2 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testGetColumnCount(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (0 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testGetColumnCount(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList1d(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.test803660(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindMinimumStackedRangeValue2(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.chart.urls.junit.StandardCategoryURLGeneratorTests.testGenerateURL(org.jfree.chart.urls.junit.StandardCategoryURLGeneratorTests) (1 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testGetRowIndex(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests.testFindRangeBounds(org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testMaximumStackedRangeValue(org.jfree.data.general.junit.DatasetUtilitiesTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList2(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.LevelRendererTests.testDrawWithNullInfo(org.jfree.chart.renderer.category.junit.LevelRendererTests) (5 ms)</li><li>org.jfree.chart.junit.BarChart3DTests.testReplaceDataset(org.jfree.chart.junit.BarChart3DTests) (2 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testGetValue(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (1 ms)</li><li>org.jfree.chart.junit.StackedBarChartTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.StackedBarChartTests) (1 ms)</li><li>org.jfree.chart.plot.junit.MultiplePiePlotTests.testGetLegendItems(org.jfree.chart.plot.junit.MultiplePiePlotTests) (0 ms)</li><li>org.jfree.chart.plot.junit.SpiderWebPlotTests.testCloning(org.jfree.chart.plot.junit.SpiderWebPlotTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList4(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.plot.junit.CombinedDomainCategoryPlotTests.testCloning(org.jfree.chart.plot.junit.CombinedDomainCategoryPlotTests) (2 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testCumulativeRange1(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testIterateRangeBounds2_CategoryDataset(org.jfree.data.general.junit.DatasetUtilitiesTests) (1 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testRemoveColumn(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (1 ms)</li><li>org.jfree.chart.junit.StackedAreaChartTests.testDrawWithNullInfo(org.jfree.chart.junit.StackedAreaChartTests) (6 ms)</li><li>org.jfree.data.general.junit.DefaultKeyedValues2DDatasetTests.testSerialization(org.jfree.data.general.junit.DefaultKeyedValues2DDatasetTests) (1 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.test1169972(org.jfree.chart.plot.junit.CategoryPlotTests) (1 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.testGetDomainAxisForDataset(org.jfree.chart.plot.junit.CategoryPlotTests) (1 ms)</li><li>org.jfree.chart.junit.AreaChartTests.testReplaceDataset(org.jfree.chart.junit.AreaChartTests) (2 ms)</li><li>org.jfree.chart.junit.LineChart3DTests.testDrawWithNullInfo(org.jfree.chart.junit.LineChart3DTests) (4 ms)</li><li>org.jfree.chart.plot.junit.CombinedDomainCategoryPlotTests.testNotification(org.jfree.chart.plot.junit.CombinedDomainCategoryPlotTests) (9 ms)</li><li>org.jfree.chart.junit.LineChartTests.testReplaceDataset(org.jfree.chart.junit.LineChartTests) (2 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.testSerialization2(org.jfree.chart.plot.junit.CategoryPlotTests) (4 ms)</li><li>org.jfree.chart.junit.AreaChartTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.AreaChartTests) (1 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testMinMaxRange(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList3a(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.plot.junit.SpiderWebPlotTests.testDrawWithNullInfo(org.jfree.chart.plot.junit.SpiderWebPlotTests) (2 ms)</li><li>org.jfree.chart.labels.junit.StandardCategoryItemLabelGeneratorTests.testGenerateLabel(org.jfree.chart.labels.junit.StandardCategoryItemLabelGeneratorTests) (2 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindStackedRangeBounds_CategoryDataset3(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testGetValue(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindMinimumStackedRangeValue(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.chart.axis.junit.NumberAxisTests.testAutoRange3(org.jfree.chart.axis.junit.NumberAxisTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList1b(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.plot.junit.SpiderWebPlotTests.testEquals(org.jfree.chart.plot.junit.SpiderWebPlotTests) (2 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList2a(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.BarRendererTests.testGetLegendItemSeriesIndex(org.jfree.chart.renderer.category.junit.BarRendererTests) (0 ms)</li><li>org.jfree.data.general.junit.DefaultKeyedValues2DDatasetTests.testCloning(org.jfree.data.general.junit.DefaultKeyedValues2DDatasetTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList2d(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (1 ms)</li><li>org.jfree.chart.axis.junit.LogAxisTests.testAutoRange1(org.jfree.chart.axis.junit.LogAxisTests) (51 ms)</li><li>org.jfree.chart.plot.junit.CombinedRangeCategoryPlotTests.testCloning(org.jfree.chart.plot.junit.CombinedRangeCategoryPlotTests) (2 ms)</li><li>org.jfree.chart.junit.BarChartTests.testReplaceDataset(org.jfree.chart.junit.BarChartTests) (1 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testCumulativeRange_NaN(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.testSerialization(org.jfree.chart.plot.junit.CategoryPlotTests) (4 ms)</li><li>org.jfree.chart.plot.junit.CombinedRangeCategoryPlotTests.testSerialization(org.jfree.chart.plot.junit.CombinedRangeCategoryPlotTests) (6 ms)</li><li>org.jfree.chart.junit.WaterfallChartTests.testSetSeriesURLGenerator(org.jfree.chart.junit.WaterfallChartTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.BarRendererTests.testGetLegendItem(org.jfree.chart.renderer.category.junit.BarRendererTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.MinMaxCategoryRendererTests.testDrawWithNullInfo(org.jfree.chart.renderer.category.junit.MinMaxCategoryRendererTests) (5 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testGetRowCount(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (0 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testIncrementValue(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (1 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testAddValue(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (0 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testBug1835955(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (1 ms)</li><li>org.jfree.chart.junit.StackedAreaChartTests.testSetSeriesURLGenerator(org.jfree.chart.junit.StackedAreaChartTests) (1 ms)</li><li>org.jfree.chart.junit.StackedAreaChartTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.StackedAreaChartTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList3d(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (1 ms)</li><li>org.jfree.data.category.junit.CategoryToPieDatasetTests.testGetKey(org.jfree.data.category.junit.CategoryToPieDatasetTests) (0 ms)</li><li>org.jfree.chart.junit.LineChartTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.LineChartTests) (1 ms)</li><li>org.jfree.chart.axis.junit.NumberAxisTests.testAutoRange4(org.jfree.chart.axis.junit.NumberAxisTests) (1 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testRemoveRow(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (0 ms)</li><li>org.jfree.chart.junit.AreaChartTests.testDrawWithNullInfo(org.jfree.chart.junit.AreaChartTests) (7 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList3b(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testRemoveValue(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList2c(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList3c(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.CategoryStepRendererTests.testGetLegendItemSeriesIndex(org.jfree.chart.renderer.category.junit.CategoryStepRendererTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests.test2947660(org.jfree.chart.renderer.category.junit.AbstractCategoryItemRendererTests) (1 ms)</li><li>org.jfree.chart.junit.BarChart3DTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.BarChart3DTests) (1 ms)</li><li>org.jfree.chart.entity.junit.CategoryItemEntityTests.testEquals(org.jfree.chart.entity.junit.CategoryItemEntityTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList5(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.plot.junit.CombinedDomainCategoryPlotTests.testSerialization(org.jfree.chart.plot.junit.CombinedDomainCategoryPlotTests) (7 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindMinimumRangeValue(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testCloning(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (0 ms)</li><li>org.jfree.chart.junit.StackedBarChart3DTests.testSetSeriesURLGenerator(org.jfree.chart.junit.StackedBarChart3DTests) (1 ms)</li><li>org.jfree.chart.junit.BarChart3DTests.testDrawWithNullInfo(org.jfree.chart.junit.BarChart3DTests) (4 ms)</li><li>org.jfree.chart.junit.LineChartTests.testDrawWithNullInfo(org.jfree.chart.junit.LineChartTests) (4 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testSerialization(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (1 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testCumulativeRange3(org.jfree.data.general.junit.DatasetUtilitiesTests) (1 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testGetColumnKeys(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.LineAndShapeRendererTests.testGetLegendItemSeriesIndex(org.jfree.chart.renderer.category.junit.LineAndShapeRendererTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.LevelRendererTests.testGetLegendItemSeriesIndex(org.jfree.chart.renderer.category.junit.LevelRendererTests) (1 ms)</li><li>org.jfree.chart.junit.WaterfallChartTests.testDrawWithNullInfo(org.jfree.chart.junit.WaterfallChartTests) (7 ms)</li><li>org.jfree.chart.junit.StackedBarChart3DTests.testDrawWithNullInfo(org.jfree.chart.junit.StackedBarChart3DTests) (7 ms)</li><li>org.jfree.chart.junit.StackedBarChartTests.testReplaceDataset(org.jfree.chart.junit.StackedBarChartTests) (1 ms)</li><li>org.jfree.chart.axis.junit.NumberAxisTests.testAutoRange2(org.jfree.chart.axis.junit.NumberAxisTests) (1 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testCloning(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (2 ms)</li><li>org.jfree.chart.plot.junit.CombinedDomainCategoryPlotTests.testEquals(org.jfree.chart.plot.junit.CombinedDomainCategoryPlotTests) (2 ms)</li><li>org.jfree.chart.junit.BarChart3DTests.testSetSeriesURLGenerator(org.jfree.chart.junit.BarChart3DTests) (0 ms)</li><li>org.jfree.chart.plot.junit.CombinedRangeCategoryPlotTests.testNotification(org.jfree.chart.plot.junit.CombinedRangeCategoryPlotTests) (7 ms)</li><li>org.jfree.chart.junit.BarChartTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.BarChartTests) (0 ms)</li><li>org.jfree.chart.plot.junit.CombinedRangeCategoryPlotTests.testEquals(org.jfree.chart.plot.junit.CombinedRangeCategoryPlotTests) (2 ms)</li><li>org.jfree.chart.junit.BarChartTests.testSetSeriesURLGenerator(org.jfree.chart.junit.BarChartTests) (1 ms)</li><li>org.jfree.data.category.junit.CategoryToPieDatasetTests.testSerialization(org.jfree.data.category.junit.CategoryToPieDatasetTests) (1 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.testGetRangeAxisForDataset(org.jfree.chart.plot.junit.CategoryPlotTests) (1 ms)</li><li>org.jfree.chart.junit.StackedBarChart3DTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.StackedBarChart3DTests) (1 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testGetColumnIndex(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList1(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (1 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.testSerialization4(org.jfree.chart.plot.junit.CategoryPlotTests) (10 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testCreateCategoryDataset1(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testIterateRangeBounds_CategoryDataset(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.chart.axis.junit.LogAxisTests.testAutoRange3(org.jfree.chart.axis.junit.LogAxisTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testFindRangeBounds(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindMaximumRangeValue(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.LayeredBarRendererTests.testDrawWithNullInfo(org.jfree.chart.renderer.category.junit.LayeredBarRendererTests) (4 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.test1654215(org.jfree.chart.plot.junit.CategoryPlotTests) (4 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testGetRowCount(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (0 ms)</li><li>org.jfree.chart.junit.StackedAreaChartTests.testReplaceDataset(org.jfree.chart.junit.StackedAreaChartTests) (1 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.testSerialization5(org.jfree.chart.plot.junit.CategoryPlotTests) (4 ms)</li><li>org.jfree.chart.entity.junit.CategoryItemEntityTests.testCloning(org.jfree.chart.entity.junit.CategoryItemEntityTests) (0 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testEquals(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList1c(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.junit.StackedBarChartTests.testSetSeriesURLGenerator(org.jfree.chart.junit.StackedBarChartTests) (1 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.testSerialization3(org.jfree.chart.plot.junit.CategoryPlotTests) (10 ms)</li><li>org.jfree.chart.junit.StackedBarChartTests.testDrawWithNullInfo(org.jfree.chart.junit.StackedBarChartTests) (4 ms)</li><li>org.jfree.chart.renderer.category.junit.BoxAndWhiskerRendererTests.testGetLegendItemSeriesIndex(org.jfree.chart.renderer.category.junit.BoxAndWhiskerRendererTests) (0 ms)</li><li>org.jfree.chart.entity.junit.CategoryItemEntityTests.testSerialization(org.jfree.chart.entity.junit.CategoryItemEntityTests) (6 ms)</li><li>org.jfree.data.category.junit.CategoryToPieDatasetTests.testGetValue(org.jfree.data.category.junit.CategoryToPieDatasetTests) (0 ms)</li><li>org.jfree.chart.junit.BarChartTests.testDrawWithNullInfo(org.jfree.chart.junit.BarChartTests) (3 ms)</li><li>org.jfree.chart.renderer.category.junit.GroupedStackedBarRendererTests.testFindRangeBounds(org.jfree.chart.renderer.category.junit.GroupedStackedBarRendererTests) (1 ms)</li><li>org.jfree.data.category.junit.CategoryToPieDatasetTests.testGetIndex(org.jfree.data.category.junit.CategoryToPieDatasetTests) (1 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindStackedRangeBounds_CategoryDataset2(org.jfree.data.general.junit.DatasetUtilitiesTests) (1 ms)</li><li>org.jfree.chart.plot.junit.CategoryPlotTests.testAxisRange(org.jfree.chart.plot.junit.CategoryPlotTests) (1 ms)</li><li>org.jfree.chart.junit.LineChart3DTests.testSetSeriesURLGenerator(org.jfree.chart.junit.LineChart3DTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRendererTests.testFindRangeBounds(org.jfree.chart.renderer.category.junit.StackedBarRendererTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.AreaRendererTests.testGetLegendItemSeriesIndex(org.jfree.chart.renderer.category.junit.AreaRendererTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.BarRendererTests.testFindRangeBounds(org.jfree.chart.renderer.category.junit.BarRendererTests) (0 ms)</li><li>org.jfree.chart.junit.LineChart3DTests.testReplaceDataset(org.jfree.chart.junit.LineChart3DTests) (2 ms)</li><li>org.jfree.chart.junit.LineChart3DTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.LineChart3DTests) (1 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindRangeBounds_CategoryDataset(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.chart.labels.junit.StandardCategorySeriesLabelGeneratorTests.testGenerateLabel(org.jfree.chart.labels.junit.StandardCategorySeriesLabelGeneratorTests) (1 ms)</li><li>org.jfree.data.category.junit.DefaultCategoryDatasetTests.testSerialization(org.jfree.data.category.junit.DefaultCategoryDatasetTests) (0 ms)</li><li>org.jfree.data.category.junit.SlidingCategoryDatasetTests.testEquals(org.jfree.data.category.junit.SlidingCategoryDatasetTests) (0 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindMaximumStackedRangeValue2(org.jfree.data.general.junit.DatasetUtilitiesTests) (1 ms)</li><li>org.jfree.chart.entity.junit.LegendItemEntityTests.testEquals(org.jfree.chart.entity.junit.LegendItemEntityTests) (0 ms)</li><li>org.jfree.chart.plot.junit.SpiderWebPlotTests.testSerialization(org.jfree.chart.plot.junit.SpiderWebPlotTests) (2 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testFindMaximumStackedRangeValue(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.data.category.junit.CategoryToPieDatasetTests.testEquals(org.jfree.data.category.junit.CategoryToPieDatasetTests) (0 ms)</li><li>org.jfree.chart.junit.JFreeChartTests.testSerialization3(org.jfree.chart.junit.JFreeChartTests) (21 ms)</li><li>org.jfree.chart.junit.StackedBarChart3DTests.testReplaceDataset(org.jfree.chart.junit.StackedBarChart3DTests) (1 ms)</li><li>org.jfree.chart.renderer.category.junit.GroupedStackedBarRendererTests.testDrawWithNullInfo(org.jfree.chart.renderer.category.junit.GroupedStackedBarRendererTests) (11 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList1a(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (1 ms)</li><li>org.jfree.data.general.junit.DatasetUtilitiesTests.testStackedRangeWithMap(org.jfree.data.general.junit.DatasetUtilitiesTests) (0 ms)</li><li>org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests.testCreateStackedValueList3(org.jfree.chart.renderer.category.junit.StackedBarRenderer3DTests) (0 ms)</li><li>org.jfree.chart.junit.WaterfallChartTests.testSetSeriesToolTipGenerator(org.jfree.chart.junit.WaterfallChartTests) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

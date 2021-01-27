@@ -1,0 +1,4090 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>UnreachableCodeElimination.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2008 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Preconditions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.ControlFlowGraph.Branch;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.NodeTraversal.AbstractPostOrderCallback;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.NodeTraversal.AbstractShallowCallback;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.NodeTraversal.ScopedCallback;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.GraphReachability;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph.DiGraphEdge;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph.DiGraphNode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Token;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.logging.Level;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.logging.Logger;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Removes dead code from a parse tree. The kinds of dead code that this pass</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * removes are:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  - Any code following a return statement, such as the &#60;code&#62;alert&#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *    call in: &#60;code&#62;if (x) { return; alert(&#39;unreachable&#39;); }&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  - Statements that have no side effects, such as:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *    &#60;code&#62;a.b.MyClass.prototype.propertyName;&#60;/code&#62; or &#60;code&#62;true;&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *    That first kind of statement sometimes appears intentionally, so that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *    prototype properties can be annotated using JSDoc without actually</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *    being initialized.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_46'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>class UnreachableCodeElimination extends AbstractPostOrderCallback</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    implements CompilerPass, ScopedCallback  {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_48'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Logger logger =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Logger.getLogger(UnreachableCodeElimination.class.getName());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final AbstractCompiler compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final boolean removeNoOpStatements;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  UnreachableCodeElimination(AbstractCompiler compiler,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      boolean removeNoOpStatements) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.compiler = compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.removeNoOpStatements = removeNoOpStatements;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_58'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void exitScope(NodeTraversal t) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Scope scope = t.getScope();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Computes the control flow graph.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_65'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    ControlFlowAnalysis cfa = new ControlFlowAnalysis(compiler, false, false);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_66'>1</a>
+<span>
+1. exitScope : removed call to com/google/javascript/jscomp/ControlFlowAnalysis::process &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    cfa.process(null, scope.getRootNode());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    ControlFlowGraph&#60;Node&#62; cfg = cfa.getCfg();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_69'>1</a>
+<span>
+1. exitScope : removed call to com/google/javascript/jscomp/graph/GraphReachability::compute &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    new GraphReachability&#60;Node, ControlFlowGraph.Branch&#62;(cfg)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        .compute(cfg.getEntry().getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node root = scope.getRootNode();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_73'/>
+73
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_73'>1</a>
+<span>
+1. exitScope : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (scope.isLocal()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      root = root.getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_76'>1</a>
+<span>
+1. exitScope : removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    NodeTraversal.traverse(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        compiler, root, new EliminationPass(cfg));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_78'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void process(Node externs, Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_82'>1</a>
+<span>
+1. process : removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    NodeTraversal.traverse(compiler, root, this);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_85'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private class EliminationPass extends AbstractShallowCallback {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final ControlFlowGraph&#60;Node&#62; cfg;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_87'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private EliminationPass(ControlFlowGraph&#60;Node&#62; cfg) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_88'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      this.cfg = cfg;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_89'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void visit(NodeTraversal t, Node n, Node parent) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_93'/>
+93
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_93'>1</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (parent == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_94'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_96'>2</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+2. visit : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (n.isFunction() || n.isScript()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_97'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      DiGraphNode&#60;Node, Branch&#62; gNode = cfg.getDirectedGraphNode(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_101'>1</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (gNode == null) { // Not in CFG.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_102'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_104'/>
+104
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_104'>3</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+2. visit : negated conditional &rarr; KILLED<br/>
+3. visit : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (gNode.getAnnotation() != GraphReachability.REACHABLE ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          (removeNoOpStatements &#38;&#38; !NodeUtil.mayHaveSideEffects(n, compiler))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_106'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::removeDeadExprStatementSafely &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        removeDeadExprStatementSafely(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_107'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_110'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      tryRemoveUnconditionalBranching(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_111'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Tries to remove n if it is an unconditional branch node (break, continue,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * or return) and the target of n is the same as the the follow of n.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * That is, if removing n preserves the control flow. Also if n targets</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * another unconditional branch, this function will recursively try to remove</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the target branch as well. The reason why we want to cascade this removal</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * is because we only run this pass once. If we have code such as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * break -&#62; break -&#62; break</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * where all 3 breaks are useless, then the order of removal matters. When we</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * first look at the first break, we see that it branches to the 2nd break.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * However, if we remove the last break, the 2nd break becomes useless and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * finally the first break becomes useless as well.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return The target of this jump. If the target is also useless jump,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *     the target of that useless jump recursively.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings(&#34;fallthrough&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Node tryRemoveUnconditionalBranching(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      /*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * For each unconditional branching control flow node, check to see</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * if the ControlFlowAnalysis.computeFollowNode of that node is same as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * the branching target. If it is, the branch node is safe to be removed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * This is not as clever as MinimizeExitPoints because it doesn&#39;t do any</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * if-else conversion but it handles more complicated switch statements</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * much more nicely.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // If n is null the target is the end of the function, nothing to do.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_144'/>
+144
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_144'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (n == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_145'/>
+145
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_145'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::tryRemoveUnconditionalBranching to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>         return n;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_148'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      DiGraphNode&#60;Node, Branch&#62; gNode = cfg.getDirectedGraphNode(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_150'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (gNode == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_151'/>
+151
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_151'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::tryRemoveUnconditionalBranching to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return n;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_154'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      switch (n.getType()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case Token.RETURN:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_156'/>
+156
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_156'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (n.hasChildren()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_157'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case Token.BREAK:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case Token.CONTINUE:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // We are looking for a control flow changing statement that always</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // branches to the same node. If after removing it control still</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // branches to the same node, it is safe to remove.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_165'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          List&#60;DiGraphEdge&#60;Node,Branch&#62;&#62; outEdges = gNode.getOutEdges();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_166'/>
+166
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_166'>3</a>
+<span>
+1. tryRemoveUnconditionalBranching : negated conditional &rarr; KILLED<br/>
+2. tryRemoveUnconditionalBranching : negated conditional &rarr; KILLED<br/>
+3. tryRemoveUnconditionalBranching : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (outEdges.size() == 1 &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              // If there is a next node, there is no chance this jump is useless.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              (n.getNext() == null || n.getNext().isFunction())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_170'/>
+170
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_170'>2</a>
+<span>
+1. tryRemoveUnconditionalBranching : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+2. tryRemoveUnconditionalBranching : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            Preconditions.checkState(outEdges.get(0).getValue() == Branch.UNCOND);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_171'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            Node fallThrough = computeFollowing(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_172'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            Node nextCfgNode = outEdges.get(0).getDestination().getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_173'/>
+173
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_173'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (nextCfgNode == fallThrough) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_174'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : removed call to com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::removeDeadExprStatementSafely &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>              removeDeadExprStatementSafely(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_175'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::tryRemoveUnconditionalBranching to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>              return fallThrough;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_179'/>
+179
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_179'>1</a>
+<span>
+1. tryRemoveUnconditionalBranching : mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::tryRemoveUnconditionalBranching to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      return n;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Node computeFollowing(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_183'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node next = ControlFlowAnalysis.computeFollowNode(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_184'/>
+184
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_184'>2</a>
+<span>
+1. computeFollowing : negated conditional &rarr; KILLED<br/>
+2. computeFollowing : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      while (next != null &#38;&#38; next.isBlock()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_185'>1</a>
+<span>
+1. computeFollowing : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (next.hasChildren()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_186'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          next = next.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_188'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          next = computeFollowing(next);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_191'/>
+191
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_191'>1</a>
+<span>
+1. computeFollowing : mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::computeFollowing to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return next;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void removeDeadExprStatementSafely(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_195'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node parent = n.getParent();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_196'/>
+196
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_196'>3</a>
+<span>
+1. removeDeadExprStatementSafely : negated conditional &rarr; KILLED<br/>
+2. removeDeadExprStatementSafely : negated conditional &rarr; KILLED<br/>
+3. removeDeadExprStatementSafely : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (n.isEmpty() ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          (n.isBlock() &#38;&#38; !n.hasChildren())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Not always trivial to remove, let FoldConstants work its magic later.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_199'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // TODO(user): This is a problem with removeNoOpStatements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Every expression in a FOR-IN header looks side effect free on its own.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_204'/>
+204
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_204'>1</a>
+<span>
+1. removeDeadExprStatementSafely : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (NodeUtil.isForIn(parent)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_205'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_208'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      switch (n.getType()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Removing an unreachable DO node is messy because it means we still have</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // to execute one iteration. If the DO&#39;s body has breaks in the middle, it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // can get even more tricky and code size might actually increase.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case Token.DO:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_213'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case Token.BLOCK:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // BLOCKs are used in several ways including wrapping CATCH</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // blocks in TRYs</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_218'/>
+218
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_218'>1</a>
+<span>
+1. removeDeadExprStatementSafely : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          if (parent.isTry()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_219'/>
+219
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_219'>1</a>
+<span>
+1. removeDeadExprStatementSafely : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            if (NodeUtil.isTryCatchNodeContainer(n)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_220'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>              return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        case Token.CATCH:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_226'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          Node tryNode = parent.getParent();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_227'/>
+227
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_227'>1</a>
+<span>
+1. removeDeadExprStatementSafely : removed call to com/google/javascript/jscomp/NodeUtil::maybeAddFinally &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          NodeUtil.maybeAddFinally(tryNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_232'/>
+232
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_232'>2</a>
+<span>
+1. removeDeadExprStatementSafely : negated conditional &rarr; KILLED<br/>
+2. removeDeadExprStatementSafely : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (n.isVar() &#38;&#38; !n.getFirstChild().hasChildren()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Very Edge case, Consider this:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // File 1: {throw 1}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // File 2: {var x}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // The node var x is unreachable in the global scope.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Before we remove the node, redeclareVarsInsideBranch</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // would basically move var x to the beginning of File 2,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // which resulted in zero changes to the AST but triggered</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // reportCodeChange().</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Instead, we should just ignore dead variable declarations.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_242'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_245'/>
+245
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_245'>1</a>
+<span>
+1. removeDeadExprStatementSafely : removed call to com/google/javascript/jscomp/NodeUtil::redeclareVarsInsideBranch &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      NodeUtil.redeclareVarsInsideBranch(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_246'/>
+246
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_246'>1</a>
+<span>
+1. removeDeadExprStatementSafely : removed call to com/google/javascript/jscomp/AbstractCompiler::reportCodeChange &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      compiler.reportCodeChange();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_247'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      if (logger.isLoggable(Level.FINE)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_248'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        logger.fine(&#34;Removing &#34; + n.toString());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_251'/>
+251
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_251'>1</a>
+<span>
+1. removeDeadExprStatementSafely : removed call to com/google/javascript/jscomp/NodeUtil::removeChild &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      NodeUtil.removeChild(n.getParent(), n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_252'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_256'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public void visit(NodeTraversal t, Node n, Node parent) {}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_259'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public void enterScope(NodeTraversal t) {}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@28265831_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@28265831_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>exitScope<br/><b>Killed by : </b>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest)</span></span> removed call to com/google/javascript/jscomp/ControlFlowAnalysis::process &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>exitScope<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/graph/GraphReachability::compute &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>exitScope<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>exitScope<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUselessStrings(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::removeDeadExprStatementSafely &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_145'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::tryRemoveUnconditionalBranching to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_151'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::tryRemoveUnconditionalBranching to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_156'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_166'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_170'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::removeDeadExprStatementSafely &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::tryRemoveUnconditionalBranching to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_179'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tryRemoveUnconditionalBranching<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::tryRemoveUnconditionalBranching to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_184'>184</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_184'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUnlessUnconditonalBreak(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_191'>191</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_191'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFollowing<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/UnreachableCodeElimination$EliminationPass::computeFollowing to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_196'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_204'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_218'>218</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_218'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_219'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_227'>227</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_227'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testTryCatchFinally(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::maybeAddFinally &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_232'>232</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_232'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_245'>245</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_245'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::redeclareVarsInsideBranch &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_246'>246</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_246'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::reportCodeChange &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@28265831_251'>251</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@28265831_251'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeDeadExprStatementSafely<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::removeChild &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleJSON(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting2(com.google.javascript.jscomp.CommandLineRunnerTest) (30 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMDAndProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputSameAsInput(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMD(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testStarModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag4(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn4(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testAdvancedModeRemovesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (257 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedNamesTest.testAnalyzeUnusedPrototypeProperties(com.google.javascript.jscomp.RemoveUnusedNamesTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue81(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testChainModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (28 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (80 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOnWithAdvancedMode(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputModuleGraphJson(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveDo(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessClosurePrimitives(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRenamePrefixNamespaceProtectSideEffects(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering4(com.google.javascript.jscomp.CommandLineRunnerTest) (8 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUselessStrings(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUnlessUnconditonalBreak(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testHiddenSideEffect(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue311(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428b(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUnreachableCode(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (15 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSingletonGetter1(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testNoRemoveUselessNameStatements(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGoogAssertStripping(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testTryCatchFinally(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJSWithModuleOutput(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testMissingReturnCheckOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedNamesTest.testAnalyzeUnusedPrototypeProperties3(com.google.javascript.jscomp.RemoveUnusedNamesTest) (3 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testCascadedRemovalOfUnlessUnconditonalJumps(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (6 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUnlessUnconditionalContinue(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass3(com.google.javascript.jscomp.IntegrationTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testInlineVariables(com.google.javascript.jscomp.CommandLineRunnerTest) (34 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedNamesTest.testStatement(com.google.javascript.jscomp.RemoveUnusedNamesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride1(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428a(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFlowSensitiveInlineVariables2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCharSetExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRemoveUnreachableCode(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInlineProperties(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFunctionStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSimpleModeLeavesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testReflectedMethods(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue550(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue724(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5Strict(com.google.javascript.jscomp.CommandLineRunnerTest) (45 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428_return(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOffForDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordWithEs5ChecksOff(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNegativeZero(com.google.javascript.jscomp.IntegrationTest) (19 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUselessNameStatements(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428c(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testExpose(com.google.javascript.jscomp.IntegrationTest) (52 ms)</li><li>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue115(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemovalRequiresRedeclaration(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUselessLiteralValueStatements(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testForwardDeclareDroppedTypes(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue5215541_deadVarDeclar(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties2(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CompilerTest.testLocalUndefined(com.google.javascript.jscomp.CompilerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn6(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOverrideForVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleWrapperBaseNameExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testNoCompile(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue297(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksInVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting1(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testPrintAstFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOnlyClosureDependenciesOneEntryPoint(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn8(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue90(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrict(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testConditionalDeadCode(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (9 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testMarkNoSideEffects(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testQuietMode(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testSwitchCase(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGetMsgWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (46 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue730(com.google.javascript.jscomp.IntegrationTest) (36 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428_continue(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testHiddenSideEffect(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428_multifinally(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFormattingSingleQuote(com.google.javascript.jscomp.CommandLineRunnerTest) (38 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass1(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOff(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testScriptStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride2(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNamelessParameter(com.google.javascript.jscomp.IntegrationTest) (18 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGenerateExports(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testNoRemoveUseStrict(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrictMultipleInputs(com.google.javascript.jscomp.CommandLineRunnerTest) (19 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDepreciationWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSyntheticExterns(com.google.javascript.jscomp.CommandLineRunnerTest) (16 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue504(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass2(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypedAdvanced(com.google.javascript.jscomp.CommandLineRunnerTest) (41 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn7(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckConstants1(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testMarkPureCalls(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties3(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue787(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testForInLoop(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601b(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue846(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testAssignPropertyOnCreatedObject(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601c(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCssNameWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

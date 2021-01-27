@@ -1,0 +1,3976 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>GlobalVarReferenceMap.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2011 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Preconditions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Lists;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Maps;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.ReferenceCollectingCallback.Reference;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.ReferenceCollectingCallback.ReferenceCollection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.ReferenceCollectingCallback.ReferenceMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.Scope.Var;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.InputId;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map.Entry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An implementation for {@code ReferenceMap} that is specific to global scope</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * and can be used in different passes. In other words instead of relying on</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Var object it relies on the name of the variable. It also supports hot-swap</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * update of reference map for a specific script.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see ReferenceCollectingCallback#exitScope(NodeTraversal)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author bashir@google.com (Bashir Sadjad)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class GlobalVarReferenceMap implements ReferenceMap {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private Map&#60;String, ReferenceCollection&#62; refMap = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final Map&#60;InputId, Integer&#62; inputOrder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param inputs The ordered list of all inputs for the compiler.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  GlobalVarReferenceMap(List&#60;CompilerInput&#62; inputs, List&#60;CompilerInput&#62; externs) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    inputOrder = Maps.newHashMap();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    int ind = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_54'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (CompilerInput extern : externs) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      inputOrder.put(extern.getInputId(), ind);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_56'>1</a>
+<span>
+1. <init> : Changed increment from 1 to -1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      ind++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_58'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (CompilerInput input : inputs) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_59'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      inputOrder.put(input.getInputId(), ind);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_60'>1</a>
+<span>
+1. <init> : Changed increment from 1 to -1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      ind++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ReferenceCollection getReferences(Var var) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_66'>1</a>
+<span>
+1. getReferences : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!var.isGlobal()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_67'/>
+67
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_67'>1</a>
+<span>
+1. getReferences : mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_69'>1</a>
+<span>
+1. getReferences : mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return refMap.get(var.getName());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Resets global var reference map with the new provide map.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param globalRefMap The reference map result of a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     {@link ReferenceCollectingCallback} pass collected from the whole AST.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void resetGlobalVarReferences(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Map&#60;Var, ReferenceCollection&#62; globalRefMap) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_80'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    refMap = Maps.newHashMap();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (Entry&#60;Var, ReferenceCollection&#62; entry : globalRefMap.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Var var = entry.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_83'/>
+83
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_83'>1</a>
+<span>
+1. resetGlobalVarReferences : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (var.isGlobal()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_84'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        refMap.put(var.getName(), entry.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_86'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_87'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Updates the internal reference map based on the provided parameters. If</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * {@code scriptRoot} is not SCRIPT, it basically replaces the internal map</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * with the new one, otherwise it replaces all the information associated to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * the given script.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param refMapPatch The reference map result of a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     {@link ReferenceCollectingCallback} pass which might be collected from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     the whole AST or just a sub-tree associated to a SCRIPT node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param root AST sub-tree root on which reference collection was done.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  void updateGlobalVarReferences(Map&#60;Var, ReferenceCollection&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      refMapPatch, Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_102'/>
+102
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_102'>2</a>
+<span>
+1. updateGlobalVarReferences : negated conditional &rarr; KILLED<br/>
+2. updateGlobalVarReferences : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (refMap == null || !root.isScript()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_103'>1</a>
+<span>
+1. updateGlobalVarReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::resetGlobalVarReferences &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      resetGlobalVarReferences(refMapPatch);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_104'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_107'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    InputId inputId = root.getInputId();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_108'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Preconditions.checkNotNull(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Note there are two assumptions here (i) the order of compiler inputs</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // has not changed and (ii) all references are in the order they appear</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // in AST (this is enforced in ReferenceCollectionCallback).</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_112'>1</a>
+<span>
+1. updateGlobalVarReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::removeScriptReferences &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    removeScriptReferences(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_113'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (Entry&#60;Var, ReferenceCollection&#62; entry : refMapPatch.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_114'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Var var = entry.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_115'>1</a>
+<span>
+1. updateGlobalVarReferences : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (var.isGlobal()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_116'>1</a>
+<span>
+1. updateGlobalVarReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::replaceReferences &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        replaceReferences(var.getName(), inputId, entry.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_118'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_119'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void removeScriptReferences(InputId inputId) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_122'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Preconditions.checkNotNull(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_124'>1</a>
+<span>
+1. removeScriptReferences : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!inputOrder.containsKey(inputId)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_125'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      return; // Input did not exist when last computed, so skip</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // TODO(bashir): If this is too slow it is not too difficult to make it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // faster with keeping an index for variables accessed in sourceName.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_129'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (ReferenceCollection collection : refMap.values()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_130'>1</a>
+<span>
+1. removeScriptReferences : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (collection == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_131'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      List&#60;Reference&#62; oldRefs = collection.references;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_134'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      SourceRefRange range = findSourceRefRange(oldRefs, inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_135'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      List&#60;Reference&#62; newRefs = Lists.newArrayList(range.refsBefore());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      newRefs.addAll(range.refsAfter());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_137'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      collection.references = newRefs;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_138'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_139'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void replaceReferences(String varName, InputId inputId,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      ReferenceCollection newSourceCollection) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_143'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    ReferenceCollection combined = new ReferenceCollection();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_144'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    List&#60;Reference&#62; combinedRefs = combined.references;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_145'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    ReferenceCollection oldCollection = refMap.get(varName);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_146'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    refMap.put(varName, combined);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_147'>1</a>
+<span>
+1. replaceReferences : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (oldCollection == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_148'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      combinedRefs.addAll(newSourceCollection.references);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_149'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // otherwise replace previous references that are from sourceName</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_152'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    SourceRefRange range = findSourceRefRange(oldCollection.references,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_154'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    combinedRefs.addAll(range.refsBefore());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_155'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    combinedRefs.addAll(newSourceCollection.references);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_156'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    combinedRefs.addAll(range.refsAfter());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_157'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Finds the range of references associated to {@code sourceName}. Note that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * even if there is no sourceName references the returned information can be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * used to decide where to insert new sourceName refs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private SourceRefRange findSourceRefRange(List&#60;Reference&#62; refList,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      InputId inputId) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_166'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Preconditions.checkNotNull(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // TODO(bashir): We can do binary search here, but since this is fast enough</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // right now, we just do a linear search for simplicity.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_170'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    int lastBefore = -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_171'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    int firstAfter = refList.size();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_172'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    int index = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_174'/>
+174
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_174'>1</a>
+<span>
+1. findSourceRefRange : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    Preconditions.checkState(inputOrder.containsKey(inputId), inputId.getIdName());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_175'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    int sourceInputOrder = inputOrder.get(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_176'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (Reference ref : refList) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_177'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Preconditions.checkNotNull(ref.getInputId());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_178'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      int order = inputOrder.get(ref.getInputId());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_179'/>
+179
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_179'>2</a>
+<span>
+1. findSourceRefRange : changed conditional boundary &rarr; KILLED<br/>
+2. findSourceRefRange : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (order &#60; sourceInputOrder) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_180'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        lastBefore = index;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_181'/>
+181
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_181'>2</a>
+<span>
+1. findSourceRefRange : changed conditional boundary &rarr; KILLED<br/>
+2. findSourceRefRange : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      } else if (order &#62; sourceInputOrder) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_182'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        firstAfter = index;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_183'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_185'>1</a>
+<span>
+1. findSourceRefRange : Changed increment from 1 to -1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      index++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_186'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_187'/>
+187
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_187'>1</a>
+<span>
+1. findSourceRefRange : mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return new SourceRefRange(refList, lastBefore, firstAfter);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static class SourceRefRange {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int lastBefore;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int firstAfter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final List&#60;Reference&#62; refList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    SourceRefRange(List&#60;Reference&#62; refList, int lastBefore,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_196'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int firstAfter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_197'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      this.lastBefore = Math.max(lastBefore, -1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_198'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      this.firstAfter = Math.min(firstAfter, refList.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_199'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      this.refList = refList;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_200'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Note that the returned list is backed by {@code refList}! */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    List&#60;Reference&#62; refsBefore() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_204'/>
+204
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_204'>2</a>
+<span>
+1. refsBefore : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. refsBefore : mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsBefore to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return refList.subList(0, lastBefore + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Note that the returned list is backed by {@code refList}! */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    List&#60;Reference&#62; refsAfter() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_209'>1</a>
+<span>
+1. refsAfter : mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsAfter to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return refList.subList(firstAfter, refList.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param globalScope a new Global Scope to replace the scope of references</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *        with.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void updateReferencesWithGlobalScope(Scope globalScope) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_218'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (ReferenceCollection collection : refMap.values()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_219'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      List&#60;Reference&#62; newRefs =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          Lists.newArrayListWithCapacity(collection.references.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_221'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      for (Reference ref : collection.references) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_222'/>
+222
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_222'>1</a>
+<span>
+1. updateReferencesWithGlobalScope : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (ref.getScope() != globalScope) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_223'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          newRefs.add(ref.cloneWithNewScope(globalScope));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_225'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          newRefs.add(ref);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_227'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_228'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      collection.references = newRefs;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_229'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_230'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * A CleanupPass implementation that will replace references to old Syntactic</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Global Scopes generated in previous compile runs with references to the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Global Typed Scope.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @author tylerg@google.com (Tyler Goodwin)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  static class GlobalVarRefCleanupPass implements HotSwapCompilerPass {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final AbstractCompiler compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_243'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    public GlobalVarRefCleanupPass(AbstractCompiler compiler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_244'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      this.compiler = compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_245'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void hotSwapScript(Node scriptRoot, Node originalRoot) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_249'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      GlobalVarReferenceMap refMap = compiler.getGlobalVarReferences();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_250'/>
+250
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_250'>1</a>
+<span>
+1. hotSwapScript : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      if (refMap != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_251'/>
+251
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_251'>1</a>
+<span>
+1. hotSwapScript : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::updateReferencesWithGlobalScope &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        refMap.updateReferencesWithGlobalScope(compiler.getTopScope());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_253'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_256'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void process(Node externs, Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // GlobalVarRefCleanupPass should not do work during process.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_258'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_259'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@392e4a04_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.VariableReferenceCheckTest.testUnreferencedBleedingFunction(com.google.javascript.jscomp.VariableReferenceCheckTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_67'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.VariableReferenceCheckTest.testUnreferencedBleedingFunction(com.google.javascript.jscomp.VariableReferenceCheckTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_102'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.VariableVisibilityAnalysisTest.testParameters(com.google.javascript.jscomp.VariableVisibilityAnalysisTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::resetGlobalVarReferences &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::removeScriptReferences &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::replaceReferences &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_174'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_179'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_181'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_187'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_204'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>refsBefore<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>refsBefore<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsBefore to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>refsAfter<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsAfter to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_222'>222</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_222'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_250'>250</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_250'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hotSwapScript<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@392e4a04_251'>251</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@392e4a04_251'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hotSwapScript<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::updateReferencesWithGlobalScope &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleJSON(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject7(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNoWarnInExterns2(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMDAndProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCollapseProperties2(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testForIn(com.google.javascript.jscomp.InlineVariablesTest) (8 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVarReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineStringWhenWorthwhile(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject19(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedRecursiveFunction2(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases2(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNamespaceDefinitionOrder(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases4b(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn4(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject5(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotExitConditional3(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testChainModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (28 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOnWithAdvancedMode(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessClosurePrimitives(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliases2b(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering4(com.google.javascript.jscomp.CommandLineRunnerTest) (8 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineExportedName2(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testLocalsOnly1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testMissingReturnCheckOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue378(com.google.javascript.jscomp.IntegrationTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testNoInlineDeletedProperties(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass3(com.google.javascript.jscomp.IntegrationTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testInlineVariables(com.google.javascript.jscomp.CommandLineRunnerTest) (34 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testSingleReferenceAfterInitialzation(com.google.javascript.jscomp.InlineVariablesTest) (21 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineInFunction4(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotExitLoop(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSuperClassReference(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testThisAlias(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMultipleExtends(com.google.javascript.jscomp.SymbolTableTest) (22 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testInnerEnum(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodInAnonObject1(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testBug545(com.google.javascript.jscomp.InlineObjectLiteralsTest) (3 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedFunction3(com.google.javascript.jscomp.VariableReferenceCheckTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue550(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences5(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testInlineConditionallyDefinedConstant2(com.google.javascript.jscomp.InlineVariablesConstantsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue724(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInlineVariables(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5Strict(com.google.javascript.jscomp.CommandLineRunnerTest) (45 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases3b(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAcrossModules(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordWithEs5ChecksOff(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.SideEffectsAnalysisTest.testVisibilityUnsafeMoves(com.google.javascript.jscomp.SideEffectsAnalysisTest) (15 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testInlineConditionallyDefinedConstant3(com.google.javascript.jscomp.InlineVariablesConstantsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue115(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testBug1956277(com.google.javascript.jscomp.IntegrationTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases1b(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testIssue724(com.google.javascript.jscomp.InlineObjectLiteralsTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testInlineConditionallyDefinedConstant1(com.google.javascript.jscomp.InlineVariablesConstantsTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testOverlappingInlines(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotCrossDelete(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties1(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineFunctionDeclaration(com.google.javascript.jscomp.InlineVariablesTest) (7 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject4(com.google.javascript.jscomp.InlineObjectLiteralsTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting1(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases6(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue90(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliases1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrict(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue90(com.google.javascript.jscomp.InlineVariablesTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases7(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testQuietMode(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideOrBranchInsideIfConditional(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineStringMultipleTimesIfNotWorthwhile(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject1a(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOff(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testCascadingInlines(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_ResetReferences(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (0 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDepreciationWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences2(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testNoInlineWithoutConstDeclaration(com.google.javascript.jscomp.InlineVariablesConstantsTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineStringMultipleTimesWhenAliasingAllStrings(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testCorrectRedeclare(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInlineConstants(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties3(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliases1b(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue787(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineConstants(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisPropertyReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue846(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testUnreferencedBleedingFunction(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testCorrectCode(com.google.javascript.jscomp.VariableReferenceCheckTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject1(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineGetpropIntoCall(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testOverlappingInlineFunctions(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocName(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testStarModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases8b(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag4(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testAdvancedModeRemovesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (257 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testProvidedNamespaceIsConst3(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases8(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCollapseObjectLiteral2(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideOrBranch(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (80 ms)</li><li>com.google.javascript.jscomp.VariableVisibilityAnalysisTest.testGlobals(com.google.javascript.jscomp.VariableVisibilityAnalysisTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRenamePrefixNamespaceProtectSideEffects(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedFunction2(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.VariableVisibilityAnalysisTest.testCapturedVariables(com.google.javascript.jscomp.VariableVisibilityAnalysisTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGoogAssertStripping(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject9(com.google.javascript.jscomp.InlineObjectLiteralsTest) (7 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testImmutableWithSingleReferenceAfterInitialzation(com.google.javascript.jscomp.InlineVariablesTest) (13 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFlowSensitiveInlineVariables2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotCrossConstructor(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoCrossVar(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineBackwards(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testRedeclare(com.google.javascript.jscomp.VariableReferenceCheckTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences3(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testJSDocAssociationWithBadNamespace(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInlineProperties(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodReferencesMissingTypeInfo(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases5b(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedRecursiveFunction1(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOffForDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testEarlyReference(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoCrossFunction(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineUndefined1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalRichObjectReference(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testExpose(com.google.javascript.jscomp.IntegrationTest) (52 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineOutOfBranch(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences4(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineUndefined5(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject13(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testArgumentsModifiedInOuterFunction(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CompilerTest.testLocalUndefined(com.google.javascript.jscomp.CompilerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleWrapperBaseNameExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue378ArgumentsRead2(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliases2(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.test2388531(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject12(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksInVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineCatchAlias2(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testPrintAstFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn8(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineInFunction5(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotCrossIncrement(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGetMsgWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (46 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue730(com.google.javascript.jscomp.IntegrationTest) (36 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotExitConditional1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testReferencedBleedingFunction(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testScriptStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideAndConditional(com.google.javascript.jscomp.InlineVariablesTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride2(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotInlineDecrement(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineInFunction2(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject23(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrictMultipleInputs(com.google.javascript.jscomp.CommandLineRunnerTest) (19 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMissingConstructorTag(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testBug1962380(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass2(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypedAdvanced(com.google.javascript.jscomp.CommandLineRunnerTest) (41 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject2(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalQualifiedNamesInLocalScopes(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedFunction6(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineFunctionAlias1b(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue378EscapedArguments2(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testCorrectShadowing(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCssNameWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineGlobal(com.google.javascript.jscomp.InlineVariablesTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideAndBranch(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject20(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testFieldReferencesMissingTypeInfo(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (0 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMD(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.SideEffectsAnalysisTest.testVisibilitySafeMoves(com.google.javascript.jscomp.SideEffectsAnalysisTest) (20 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject14(com.google.javascript.jscomp.InlineObjectLiteralsTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputModuleGraphJson(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliasesInLoop(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocType2(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testThisEscapedAlias(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodInAnonObject2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testSideEffectOrder(com.google.javascript.jscomp.InlineVariablesTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineConstantAliasWithAnnotation(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testNoInlineAliases(com.google.javascript.jscomp.InlineVariablesConstantsTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences3(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases2b(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogRequireReferences2(com.google.javascript.jscomp.SymbolTableTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJSWithModuleOutput(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotInlineIntoLhsOfAssign(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineIntoNestedNonHoistedNamedFunctions(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testProvidedNamespaceIsConst4(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCharSetExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineIntoLoops(com.google.javascript.jscomp.InlineVariablesTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineParameterAlias2(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testBug6598844(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliases1c(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotEnterCatch(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSimpleModeLeavesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testReflectedMethods(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliases1d(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoCrossNewVariables(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject21(com.google.javascript.jscomp.InlineObjectLiteralsTest) (17 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineInFunction3(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testInlineVariablesConstantsJsDocStyle(com.google.javascript.jscomp.InlineVariablesConstantsTest) (13 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineConstantAliasWithNonConstant(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotExitTry(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testConstructorAlias(com.google.javascript.jscomp.SymbolTableTest) (293 ms)</li><li>com.google.javascript.jscomp.SideEffectsAnalysisTest.testMovedSideEffectsMustHaveSameControlFlow(com.google.javascript.jscomp.SideEffectsAnalysisTest) (20 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNegativeZero(com.google.javascript.jscomp.IntegrationTest) (19 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineIntoRhsOfAssign(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineUndefined3(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testInlineDefinedConstant(com.google.javascript.jscomp.InlineVariablesConstantsTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testForwardDeclareDroppedTypes(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testDeclarationDisagreement(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNameAnonymousFunctionsWithVarRemoval(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testTypeCheckingOff(com.google.javascript.jscomp.SymbolTableTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotExitForLoop(com.google.javascript.jscomp.InlineVariablesTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineFunctionAlias1a(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNaturalSymbolOrdering(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties2(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotEnterFinally(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn6(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testStaticMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOverrideForVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject0(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject10(com.google.javascript.jscomp.InlineObjectLiteralsTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testNoCompile(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testReferencedBleedingFunction(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject26(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testHoistedFunction1(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases6b(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testCorrectCatch(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testCrossFunctionsAsLeftLeaves(com.google.javascript.jscomp.InlineVariablesTest) (7 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testRecursiveFunction1(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue378ArgumentsRead1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineFunctionAlias2b(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject8(com.google.javascript.jscomp.InlineObjectLiteralsTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSymbolForScopeOfNatives(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject24(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject25(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliases2d(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFormattingSingleQuote(com.google.javascript.jscomp.CommandLineRunnerTest) (38 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass1(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckReferencesOn(com.google.javascript.jscomp.IntegrationTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineUndefined4(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGenerateExports(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNamelessParameter(com.google.javascript.jscomp.IntegrationTest) (18 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideIfConditional(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases4(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue504(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalVarReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocType(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue378EscapedArguments3(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckConstants1(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNamespacedReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineRedeclaredExterns(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotCrossAssignmentPlus(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogScopeReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testArgumentsModifiedInInnerFunction(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testUndeclaredFieldReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601c(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject3(com.google.javascript.jscomp.InlineObjectLiteralsTest) (3 ms)</li><li>com.google.javascript.jscomp.VariableVisibilityAnalysisTest.testParameters(com.google.javascript.jscomp.VariableVisibilityAnalysisTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideIfBranch(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testHoistedFunction2(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting2(com.google.javascript.jscomp.CommandLineRunnerTest) (30 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputSameAsInput(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testInlineVariablesConstantsWithInlineAllStringsOn(com.google.javascript.jscomp.InlineVariablesConstantsTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideHookConditional(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue81(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject17(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testIncompleteNamespacedReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.VariableVisibilityAnalysisTest.testFunctions(com.google.javascript.jscomp.VariableVisibilityAnalysisTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testFieldReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testDoubleDeclaration(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testRenamePropertyFunction(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotInlineIncrement(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testHiddenSideEffect(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSingletonGetter1(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedFunction5(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCollapseObjectLiteral1(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotCrossAssignment(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotCrossFunctionCalls(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride1(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases5(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineConstantAlias(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedFunction(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotExitConditional2(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject16(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedFunction7(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFunctionStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testRecursiveFunction2(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSuperClassMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineParameterAlias1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testProvidedNamespaceIsConst5(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue378ModifiedArguments1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases7b(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SideEffectsAnalysisTest.testVisibilityMoveCalls(com.google.javascript.jscomp.SideEffectsAnalysisTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineIntoTryCatch(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineNamedFunction(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNoWarnInExterns1(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogRequireReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.SideEffectsAnalysisTest.testVisibilityMergesParametersWithHeap(com.google.javascript.jscomp.SideEffectsAnalysisTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVar(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineIntoFunction(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideOrBranchInsideIfConditionalWithConstant(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineFunctionAlias2a(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedFunction4(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineIntoNamedFunction(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testNonHoistedRecursiveFunction3(com.google.javascript.jscomp.VariableReferenceCheckTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject11(com.google.javascript.jscomp.InlineObjectLiteralsTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue297(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSymbolsForType(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue378EscapedArguments1(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOnlyClosureDependenciesOneEntryPoint(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject18(com.google.javascript.jscomp.InlineObjectLiteralsTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotCrossReferencingFunction(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliases3(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testCorrectEarlyReference(com.google.javascript.jscomp.VariableReferenceCheckTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineExportedName(com.google.javascript.jscomp.InlineVariablesTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInsideHookBranch(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testDoNotEnterSubscope(com.google.javascript.jscomp.InlineVariablesTest) (4 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (0 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineImmutableMultipleTimes(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testJSDocOnlySymbol(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testInlineVariablesConstants(com.google.javascript.jscomp.InlineVariablesConstantsTest) (13 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testRemovalOfNamespacedReferencesOfProperties(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testUnreferencedBleedingFunction(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testHiddenSideEffect(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineInFunction(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineAliases2c(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject6(com.google.javascript.jscomp.InlineObjectLiteralsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testChainedAssignment(com.google.javascript.jscomp.InlineVariablesTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSyntheticExterns(com.google.javascript.jscomp.CommandLineRunnerTest) (16 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineAliasesInLoop(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInterferingInlines(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (0 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testLocalsOnly2(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineCatchAlias1(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testCorrectRecursion(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue378EscapedArguments4(com.google.javascript.jscomp.InlineVariablesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalVarInExterns(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.InlineVariablesConstantsTest.testNoInlineArraysOrRegexps(com.google.javascript.jscomp.InlineVariablesConstantsTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject22(com.google.javascript.jscomp.InlineObjectLiteralsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testInlineUndefined2(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testIssue378ModifiedArguments2(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn7(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVarInExterns(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testOnlyReadAtInitialization(com.google.javascript.jscomp.InlineVariablesTest) (18 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineIntoNestedNamedFunctions(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.InlineVariablesTest.testNoInlineMutatedVariable(com.google.javascript.jscomp.InlineVariablesTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testAllChecksOn(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences3(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601b(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.VariableReferenceCheckTest.testDoubleDeclaration2(com.google.javascript.jscomp.VariableReferenceCheckTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineObjectLiteralsTest.testObject15(com.google.javascript.jscomp.InlineObjectLiteralsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue598(com.google.javascript.jscomp.IntegrationTest) (17 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

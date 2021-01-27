@@ -1,0 +1,2791 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>LineSubset.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.geometry.euclidean.twod;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.geometry.core.RegionEmbedding;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.geometry.core.RegionLocation;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.geometry.core.partitioning.HyperplaneBoundedRegion;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.geometry.core.partitioning.HyperplaneSubset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.geometry.core.partitioning.Split;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.geometry.core.precision.DoublePrecisionContext;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.geometry.euclidean.oned.Vector1D;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Class representing a subset of points on a line in 2D Euclidean space. For example, line segments</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * and rays are line subsets. Line subsets may be finite or infinite.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class LineSubset implements HyperplaneSubset&#60;Vector2D&#62;, RegionEmbedding&#60;Vector2D, Vector1D&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The line containing this instance. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Line line;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Construct a new instance based on the given line.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param line line forming the base of the instance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_39'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    LineSubset(final Line line) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_40'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.line = line;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_41'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Get the line containing this subset. This method is an alias</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * for {@link #getHyperplane()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the line containing this subset</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see #getHyperplane()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Line getLine() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_49'/>
+49
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_49'>1</a>
+<span>
+1. getLine : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getLine to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return getHyperplane();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Line getHyperplane() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_55'>1</a>
+<span>
+1. getHyperplane : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getHyperplane to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return line;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Vector1D toSubspace(final Vector2D pt) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_61'/>
+61
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_61'>1</a>
+<span>
+1. toSubspace : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::toSubspace to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return line.toSubspace(pt);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Get a {@link Bounds2D} object defining an axis-aligned bounding box containing all</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * vertices for this subset. Null is returned if the subset is infinite or does not</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * contain any vertices.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the bounding box for this instance or null if no valid bounds could be determined</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public abstract Bounds2D getBounds();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public abstract HyperplaneBoundedRegion&#60;Vector1D&#62; getSubspaceRegion();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Vector2D toSpace(final Vector1D pt) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_78'>1</a>
+<span>
+1. toSpace : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::toSpace to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return line.toSpace(pt);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public abstract List&#60;LineConvexSubset&#62; toConvex();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public RegionLocation classify(final Vector2D pt) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_88'/>
+88
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_88'>1</a>
+<span>
+1. classify : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (line.contains(pt)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_89'/>
+89
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_89'>1</a>
+<span>
+1. classify : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::classify to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return classifyAbscissa(line.abscissa(pt));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_92'>1</a>
+<span>
+1. classify : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::classify to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return RegionLocation.OUTSIDE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Get the unique intersection of this subset with the given line. Null is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * returned if no unique intersection point exists (ie, the lines are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * parallel or coincident) or the line does not intersect this instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param inputLine line to intersect with this line subset</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the unique intersection point between the line and this line subset</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *      or null if no such point exists.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see Line#intersection(Line)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Vector2D intersection(final Line inputLine) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_104'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final Vector2D pt = line.intersection(inputLine);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_105'/>
+105
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_105'>3</a>
+<span>
+1. intersection : negated conditional &rarr; KILLED<br/>
+2. intersection : negated conditional &rarr; KILLED<br/>
+3. intersection : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::intersection to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (pt != null &#38;&#38; contains(pt)) ? pt : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Get the unique intersection of this instance with the given line subset. Null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * is returned if the lines containing the line subsets do not have a unique intersection</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * point (ie, they are parallel or coincident) or the intersection point is unique</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * but is not contained in both line subsets.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param subset line subset to intersect with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the unique intersection point between this line subset and the argument or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *      null if no such point exists.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see Line#intersection(Line)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Vector2D intersection(final LineSubset subset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_118'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final Vector2D pt = intersection(subset.getLine());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_119'>3</a>
+<span>
+1. intersection : negated conditional &rarr; KILLED<br/>
+2. intersection : negated conditional &rarr; KILLED<br/>
+3. intersection : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::intersection to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (pt != null &#38;&#38; subset.contains(pt)) ? pt : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Return the object used to perform floating point comparisons, which is the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * same object used by the underlying {@link Line}).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return precision object used to perform floating point comparisons.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DoublePrecisionContext getPrecision() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_127'>1</a>
+<span>
+1. getPrecision : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getPrecision to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return line.getPrecision();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Classify the given line abscissa value with respect to the subspace region.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param abscissa the abscissa value to classify</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the region location of the line abscissa value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    abstract RegionLocation classifyAbscissa(double abscissa);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Get a split result for cases where no intersection exists between the splitting line and the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * line underlying the given line subset. This occurs when the two lines are parallel or coincident.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; Line subset type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param splitter splitting line</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param subset line subset instance being split</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return return result of the non-intersecting split operation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    &#60;T extends LineSubset&#62; Split&#60;T&#62; getNonIntersectingSplitResult(final Line splitter, final T subset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // check which side of the splitter we lie on</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_145'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final double offset = splitter.offset(subset.getLine());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_146'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int comp = getPrecision().compare(offset, 0.0);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_148'/>
+148
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_148'>2</a>
+<span>
+1. getNonIntersectingSplitResult : changed conditional boundary &rarr; KILLED<br/>
+2. getNonIntersectingSplitResult : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (comp &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_149'/>
+149
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_149'>1</a>
+<span>
+1. getNonIntersectingSplitResult : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getNonIntersectingSplitResult to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return new Split&#60;&#62;(subset, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_150'>2</a>
+<span>
+1. getNonIntersectingSplitResult : changed conditional boundary &rarr; KILLED<br/>
+2. getNonIntersectingSplitResult : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        } else if (comp &#62; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_151'>1</a>
+<span>
+1. getNonIntersectingSplitResult : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getNonIntersectingSplitResult to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return new Split&#60;&#62;(null, subset);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_153'/>
+153
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_153'>1</a>
+<span>
+1. getNonIntersectingSplitResult : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getNonIntersectingSplitResult to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return new Split&#60;&#62;(null, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Return true if the plus side of the given splitter line is facing in the positive direction</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * of this line.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param splitterLine line splitting this instance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if the plus side of the given line is facing in the positive direction of this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *      line</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    boolean splitterPlusIsPositiveFacing(final Line splitterLine) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_164'/>
+164
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_164'>3</a>
+<span>
+1. splitterPlusIsPositiveFacing : changed conditional boundary &rarr; SURVIVED<br/>
+2. splitterPlusIsPositiveFacing : negated conditional &rarr; KILLED<br/>
+3. splitterPlusIsPositiveFacing : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return line.getOffsetDirection().dot(splitterLine.getDirection()) &#60;= 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Create a split result for the given splitter line, given the low and high split portion of this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * instance. The arguments are assigned to the split result&#39;s minus and plus properties based on the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * relative orientation of the splitter line.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; Line subset type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param splitter splitter line</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param low portion of the split result closest to negative infinity on this line</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param high portion of th split result closest to positive infinity on this line</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a split result for the given splitter line.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    &#60;T extends LineSubset&#62; Split&#60;T&#62; createSplitResult(final Line splitter, final T low, final T high) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_177'/>
+177
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_177'>2</a>
+<span>
+1. createSplitResult : negated conditional &rarr; KILLED<br/>
+2. createSplitResult : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::createSplitResult to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return splitterPlusIsPositiveFacing(splitter) ?</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                new Split&#60;&#62;(low, high) :</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                new Split&#60;&#62;(high, low);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3fbb167b_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_49'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testToString(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getLine to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getHyperplane<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testToString(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getHyperplane to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toSubspace<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineSubsetTest.testToSubspaceAndToSpace(org.apache.commons.geometry.euclidean.twod.LineSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::toSubspace to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toSpace<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineSubsetTest.testToSubspaceAndToSpace(org.apache.commons.geometry.euclidean.twod.LineSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::toSpace to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>classify<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testClassify(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>classify<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testClassify(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::classify to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>classify<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testClassify(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::classify to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>intersection<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testIntersection_line(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>intersection<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testIntersection_line(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>intersection<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testIntersection_line(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::intersection to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>intersection<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testIntersection_lineSegment(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>intersection<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testIntersection_lineSegment(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>intersection<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testIntersection_lineSegment(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::intersection to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPrecision<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_doubleArgs_full(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getPrecision to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNonIntersectingSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_duplicateLines_differentOrientation(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNonIntersectingSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_duplicateLines_differentOrientation(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_149'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNonIntersectingSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testSplit_finite(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getNonIntersectingSplitResult to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNonIntersectingSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_halfSpace_splitOnBoundary(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getNonIntersectingSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_halfSpace_splitOnBoundary(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNonIntersectingSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testSplit_finite(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getNonIntersectingSplitResult to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_153'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNonIntersectingSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_duplicateLines_differentOrientation(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::getNonIntersectingSplitResult to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_164'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>splitterPlusIsPositiveFacing<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>splitterPlusIsPositiveFacing<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTrim_halfSpace(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>splitterPlusIsPositiveFacing<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTrim_halfSpace(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3fbb167b_177'>177</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3fbb167b_177'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTrim_halfSpace(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createSplitResult<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest.testGetBounds_mixedFiniteAndInfiniteBoundaries(org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/LineSubset::createSplitResult to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testSplit_smallAngle_pointOnSplitter(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testGetInterval(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testSplit_plusSideOnly(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_close_alreadyClosed(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testTransform(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testConvexPolygonFromPath_invalidPaths(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testSplit_both(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testLinecast(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testToConvex_finiteAndInfiniteSegments(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_appendVertices(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testTransform_finite(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testXor_self(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (36 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testSimplify_subsequentCallsToReturnedObjectReturnSameObject(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testSpan(org.apache.commons.geometry.euclidean.twod.LineTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testFrom_boundaries(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTransform_infinite(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_quadrant(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testFromLocations(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFromVertexLoop_closeNotRequired(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTrim_segmentOutsideOfRegion(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testGetBounds_square(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testRayFrom_pointProjectedOnLine(org.apache.commons.geometry.euclidean.twod.LineTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testSplit_bothSides(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.CircleTest.testToTree_closeApproximation(org.apache.commons.geometry.euclidean.twod.shape.CircleTest) (5 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_pathWithSinglePoint(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testClosest(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testSplit(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_segment_alongFace(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFrom_singleInfiniteSegment(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testPartitionedRegionBuilder_nonConvex(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1688 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_doubleArgs_positiveHalfSpace(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testTransform_halfSpace(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testSplit(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testReverse_singleInfinite(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_fannedLines(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecastFirst_onlyReturnsPointsWithinSegment(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecast_removesDuplicatePoints(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectMinimized(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testToTree(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGetNodeRegion(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testFromLocations_singlePoint(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_segment_startEndPointsOnBoundaries(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testTwoBoxes_sharedPoint(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecastFirst_rayPointOnVertex(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_square_extraLines(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testTriangleStream(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecastFirst_multipleDirections(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectMaximized(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testFromPointAndDirection(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testGetNodeRegion(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testAxisAligned_minFirst(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testReverse(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testProject_halfSpace(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testFromTransformedUnitSquare(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testReverse_doubleInfinite(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFrom_finiteSegments_closed(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testLinecast_removesDuplicatePoints(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testBoolean_xor_twoCubes(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_nonConvex(org.apache.commons.geometry.euclidean.threed.PlanesTest) (4 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.SphereTest.testToMesh_manySubdivisions(org.apache.commons.geometry.euclidean.threed.shape.SphereTest) (2012 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_segment_simple(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.CircleTest.testToTree_threeSegments(org.apache.commons.geometry.euclidean.twod.shape.CircleTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testSplit_halfSpace(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testLineSegmentIntersectionExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testIndexedConvexPolygons_mixedPolygons(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testUnitSquare(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testLinecast2DExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (9 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_full(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testInstancesCanBeReused(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.SphereTest.testToTree_randomSpheres(org.apache.commons.geometry.euclidean.threed.shape.SphereTest) (48762 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFrom_singleFiniteSegment(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecastFirst_rayPointOnFace(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_line_removesDuplicatePoints(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_singlePointRegion(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testProperties(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testTriangleStream_infinite(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testBoolean_intersection(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (80 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testFromLocation(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_complementedHalfSpace(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testSlightlyConcavePrism(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testRayFrom_pointOnLine(org.apache.commons.geometry.euclidean.twod.LineTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testToTree(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testFrom_boundaries_fullIsTrue(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testToString(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testSplit_minusSideOnly(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_singleClosedPath(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectAll_singleFiniteSegment(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFromVertices_multipleVertices_notClosed(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testSplit(org.apache.commons.geometry.euclidean.twod.SegmentTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testSplit_intersection_minusOnly(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testTransform_reflection(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testCtor_lineAndBoolean(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFromVertices_booleanArg(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_complementedQuadrant(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testTransform_doubleReflection(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testToConvex_empty(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testToTriangles_infinite(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_regionsConsistentBetweenExtrusionPlanes(org.apache.commons.geometry.euclidean.threed.PlanesTest) (639 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGetBoundaryPaths_isUnmodifiable(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testTransform(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_halfSpace_split(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testSimplify_combinedInfiniteSegment(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testSimplify(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testToTriangles_finite_disjoint(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testLinecast(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testAddMethods(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testGetElements_listIsNotModifiable(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testTransform_reflection(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testGetInterval(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testBoolean_xor_cubeAndSphere(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (73 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testGetInterval(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_close_infiniteSegmentAtStart(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testToConvex_nonConvexRegion(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_singleSegment_producesInfiniteRegion_extrudingOnPlus(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testSplit_finite(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTrim_halfSpace(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testConvexPolygonFromVertices_notConvex(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testToTriangleMesh(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testToTriangles_infinite(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.SphereTest.testToTree_oneSubdivision(org.apache.commons.geometry.euclidean.threed.shape.SphereTest) (4 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testIndexedConvexPolygons_cube(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_doubleArgs_finite(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_convex(org.apache.commons.geometry.euclidean.threed.PlanesTest) (8 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testInvertedRegion(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testTwoBoxes_sharedEdge(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testProject_halfSpace(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_closedRegion(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testGetBoundaries(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testRegionBSPTree3DExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (4 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testReverse(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.CircleTest.testLinecast_segmentPointOnBoundary(org.apache.commons.geometry.euclidean.twod.shape.CircleTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testGetInterval(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testFromPoint(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testBoundaries(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testTriangleStream_roundTrip(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (6 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testLinecast_full(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testClosest(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testSplit_both_anglePositive(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_intervalArg_full(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFrom_finiteAndInfiniteSegments_startInfinite(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_halfSpace(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testTrim(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testSplit_negativeHalfSpace(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testConvexPolygonFromPath(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_line_corners(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSubsetTest.testToSubspaceAndToSpace(org.apache.commons.geometry.euclidean.twod.LineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.CircleTest.testLinecast_intersectionsNotInSegment(org.apache.commons.geometry.euclidean.twod.shape.CircleTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.VertexListConvexPolygon3DTest.testGetSubspaceRegion(org.apache.commons.geometry.euclidean.threed.VertexListConvexPolygon3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testLinecast3DExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (19 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.SphereTest.testToMesh_zeroSubdivisions(org.apache.commons.geometry.euclidean.threed.shape.SphereTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest.testGetBounds_mixedFiniteAndInfiniteBoundaries(org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectAll_multipleSegmentsAtVertex_maximize(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testAddMethods_rotatesEquivalentPlanesWithDifferentUAndV_singleTree(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testGetVertices_finite(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testFromLocation(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testAdd(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testTransform_reflection(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_boundsDoNotProduceAConvexRegion(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testRegionBSPTree2DExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (4 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_triangle(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_halfSpace_splitOnBoundary(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testToString(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testConvexPolygonFromVertices_triangle(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_square_onMinusBoundary(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testToTriangles_finite(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.SphereTest.testToTree_multipleSubdivisionCounts(org.apache.commons.geometry.euclidean.threed.shape.SphereTest) (1231 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testProjectToBoundary(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTransform_finite_withSingleReflection(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecastFirst_lineParallelToFace(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testClassify(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectAll_dualConnectedSegments(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testToString(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testToConvex_full(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testReverse(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testSplit_parallel_minus(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_singleSegment_producesInfiniteRegion_extrudingOnMinus(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_multipleClosedPaths(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testToConvex_square(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFrom_finiteAndInfiniteSegments_endInfinite(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testSplit_parallel_minusOnly(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testCtor_lineOnly(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testIntersection_line(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testTransform(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testDifference_self(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (45 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testTransform_infinite(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testLinecast(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testLineTo_double(org.apache.commons.geometry.euclidean.twod.LineTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_region_disjointRegions(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectAll_multipleSegmentsAtVertex_minimize(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testSplit_both_angleNegative(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectAll_singleFiniteSegmentLoop(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testToString(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testSimplify_startAndEndNotCombinedWhenNotClosed(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testTransform(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testSplit_pointsOnSplitterWithLineIntersection(org.apache.commons.geometry.euclidean.twod.SegmentTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testSubsetFromConvexArea(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_pathWithPointLikeConnectedSegments(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testGeometricProperties_mixedCutRules(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testConvexPolygonFromVertices_notEnoughUniqueVertices(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_halfSpace_splitOnBoundaryWithReversedSplitter(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_square_onPlusBoundary(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlaneConvexSubsetTest.testSplit_usesVertexBasedTypesWhenPossible(org.apache.commons.geometry.euclidean.threed.PlaneConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testSplit(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTransform_finite(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testFromPoints(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testIntersection_lineSegment(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testGetVertices_mismatchedEndpoints(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testFromPoints_givenLine(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testRayFrom_double(org.apache.commons.geometry.euclidean.twod.LineTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_prependAndAppend_mixedVerticesAndSegments(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testSplit_positiveHalfSpace(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_region_starWithCutout(org.apache.commons.geometry.euclidean.threed.PlanesTest) (6 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testGetVertices_infiniteWithVertices(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGetBoundaries(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testToTree(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.ParallelepipedTest.testToTree(org.apache.commons.geometry.euclidean.threed.shape.ParallelepipedTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testSegment_doubles(org.apache.commons.geometry.euclidean.twod.LineTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testGetInterval_singlePoint(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testFromBounds_cube(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_singleHalfInfiniteLine_noStartPoint(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlaneConvexSubsetTest.testSplit_full(org.apache.commons.geometry.euclidean.threed.PlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_doubleArgs_full(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_pathWithPointLikeUnconnectedSegments(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testAdd_convexArea(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testFromPointAndDirection(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_square(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_flatLineRegion(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testConvexPolygonFromVertices_square_closeNotRequired(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_intervalArg_finite(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testReverse(org.apache.commons.geometry.euclidean.twod.SegmentTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.SphereTest.testToTree_closeApproximation(org.apache.commons.geometry.euclidean.threed.shape.SphereTest) (64303 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_prependAndAppend_ignoresEquivalentVertices(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testSplit_intersects_plusOnly(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testBuilder_rotatedRect_withXDirection(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_close_notYetClosed(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFrom_finiteSegments_notClosed(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_prependAndAppend_disconnectedSegments(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testSplit_full(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testSimplify_infiniteSegment(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testSplit_coincident_oppositeDirection(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testBoundaryStream(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_prependVertices(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testSegment_pointsProjectedOnLine(org.apache.commons.geometry.euclidean.twod.LineTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testTransform_reflection(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_singleLine(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testClosest(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBoundaryStream(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testBoolean_union(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (67 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_infiniteNonConvex(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testSplit(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testBuilder_defaultValues(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFromVertices_multipleVertices_closed(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testToTree(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testTransform(org.apache.commons.geometry.euclidean.twod.RayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testAdd_argumentsFromDifferentLine(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testReverse(org.apache.commons.geometry.euclidean.twod.RayTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFromVertices_twoVertices(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_segment_removesDuplicatePoints(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_complementedRegionWithHole(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testUnion_self(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (60 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_line_alongFace(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_singleOpenPath(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_prependAndAppend_vertices(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testPartitionedRegionBuilder_halfSpace(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testSplit_intersects_minusOnly(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testTetrahedron(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testClassify(org.apache.commons.geometry.euclidean.twod.RayTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testSplit_parallel_plusOnly(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testGetVertices_infiniteWithVertices(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testLinecast_complexRegion(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_square_duplicateLines(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testToString(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testSplit_intersection_plusOnly(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testConvexPolygonFromVertices_handlesDuplicatePoints(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_square_splitOnVerticesWithReversedSplitter(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_clockwiseWinding(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_duplicateLines_similarOrientation(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_segment_boundaryExcluded(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testSplit_coincident(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_line_simple(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_close_obtuseTriangle(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_singleSpan_producesInfiniteRegion(org.apache.commons.geometry.euclidean.threed.PlanesTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testSplit_minus(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testToConvex_halfSpace(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testLineTo_pointProjectedOnLine(org.apache.commons.geometry.euclidean.twod.LineTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testReverse(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_square_entirelyOnPlus(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testTwoBoxes_disjoint(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testSplit_parallel_plus(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_singleHalfInfiniteLine_noEndPoint(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testSplit_both(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testManualBSPTreeExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testBoundaries(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testProjectToBoundary_invertedRegion(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.mesh.SimpleTriangleMeshTest.testFrom_boundarySource(org.apache.commons.geometry.euclidean.threed.mesh.SimpleTriangleMeshTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testIntersection_self(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (63 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testToConvex_multipleConvexAreas(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testToTree_returnsSameInstance(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testFromPoint(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_intervalArg_positiveHalfSpace(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testProperties_finite(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testProject_rect(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_vertexLoop_clockwiseWinding(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFrom_segmentsNotConnected(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGetBoundaryPaths_recomputesResultOnChange(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecastFirst_linePassesThroughVertex(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFromVertexLoop_closeRequired(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testBoundaryStream(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testLinecast_full(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testTransform_reflection(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testClosest(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testFromPoints_givenLine_singlePoint(org.apache.commons.geometry.euclidean.twod.SegmentTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_close_infiniteSegmentAtEnd(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testToTree_returnsSameInstance(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testAxisAligned_maxFirst(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_doubleArgs_negativeHalfSpace(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testFrom_infiniteSegments(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_pathStartingWithPoint(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnect(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testSphere(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (44 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testAdd_lineSegment(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testClassify(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_complementedClosedRegion(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testIndexedTriangles_multipleTriangles(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_intersectingInfiniteLines_extrudingOnPlus(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTransform_finite_withDoubleReflection(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testGetVertices_twoParallelLines(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testHyperplaneSubsetBSPTreeExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (38 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testSplit_full(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_prependAndAppend_segments(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testSplit_coincident_sameDirection(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.CircleTest.testToTree_fourSegments(org.apache.commons.geometry.euclidean.twod.shape.CircleTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_square_entirelyOnMinus(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_regionWithHole(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testAddMethods_rotatesEquivalentPlanesWithDifferentUAndV_singleConvexArea(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testFromLocations_reversedLocationOrder(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTrim_segmentDirectlyOnBoundaryOfRegion(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_square_splitOnVertices(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testProject_square(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_singleInfiniteLine(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testClosest(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testTriangleStream_finite(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testTransform(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testLinecast_empty(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.CircleTest.testLinecast(org.apache.commons.geometry.euclidean.twod.shape.CircleTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_disjointSegments(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testSplit_plus(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testSplit_neither(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testClassify(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_duplicateLines_differentOrientation(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testPartitionedRegionBuilder_cube(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1546 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testToConvex_quadrantComplement(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testIndexPageExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (504 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFromBounds_twoLines(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_intersectingInfiniteLines_extrudingOnMinus(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testBuilder_rotatedRect_withYDirection(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testBoundaryStream(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testGetVertices_twoParallelLines(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_square_split(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.mesh.SimpleTriangleMeshTest.testTransform(org.apache.commons.geometry.euclidean.threed.mesh.SimpleTriangleMeshTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testSplit_usesVertexBasedSubsetsWhenPossible(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_twoVertices_producesInfiniteRegion(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testLinecast_complementedTree(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest.testFromInterval_intervalArg_negativeHalfSpace(org.apache.commons.geometry.euclidean.twod.LineConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testAddMethods_rotatesEquivalentPlanesWithDifferentUAndV(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testPartitionedRegionBuilder_square(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (32 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testBoolean_multiple(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (283 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testTrim_square(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testPartitionedRegionBuilder_nonConvex(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (50 ms)</li><li>org.apache.commons.geometry.euclidean.twod.SegmentTest.testTransform(org.apache.commons.geometry.euclidean.twod.SegmentTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testCtor_lineAndRegion(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectAll_squaresJoinedAtVertex_maximize(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecast_complexRegion(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (5 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testBuilder_rotatedRect_withRotation(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testBoolean_difference(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (79 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testLineTo_pointOnLine(org.apache.commons.geometry.euclidean.twod.LineTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGetBoundaryPaths_cachesResult(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testLinecast_empty(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_mixOfOpenConnectedAndInfinite(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testLinecast(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlaneConvexSubsetTest.testTransform_halfSpace(org.apache.commons.geometry.euclidean.threed.PlaneConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecast_complementedTree(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testBooleanOperations(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testSplit(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.threed.ConvexVolumeTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testTwoBoxes_sharedSide(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testClassify(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.mesh.SimpleTriangleMeshTest.testToTree_smallNumberOfFaces(org.apache.commons.geometry.euclidean.threed.mesh.SimpleTriangleMeshTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ReverseRayTest.testTransform(org.apache.commons.geometry.euclidean.twod.ReverseRayTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testToTriangles_finite(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.SphereTest.testToTree_zeroSubdivisions(org.apache.commons.geometry.euclidean.threed.shape.SphereTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testTransform_reflection(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineTest.testSegment_pointsOnLine(org.apache.commons.geometry.euclidean.twod.LineTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.SimpleTriangle3DTest.testProperties(org.apache.commons.geometry.euclidean.threed.SimpleTriangle3DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.CircleTest.testToTree_multipleApproximationSizes(org.apache.commons.geometry.euclidean.twod.shape.CircleTest) (95 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectAll_squaresJoinedAtVertex_minimize(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testToConvex_multipleBoxes(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testLinecast(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testBuilder_prependAndAppend_addingToInfinitePath(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testAdd_subset(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testTwoBoxes_separationLessThanTolerance(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testToTree(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_segment_corners(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testPartitionedRegionBuilder_insertPartitionAfterBoundary(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGeometricProperties_mixedCutRule(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest.testToString(org.apache.commons.geometry.euclidean.twod.EmbeddedTreeLineSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testConvexPolygonFromVertices_square_closeRequired(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testSplit_trimmedSplitterDiscrepancy(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testUnitBox(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest.testTransform(org.apache.commons.geometry.euclidean.twod.LineSpanningSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testSimplify_startAndEndCombined(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest.testFromTransformedUnitSquare_transformDoesNotPreserveOrientation(org.apache.commons.geometry.euclidean.twod.shape.ParallelogramTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testToConvex_singleBox(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RayTest.testSplit_smallAngle_pointOnSplitter(org.apache.commons.geometry.euclidean.twod.RayTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.shape.SphereTest.testToTree_subdivideFails(org.apache.commons.geometry.euclidean.threed.shape.SphereTest) (7 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest.testConnectAll_intersectingPaths(org.apache.commons.geometry.euclidean.twod.path.AbstractLinePathConnectorTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testFromConvexVolume_finite(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest.testConnectAll_disjointPaths(org.apache.commons.geometry.euclidean.twod.path.InteriorAngleLinePathConnectorTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

@@ -1,0 +1,4879 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>PeepholeCollectPropertyAssignments.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2011 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Preconditions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.IR;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Token;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A pass that looks for assignments to properties of an object or array</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * immediately following its creation using the abbreviated syntax.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * E.g. {@code var a = [];a[0] = 0} is optimized to {@code var a = [0]} and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * similarly for the object constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_32'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class PeepholeCollectPropertyAssignments</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    extends AbstractPeepholeOptimization {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  Node optimizeSubtree(Node subtree) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_37'/>
+37
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_37'>2</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+2. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!subtree.isScript() &#38;&#38; !subtree.isBlock()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_38'/>
+38
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_38'>1</a>
+<span>
+1. optimizeSubtree : mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::optimizeSubtree to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      return subtree;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_41'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    boolean codeChanged = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Look for variable declarations or simple assignments</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // and start processing there.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_45'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (Node child = subtree.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_46'/>
+46
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_46'>1</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>         child != null; child = child.getNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_47'>2</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+2. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (!child.isVar() &#38;&#38; !NodeUtil.isExprAssign(child)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_48'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_50'>1</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (!isPropertyAssignmentToName(child.getNext())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Quick check to see if there&#39;s anything to collapse.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_55'/>
+55
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_55'>1</a>
+<span>
+1. optimizeSubtree : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      Preconditions.checkState(child.hasOneChild());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node name = getName(child);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_57'/>
+57
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_57'>1</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (!name.isName()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // The assignment target is not a simple name.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_59'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node value = getValue(child);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_62'>2</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+2. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (value == null || !isInterestingValue(value)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No initializer or not an Object or Array literal.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Node propertyCandidate;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_68'/>
+68
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_68'>1</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      while ((propertyCandidate = child.getNext()) != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // This does not infinitely loop because collectProperty always</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // removes propertyCandidate from its parent when it returns true.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_71'/>
+71
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_71'>1</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (!collectProperty(propertyCandidate, name.getString(), value)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        codeChanged = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_78'>1</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (codeChanged) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_79'>1</a>
+<span>
+1. optimizeSubtree : removed call to com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::reportCodeChange &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      reportCodeChange();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_81'/>
+81
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_81'>1</a>
+<span>
+1. optimizeSubtree : mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::optimizeSubtree to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return subtree;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private Node getName(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_85'>1</a>
+<span>
+1. getName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (n.isVar()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_86'>1</a>
+<span>
+1. getName : mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::getName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return n.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_87'>1</a>
+<span>
+1. getName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    } else if (NodeUtil.isExprAssign(n)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_88'/>
+88
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_88'>1</a>
+<span>
+1. getName : mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::getName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return n.getFirstChild().getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_90'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    throw new IllegalStateException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private Node getValue(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_94'>1</a>
+<span>
+1. getValue : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (n.isVar()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_95'/>
+95
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_95'>1</a>
+<span>
+1. getValue : mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::getValue to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return n.getFirstChild().getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_96'>1</a>
+<span>
+1. getValue : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    } else if (NodeUtil.isExprAssign(n)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_97'>1</a>
+<span>
+1. getValue : mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::getValue to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return n.getFirstChild().getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_99'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    throw new IllegalStateException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  boolean isInterestingValue(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_103'>3</a>
+<span>
+1. isInterestingValue : negated conditional &rarr; KILLED<br/>
+2. isInterestingValue : negated conditional &rarr; KILLED<br/>
+3. isInterestingValue : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return n.isObjectLit() || n.isArrayLit();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean isPropertyAssignmentToName(Node propertyCandidate) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_107'>2</a>
+<span>
+1. isPropertyAssignmentToName : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+2. isPropertyAssignmentToName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (propertyCandidate == null) { return false; }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Must be an assignment...</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_109'>1</a>
+<span>
+1. isPropertyAssignmentToName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!NodeUtil.isExprAssign(propertyCandidate)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_110'/>
+110
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_110'>1</a>
+<span>
+1. isPropertyAssignmentToName : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_113'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node expr = propertyCandidate.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // to a property...</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_116'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node lhs = expr.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_117'>1</a>
+<span>
+1. isPropertyAssignmentToName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!NodeUtil.isGet(lhs)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_118'>1</a>
+<span>
+1. isPropertyAssignmentToName : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // of a variable.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_122'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node obj = lhs.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_123'/>
+123
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_123'>1</a>
+<span>
+1. isPropertyAssignmentToName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!obj.isName()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_124'/>
+124
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_124'>1</a>
+<span>
+1. isPropertyAssignmentToName : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_127'>1</a>
+<span>
+1. isPropertyAssignmentToName : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean collectProperty(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Node propertyCandidate, String name, Node value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_132'>1</a>
+<span>
+1. collectProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!isPropertyAssignmentToName(propertyCandidate)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_133'/>
+133
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_133'>1</a>
+<span>
+1. collectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node lhs = propertyCandidate.getFirstChild().getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Must be an assignment to the recent variable...</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_138'>1</a>
+<span>
+1. collectProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!name.equals(lhs.getFirstChild().getString())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_139'/>
+139
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_139'>1</a>
+<span>
+1. collectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_142'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node rhs = lhs.getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // with a value that cannot change the values of the variables,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_144'/>
+144
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_144'>2</a>
+<span>
+1. collectProperty : negated conditional &rarr; KILLED<br/>
+2. collectProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (mayHaveSideEffects(rhs)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        || NodeUtil.canBeSideEffected(rhs)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_146'/>
+146
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_146'>1</a>
+<span>
+1. collectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // and does not have a reference to a variable initialized after it.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_149'/>
+149
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_149'>2</a>
+<span>
+1. collectProperty : negated conditional &rarr; SURVIVED<br/>
+2. collectProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!NodeUtil.isLiteralValue(rhs, true)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        &#38;&#38; mightContainForwardReference(rhs, name)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_151'/>
+151
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_151'>1</a>
+<span>
+1. collectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_154'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    switch (value.getType()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.ARRAYLIT:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_156'/>
+156
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_156'>1</a>
+<span>
+1. collectProperty : negated conditional &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (!collectArrayProperty(value, propertyCandidate)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_157'/>
+157
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_157'>1</a>
+<span>
+1. collectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>          return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.OBJECTLIT:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_161'/>
+161
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_161'>1</a>
+<span>
+1. collectProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!collectObjectProperty(value, propertyCandidate)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_162'/>
+162
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_162'>1</a>
+<span>
+1. collectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      default:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_166'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        throw new IllegalStateException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_168'/>
+168
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_168'>1</a>
+<span>
+1. collectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean collectArrayProperty(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Node arrayLiteral, Node propertyCandidate) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_174'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node assignment = propertyCandidate.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_175'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    final int sizeOfArrayAtStart = arrayLiteral.getChildCount();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_176'/>
+176
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_176'>1</a>
+<span>
+1. collectArrayProperty : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    int maxIndexAssigned = sizeOfArrayAtStart - 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_178'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node lhs = assignment.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_179'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node rhs = lhs.getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_180'/>
+180
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_180'>1</a>
+<span>
+1. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!lhs.isGetElem()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_181'/>
+181
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_181'>1</a>
+<span>
+1. collectArrayProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_183'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node obj = lhs.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_184'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node property = obj.getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // The left hand side must have a numeric index</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_186'>1</a>
+<span>
+1. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!property.isNumber()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_187'/>
+187
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_187'>1</a>
+<span>
+1. collectArrayProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // that is a valid array index</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_190'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    double dindex = property.getDouble();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_191'/>
+191
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_191'>5</a>
+<span>
+1. collectArrayProperty : changed conditional boundary &rarr; SURVIVED<br/>
+2. collectArrayProperty : changed conditional boundary &rarr; KILLED<br/>
+3. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+4. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+5. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!(dindex &#62;= 0)  // Handles NaN and negatives.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        || Double.isInfinite(dindex) || dindex &#62; 0x7fffffffL) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_193'/>
+193
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_193'>1</a>
+<span>
+1. collectArrayProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_195'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    int index = (int) dindex;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_196'/>
+196
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_196'>1</a>
+<span>
+1. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (dindex != index) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_197'/>
+197
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_197'>1</a>
+<span>
+1. collectArrayProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // that would not make the array so sparse that they take more space</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // when rendered than x[9]=1.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_201'/>
+201
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_201'>3</a>
+<span>
+1. collectArrayProperty : changed conditional boundary &rarr; SURVIVED<br/>
+2. collectArrayProperty : Replaced integer addition with subtraction &rarr; KILLED<br/>
+3. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (maxIndexAssigned + 4 &#60; index) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_202'/>
+202
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_202'>1</a>
+<span>
+1. collectArrayProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_204'/>
+204
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_204'>2</a>
+<span>
+1. collectArrayProperty : changed conditional boundary &rarr; SURVIVED<br/>
+2. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (index &#62; maxIndexAssigned) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_205'/>
+205
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_205'>3</a>
+<span>
+1. collectArrayProperty : negated conditional &rarr; TIMED_OUT<br/>
+2. collectArrayProperty : changed conditional boundary &rarr; KILLED<br/>
+3. collectArrayProperty : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      while (maxIndexAssigned &#60; index - 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Pad the array if it is sparse.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // So if array is [0] and integer 3 is assigned at index is 2, then</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // we want to produce [0,,2].</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_209'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node emptyNode = IR.empty().srcref(arrayLiteral);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_210'/>
+210
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_210'>1</a>
+<span>
+1. collectArrayProperty : removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        arrayLiteral.addChildToBack(emptyNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_211'/>
+211
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_211'>1</a>
+<span>
+1. collectArrayProperty : Changed increment from 1 to -1 &rarr; TIMED_OUT<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        ++maxIndexAssigned;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_212'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_213'/>
+213
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_213'>1</a>
+<span>
+1. collectArrayProperty : removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      arrayLiteral.addChildToBack(rhs.detachFromParent());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // An out of order assignment.  Allow it if it&#39;s a hole.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_216'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node currentValue = arrayLiteral.getChildAtIndex(index);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_217'/>
+217
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_217'>1</a>
+<span>
+1. collectArrayProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (!currentValue.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // We&#39;ve already collected a value for this index.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_219'/>
+219
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_219'>1</a>
+<span>
+1. collectArrayProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_221'/>
+221
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_221'>1</a>
+<span>
+1. collectArrayProperty : removed call to com/google/javascript/rhino/Node::replaceChild &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      arrayLiteral.replaceChild(currentValue, rhs.detachFromParent());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_224'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    propertyCandidate.detachFromParent();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_225'/>
+225
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_225'>1</a>
+<span>
+1. collectArrayProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean collectObjectProperty(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Node objectLiteral, Node propertyCandidate) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_230'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node assignment = propertyCandidate.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_231'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node lhs = assignment.getFirstChild(), rhs = lhs.getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_232'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node obj = lhs.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_233'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node property = obj.getNext();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // The property must be statically known.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_236'/>
+236
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_236'>3</a>
+<span>
+1. collectObjectProperty : negated conditional &rarr; SURVIVED<br/>
+2. collectObjectProperty : negated conditional &rarr; KILLED<br/>
+3. collectObjectProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (lhs.isGetElem()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        &#38;&#38; (!property.isString()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            &#38;&#38; !property.isNumber())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_239'/>
+239
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_239'>1</a>
+<span>
+1. collectObjectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    String propertyName;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_243'/>
+243
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_243'>1</a>
+<span>
+1. collectObjectProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (property.isNumber()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_244'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      propertyName = NodeUtil.getStringValue(property);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_246'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      propertyName = property.getString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_249'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node newProperty = IR.stringKey(propertyName)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        .copyInformationFrom(property);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Preserve the quotedness of a property reference</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_252'/>
+252
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_252'>1</a>
+<span>
+1. collectObjectProperty : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (lhs.isGetElem()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_253'/>
+253
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_253'>1</a>
+<span>
+1. collectObjectProperty : removed call to com/google/javascript/rhino/Node::setQuotedString &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      newProperty.setQuotedString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_255'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node newValue = rhs.detachFromParent();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_256'/>
+256
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_256'>1</a>
+<span>
+1. collectObjectProperty : removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    newProperty.addChildToBack(newValue);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_257'/>
+257
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_257'>1</a>
+<span>
+1. collectObjectProperty : removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    objectLiteral.addChildToBack(newProperty);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_259'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    propertyCandidate.detachFromParent();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_260'/>
+260
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_260'>1</a>
+<span>
+1. collectObjectProperty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_263'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_264'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean mightContainForwardReference(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_265'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Node node, String varName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_266'/>
+266
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_266'>1</a>
+<span>
+1. mightContainForwardReference : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    if (node.isName()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_267'/>
+267
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_267'>1</a>
+<span>
+1. mightContainForwardReference : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return varName.equals(node.getString());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_268'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_269'/>
+269
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_269'>1</a>
+<span>
+1. mightContainForwardReference : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    for (Node child = node.getFirstChild(); child != null;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_270'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>         child = child.getNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_271'/>
+271
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_271'>1</a>
+<span>
+1. mightContainForwardReference : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      if (mightContainForwardReference(child, varName)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_272'/>
+272
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_272'>1</a>
+<span>
+1. mightContainForwardReference : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_273'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_274'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_275'/>
+275
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_275'>1</a>
+<span>
+1. mightContainForwardReference : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_276'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_277'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@40362cb4_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_278'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_37'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.IntegrationTest.testFoldLocals5(com.google.javascript.jscomp.IntegrationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_38'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::optimizeSubtree to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_55'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_57'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_71'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> removed call to com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::reportCodeChange &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_81'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::optimizeSubtree to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::getName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::getName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValue<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValue<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::getValue to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValue<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValue<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/PeepholeCollectPropertyAssignments::getValue to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isInterestingValue<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isInterestingValue<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isInterestingValue<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testCompoundAssignment(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_124'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isPropertyAssignmentToName<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_133'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_139'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_146'>146</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_146'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_149'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectFunctionRollup5(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_151'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_156'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_157'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_161'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_162'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_176'>176</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_176'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_181'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_187'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_191'>191</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_191'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testNegativeArrayIndex2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_193'>193</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_193'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_196'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_197'>197</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_197'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_201'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_202'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_204'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_205'>205</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_205'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_210'>210</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_210'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOutOfOrder(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_211'>211</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_211'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_213'>213</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_213'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_217'>217</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_217'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOutOfOrder(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_219'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_221'>221</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_221'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOutOfOrder(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> removed call to com/google/javascript/rhino/Node::replaceChild &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_225'>225</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_225'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectArrayProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_236'>236</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_236'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectOptimization2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectOptimization2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_239'>239</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_239'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_243'>243</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_243'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectOptimization2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_252'>252</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_252'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_253'>253</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_253'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectOptimization2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> removed call to com/google/javascript/rhino/Node::setQuotedString &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_256'>256</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_256'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_257'>257</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_257'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_260'>260</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_260'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>collectObjectProperty<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_266'>266</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_266'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mightContainForwardReference<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_267'>267</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_267'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mightContainForwardReference<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_269'>269</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_269'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mightContainForwardReference<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_271'>271</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_271'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mightContainForwardReference<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_272'>272</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_272'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mightContainForwardReference<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@40362cb4_275'>275</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@40362cb4_275'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>mightContainForwardReference<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals2(com.google.javascript.jscomp.IntegrationTest) (16 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleJSON(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting2(com.google.javascript.jscomp.CommandLineRunnerTest) (30 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMDAndProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputSameAsInput(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOptimizationOfPartiallyBuiltArray1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals4(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMD(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testStarModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag4(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn4(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testAdvancedModeRemovesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (257 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue81(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOptimization1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testChainModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (28 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (80 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOnWithAdvancedMode(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputModuleGraphJson(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessClosurePrimitives(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRenamePrefixNamespaceProtectSideEffects(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOptimization3(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering4(com.google.javascript.jscomp.CommandLineRunnerTest) (8 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testFractionalArrayIndex2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testForwardReference1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testHiddenSideEffect(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectFunctionRollup2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals3(com.google.javascript.jscomp.IntegrationTest) (22 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSingletonGetter1(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGoogAssertStripping(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJSWithModuleOutput(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testMissingReturnCheckOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testEarlyUsage2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOptimization2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass3(com.google.javascript.jscomp.IntegrationTest) (15 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayReassignedInValue1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testInlineVariables(com.google.javascript.jscomp.CommandLineRunnerTest) (34 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride1(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOptimizationWithAHole1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFlowSensitiveInlineVariables2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCharSetExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testMinimizeExits(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testBug4152835(com.google.javascript.jscomp.IntegrationTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFunctionStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInlineProperties(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSimpleModeLeavesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testReflectedMethods(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue550(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue724(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRegExp2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5Strict(com.google.javascript.jscomp.CommandLineRunnerTest) (45 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRegExp1(com.google.javascript.jscomp.IntegrationTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectFunctionRollup5(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testFractionalArrayIndex1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOffForDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordWithEs5ChecksOff(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNegativeZero(com.google.javascript.jscomp.IntegrationTest) (19 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testExpose(com.google.javascript.jscomp.IntegrationTest) (52 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayReassignedInSubsequentVar1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue115(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testForwardDeclareDroppedTypes(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectFunctionRollup3(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testCompoundAssignment(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties2(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testNegativeArrayIndex1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CompilerTest.testLocalUndefined(com.google.javascript.jscomp.CompilerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn6(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOverrideForVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleWrapperBaseNameExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testForwardReference2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals6(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testNoCompile(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayTooSparseOptimization2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue297(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectFunctionRollup4(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksInVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting1(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testPrintAstFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOnlyClosureDependenciesOneEntryPoint(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn8(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testMultipleNames1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue90(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCoaleseVariables(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testLateStatementFusion(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOptimizationOfPartiallyBuiltArray2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrict(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals7(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayReassignedInSubsequentVar2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testQuietMode(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testLateConstantReordering(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGetMsgWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (46 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue730(com.google.javascript.jscomp.IntegrationTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testHiddenSideEffect(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOptimizationWithAHole2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayTooSparseOptimization1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectReassignedInValue2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFormattingSingleQuote(com.google.javascript.jscomp.CommandLineRunnerTest) (38 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass1(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOff(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testScriptStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride2(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testArrayOutOfOrder(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGenerateExports(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNamelessParameter(com.google.javascript.jscomp.IntegrationTest) (18 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals5(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectFunctionRollup1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrictMultipleInputs(com.google.javascript.jscomp.CommandLineRunnerTest) (19 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDepreciationWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSyntheticExterns(com.google.javascript.jscomp.CommandLineRunnerTest) (16 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue504(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testJQueryStringSplitLoops(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.ExpandJqueryAliasesTest.testJqueryExpandedEachExpansion(com.google.javascript.jscomp.ExpandJqueryAliasesTest) (30 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testNegativeArrayIndex2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass2(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypedAdvanced(com.google.javascript.jscomp.CommandLineRunnerTest) (41 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn7(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckConstants1(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties3(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectOptimization2(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals1(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue787(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testObjectOptimization1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest.testEarlyUsage1(com.google.javascript.jscomp.PeepholeCollectPropertyAssignmentsTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldConstants(com.google.javascript.jscomp.IntegrationTest) (19 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601b(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue846(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601c(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCssNameWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>FixedPointGraphTraversal.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2008 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp.graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Preconditions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Sets;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph.DiGraphEdge;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph.DiGraphNode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedHashSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A utility class for doing fixed-point computations. We traverse</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the edges over the given directed graph until the graph reaches</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * a steady state.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author nicksantos@google.com (Nick Santos)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;N&#62; Value type that the graph node stores.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;E&#62; Value type that the graph edge stores.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class FixedPointGraphTraversal&#60;N, E&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // TODO(nicksantos): Generalize the algorithm for undirected graphs, if we</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // need it.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final EdgeCallback&#60;N, E&#62; callback;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static final String NON_HALTING_ERROR_MSG =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    &#34;Fixed point computation not halting&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Create a new traversal.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param callback A callback for updating the state of the graph each</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     time an edge is traversed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public FixedPointGraphTraversal(EdgeCallback&#60;N, E&#62; callback) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_54'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.callback = callback;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Helper method for creating new traversals.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static &#60;NODE, EDGE&#62; FixedPointGraphTraversal&#60;NODE, EDGE&#62; newTraversal(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      EdgeCallback&#60;NODE, EDGE&#62; callback) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_62'>1</a>
+<span>
+1. newTraversal : mutated return of Object value for com/google/javascript/jscomp/graph/FixedPointGraphTraversal::newTraversal to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return new FixedPointGraphTraversal&#60;NODE, EDGE&#62;(callback);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Compute a fixed point for the given graph.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param graph The graph to traverse.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void computeFixedPoint(DiGraph&#60;N, E&#62; graph) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Set&#60;N&#62; nodes = Sets.newHashSet();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_71'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (DiGraphNode&#60;N, E&#62; node : graph.getDirectedGraphNodes()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      nodes.add(node.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_74'/>
+74
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_74'>1</a>
+<span>
+1. computeFixedPoint : removed call to com/google/javascript/jscomp/graph/FixedPointGraphTraversal::computeFixedPoint &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    computeFixedPoint(graph, nodes);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_75'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Compute a fixed point for the given graph, entering from the given node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param graph The graph to traverse.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param entry The node to begin traversing from.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void computeFixedPoint(DiGraph&#60;N, E&#62; graph, N entry) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Set&#60;N&#62; entrySet = Sets.newHashSet();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_84'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    entrySet.add(entry);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_85'>1</a>
+<span>
+1. computeFixedPoint : removed call to com/google/javascript/jscomp/graph/FixedPointGraphTraversal::computeFixedPoint &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    computeFixedPoint(graph, entrySet);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_86'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Compute a fixed point for the given graph, entering from the given nodes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param graph The graph to traverse.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param entrySet The nodes to begin traversing from.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void computeFixedPoint(DiGraph&#60;N, E&#62; graph, Set&#60;N&#62; entrySet) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_94'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    int cycleCount = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_95'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    long nodeCount = graph.getNodes().size();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Choose a bail-out heuristically in case the computation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // doesn&#39;t converge.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_99'/>
+99
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_99'>2</a>
+<span>
+1. computeFixedPoint : Replaced long multiplication with division &rarr; KILLED<br/>
+2. computeFixedPoint : Replaced long multiplication with division &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    long maxIterations = Math.max(nodeCount * nodeCount * nodeCount, 100);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Use a LinkedHashSet, so that the traversal is deterministic.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_102'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    LinkedHashSet&#60;DiGraphNode&#60;N, E&#62;&#62; workSet =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Sets.newLinkedHashSet();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_104'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (N n : entrySet) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_105'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      workSet.add(graph.getDirectedGraphNode(n));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_106'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_107'/>
+107
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_107'>4</a>
+<span>
+1. computeFixedPoint : Changed increment from 1 to -1 &rarr; TIMED_OUT<br/>
+2. computeFixedPoint : changed conditional boundary &rarr; KILLED<br/>
+3. computeFixedPoint : negated conditional &rarr; KILLED<br/>
+4. computeFixedPoint : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>    for (; !workSet.isEmpty() &#38;&#38; cycleCount &#60; maxIterations; cycleCount++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // For every out edge in the workSet, traverse that edge. If that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // edge updates the state of the graph, then add the destination</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // node to the resultSet, so that we can update all of its out edges</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // on the next iteration.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_112'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      DiGraphNode&#60;N, E&#62; source = workSet.iterator().next();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_113'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      N sourceValue = source.getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_115'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      workSet.remove(source);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_117'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      List&#60;DiGraphEdge&#60;N, E&#62;&#62; outEdges = source.getOutEdges();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_118'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      for (DiGraphEdge&#60;N, E&#62; edge : outEdges) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_119'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        N destNode = edge.getDestination().getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_120'>1</a>
+<span>
+1. computeFixedPoint : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (callback.traverseEdge(sourceValue, edge.getValue(), destNode)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_121'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          workSet.add(edge.getDestination());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_123'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_126'>2</a>
+<span>
+1. computeFixedPoint : negated conditional &rarr; KILLED<br/>
+2. computeFixedPoint : removed call to com/google/common/base/Preconditions::checkState &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Preconditions.checkState(cycleCount != maxIterations,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        NON_HALTING_ERROR_MSG);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_128'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static interface EdgeCallback&#60;Node, Edge&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Update the state of the destination node when the given edge</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * is traversed. For the fixed-point computation to work, only the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * destination node may be modified. The source node and the edge must</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * not be modified.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param source The start node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param e The edge.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param destination The end node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return Whether the state of the destination node changed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    boolean traverseEdge(Node source, Edge e, Node destination);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f31ff60_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f31ff60_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newTraversal<br/><b>Killed by : </b>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/FixedPointGraphTraversal::newTraversal to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f31ff60_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.PureFunctionIdentifierTest.testThrow2(com.google.javascript.jscomp.PureFunctionIdentifierTest)</span></span> removed call to com/google/javascript/jscomp/graph/FixedPointGraphTraversal::computeFixedPoint &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f31ff60_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.GraphReachabilityTest.testSimple(com.google.javascript.jscomp.graph.GraphReachabilityTest)</span></span> removed call to com/google/javascript/jscomp/graph/FixedPointGraphTraversal::computeFixedPoint &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f31ff60_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.NameAnalyzerTest.testUnintendedUseOfInheritsInLocalScope1(com.google.javascript.jscomp.NameAnalyzerTest)</span></span> Replaced long multiplication with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.NameAnalyzerTest.testUnintendedUseOfInheritsInLocalScope1(com.google.javascript.jscomp.NameAnalyzerTest)</span></span> Replaced long multiplication with division &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f31ff60_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph8(com.google.javascript.jscomp.FixedPointGraphTraversalTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.GraphReachabilityTest.testSimple(com.google.javascript.jscomp.graph.GraphReachabilityTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.GraphReachabilityTest.testSimple(com.google.javascript.jscomp.graph.GraphReachabilityTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f31ff60_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f31ff60_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f31ff60_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeFixedPoint<br/><b>Killed by : </b>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph8(com.google.javascript.jscomp.FixedPointGraphTraversalTest)</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleJSON(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign15(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemovePrototypeDefinitionsOutsideGlobalScope1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testIssue600(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct14(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testExternMethodsFromExternsFile(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction9(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNamespacedClass1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCall(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsReference4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeDevirtualizePrototypeMethodsWithInline(com.google.javascript.jscomp.SpecializeModuleTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testFoldUselessFor(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testChainModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (28 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph6(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (0 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessClosurePrimitives(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveLocalScopedInstanceOfOnly(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveAliasOfExternal1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering4(com.google.javascript.jscomp.CommandLineRunnerTest) (8 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue311(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveInControlStructure2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testMissingReturnCheckOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIfElse(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass3(com.google.javascript.jscomp.IntegrationTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testInlineVariables(com.google.javascript.jscomp.CommandLineRunnerTest) (34 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeInlineWithMultipleDependents(com.google.javascript.jscomp.SpecializeModuleTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssigns1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook5(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRemoveUnreachableCode(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testInherits2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInvalidAnnotation3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorThatModifiesThis1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testVarDeclaration(com.google.javascript.jscomp.CheckUnreachableCodeTest) (5 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testComplex5(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue724(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain14(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5Strict(com.google.javascript.jscomp.CommandLineRunnerTest) (45 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testMovePrototypeMethod1(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (9 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428_return(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignmentWithComplexLhs3(com.google.javascript.jscomp.NameAnalyzerTest) (6 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExternStubs1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testComplexNestedAssigns3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAndOperator1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (16 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testPropertyDefinedInBranch(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemovePrototypeDefinitionsOutsideGlobalScope2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new6(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIf5(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.OptimizeCallsTest.testRemovingReturnCallToFunctionWithUnusedParams(com.google.javascript.jscomp.OptimizeCallsTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIssue874d(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testWhile(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testDontSpecializeAliasedFunctions_inline(com.google.javascript.jscomp.SpecializeModuleTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSmartNamePass(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveFunction2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorAnnotationInExterns1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook4(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testQuietMode(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testSwitchCase(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoSimplifyFunctionArgs2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testExternCalls(com.google.javascript.jscomp.PureFunctionIdentifierTest) (48 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation8(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects9(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveThrowReference1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssign2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testInherits4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testStatementRestriction(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (1 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testUnaryOperators1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testShortCircuit1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDepreciationWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences2(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveFunction1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssign3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExternName1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckConstants2(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testComplex3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (3 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGetterBaseline(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testUsingAnonymousObjectsToDefeatRemoval(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals1(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue787(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook5(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testIssue303b(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook1(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue846(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation9(com.google.javascript.jscomp.NameAnalyzerTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign9(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new10(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveInstanceOfWithReferencedMethod(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testInstanceOfThrowsException(com.google.javascript.jscomp.CheckUnreachableCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals4(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocName(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testSharedFunctionName1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testStarModuleManifest(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForIn4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveNamedFunction(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain8(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new9(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testBrokenNameSpace(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExternStubs4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (5 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testInnerFunctionClosureVariableReads(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveAliasOfExternal2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveVar2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation14(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIf3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveDo(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveDeclaration1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorThatModifiesGlobal2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRenamePrefixNamespaceProtectSideEffects(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveDeclaration2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveCall5(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.OptimizeCallsTest.testNestingFunctionCallWithUnsedParams(com.google.javascript.jscomp.OptimizeCallsTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testInCorrectIfReturns(com.google.javascript.jscomp.CheckUnreachableCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGoogAssertStripping(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testConditionallyDefinedFunction1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSideEffectClassification5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testFoldUselessDo(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveFunction3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExternalAliasInstanceof2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGlobalFunctionsInGraph4(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (1 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnonymousFunction4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithOr2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph5(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (0 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testUnreachableCode(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testReachableTryCatchFinally(com.google.javascript.jscomp.CheckUnreachableCodeTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testJSDocAssociationWithBadNamespace(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInvalidAnnotation1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (17 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCallFunctionThatModifiesThis(com.google.javascript.jscomp.PureFunctionIdentifierTest) (15 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testNoSideEffectsSimple(com.google.javascript.jscomp.PureFunctionIdentifierTest) (109 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInlineProperties(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testGetElemOnThis(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveLabeledStatment2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveLabeledStatment3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveAlias(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodReferencesMissingTypeInfo(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testDontSpecializeAliasedFunctions_remove_unused_properties(com.google.javascript.jscomp.SpecializeModuleTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPrototypePropertySetInLocalScope6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveThrow2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveNumber(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalRichObjectReference(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct9(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences4(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemovePrototypeDefinitionsOutsideGlobalScope4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveInherits1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCallBeforeDefinition(com.google.javascript.jscomp.PureFunctionIdentifierTest) (26 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorAnnotationInExterns6(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testMixin1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testUnaryOperators4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetCreatingReference(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testShortCircuit2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignmentToCallResultPrototype(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testUncheckedWhileInDo(com.google.javascript.jscomp.CheckUnreachableCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksInVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGlobalFunctionsInGraph6(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testHookOperators4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testUnintendedUseOfInheritsInLocalScope2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn8(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testInherits1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testArrayLiteral(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (6 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals7(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testAliasing6(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testExportedMethodsByNamingConventionAlwaysExported(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsReference1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain15(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation15(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testApply(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testInherits7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRValueReference6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testScriptStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride2(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrictMultipleInputs(com.google.javascript.jscomp.CommandLineRunnerTest) (19 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMissingConstructorTag(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testConstantConditionWithSideEffect1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (16 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveAlias1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testIssue600e(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain9(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass2(com.google.javascript.jscomp.IntegrationTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypedAdvanced(com.google.javascript.jscomp.CommandLineRunnerTest) (41 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalQualifiedNamesInLocalScopes(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias7a(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testMarkPureCalls(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testHookOperator1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testMixin2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testConstants2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveCall4(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCssNameWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testConditionallyDefinedFunction2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testShortCircuit6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testMixin3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testFieldReferencesMissingTypeInfo(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMD(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testUnaryOperators2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testFunctionPrototype(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain16(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocType2(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIssue838b(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignmentToUnknownPrototype(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInference6(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodInAnonObject2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428b(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUnreachableCode(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (15 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences3(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogRequireReferences2(com.google.javascript.jscomp.SymbolTableTest) (17 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testNoRemoveUselessNameStatements(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.OptimizeCallsTest.testUnusedAssignOnFunctionWithUnusedParams(com.google.javascript.jscomp.OptimizeCallsTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRValueReference5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testVarLifting(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation10(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCallFunctionFOrGViaHookWithSideEffects(com.google.javascript.jscomp.PureFunctionIdentifierTest) (15 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGlobalFunctionsInGraph(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInDoWhilePredicate(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook3(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveFromLabel2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction8(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct11(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRegExp1(com.google.javascript.jscomp.IntegrationTest) (22 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPropertyDefinedInGlobalScope(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNegativeZero(com.google.javascript.jscomp.IntegrationTest) (19 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUselessNameStatements(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testAliasing1(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (4 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUselessLiteralValueStatements(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias6a(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithAnd2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testShortCircuit4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain10(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias9(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn6(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testStaticMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOverrideForVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInvalidAnnotation2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testNoCompile(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testClosureVariableReads3(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRValueReference3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testClassDefinedInObjectLit3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveNamespaceGet1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new8(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIf4c(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testAliasing5(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeInline(com.google.javascript.jscomp.SpecializeModuleTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSideEffectClassification3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRValueReference1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testComplexNestedAssigns2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain19(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testClosureVariableReads1(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExternalAliasInstanceof1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testVarReferencedInClassDefinedInObjectLit1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook2a(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testComplex4(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testConstantConditionWithSideEffect2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveVarDeclaration4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue504(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testIssue600c(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (8 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocType(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorAnnotationInExterns8(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testOrOperator3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation13(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testNamespaceAnnotationInExterns2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeCascadedInline(com.google.javascript.jscomp.SpecializeModuleTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601c(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testNeverRemoveImplicitlyUsedProperties(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook7(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithOr1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting2(com.google.javascript.jscomp.CommandLineRunnerTest) (30 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCallFunctionFOrG(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputSameAsInput(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignmentToThisPrototype(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssigns2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testHookOperator3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSideEffectClassification1(com.google.javascript.jscomp.NameAnalyzerTest) (2 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testTwoMethods2(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (6 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveCall2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNamespacedClass5(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testIncompleteNamespacedReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct16(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain21(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testFieldReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign8(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct2(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveFunctionDeclaration1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testUncheckedConditionInFor(com.google.javascript.jscomp.CheckUnreachableCodeTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testInfiniteLoop(com.google.javascript.jscomp.CheckUnreachableCodeTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testHiddenSideEffect(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals3(com.google.javascript.jscomp.IntegrationTest) (22 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testClassDefinedInObjectLit2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemovePrototypeDefinitionsInGlobalScope2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInference1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveThrow3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnonymousFunction2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428a(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testPropertyReferenceGraph(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (22 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSideEffectClassification6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects11(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testShortCircuit5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveCall1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testTopLevelClass5(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveLabeledStatment4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFunctionStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExtern(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSuperClassMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testInherits5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testCorrectSwitchReturn(com.google.javascript.jscomp.CheckUnreachableCodeTest) (15 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInheritance2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (18 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInference2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testFunctions1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveVar1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testDo(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testGetElem1(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCallFunctionForGorH(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testInCorrectLoopBreaksAndContinues(com.google.javascript.jscomp.CheckUnreachableCodeTest) (8 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testThrow2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain22(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testTopLevelClass1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExternStubs1b(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation16(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorThatModifiesThis2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVar(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testInCorrectSwitchReturn(com.google.javascript.jscomp.CheckUnreachableCodeTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveInControlStructure1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testUnreachableLoop(com.google.javascript.jscomp.CheckUnreachableCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testMinimizeWhileConstantCondition(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (9 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testTopLevelClass6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPrototypePropertySetInLocalScope4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIf1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue297(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook8(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExternStubs3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInvalidAnnotation4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (10 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testBrokenNamespaceWithPrototypeAssignment(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveAliasOfExternal0(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias4a(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUselessUnconditionalReturn(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (9 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testMarkNoSideEffects(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testReferredToByWindow(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CallGraphTest.testGetDirectedGraph_forwardOnForward(com.google.javascript.jscomp.CallGraphTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveVarDeclaration8(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testMixin4(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook8(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveAdd1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorAnnotationInExterns4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (15 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSyntheticExterns(com.google.javascript.jscomp.CommandLineRunnerTest) (16 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExternalAliasInstanceof3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testSuppression(com.google.javascript.jscomp.CheckUnreachableCodeTest) (17 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveAssign1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testTopLevelClass2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveAlias3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn7(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveNamespaceGet2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testOrOperators4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testCall2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForIn2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue601b(com.google.javascript.jscomp.CommandLineRunnerTest) (29 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct12(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssign4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGetter1(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSingletonGetter3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testOtherGlobal(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInIfPredicate(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias8(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsReference2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPrototypePropertySetInLocalScope2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTransformAMDAndProcessCJS(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExpressions1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testGetElem3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testTwoMethods(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (7 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVarReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testBooleanFlag1(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNamespaceDefinitionOrder(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn4(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedNamesTest.testAnalyzeUnusedPrototypeProperties(com.google.javascript.jscomp.RemoveUnusedNamesTest) (12 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testUnreachableCatch(com.google.javascript.jscomp.CheckUnreachableCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoSimplifyFunctionArgs1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOnWithAdvancedMode(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIf2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testTopLevelClass4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPrototypePropertySetInLocalScope1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testFoldBlock(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (22 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUnlessUnconditonalBreak(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain12(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorAnnotationInExterns7(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain23(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct15(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testNamespaceAnnotationInExterns5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (22 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedNamesTest.testStatement(com.google.javascript.jscomp.RemoveUnusedNamesTest) (2 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testClosureVariableReads2(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRValueReference2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testMovePrototypeMethod2(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testComplexNestedAssigns1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveAssign6(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNamespacedClass3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSuperClassReference(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSideEffectClassification2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveVarDeclaration2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMultipleExtends(com.google.javascript.jscomp.SymbolTableTest) (22 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGlobalFunctionsInGraph3(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testInnerEnum(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodInAnonObject1(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsReference3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIssue284(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue550(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testArrayAliasExt(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences5(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testFoldAssign(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (8 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRegExp2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook6(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordWithEs5ChecksOff(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGlobalFunctionsInGraph7(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testMoveMethodsUsedInTwoModules2(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (7 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testMovePrototypeRecursiveMethod(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue115(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeDevirtualizePrototypeMethods(com.google.javascript.jscomp.SpecializeModuleTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias5(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testBug6575051(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveVarDeclaration5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testDeleteOperator2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExternStubs5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExternName2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveAssign3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignmentToExternPrototype(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testGetElem2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testOrOperator2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (11 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testDeleteOperator1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testExportedMethodsByNamingConvention(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testShortCircuit8(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveAlias2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testCorrectSimple(com.google.javascript.jscomp.CheckUnreachableCodeTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting1(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSingletonGetter1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testMixin6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue90(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5StrictUseStrict(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testTryCatchFinally(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (18 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsReference5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssign5(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForIn5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExpressions3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOff(com.google.javascript.jscomp.CommandLineRunnerTest) (36 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals5(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testMethodsFromExternsFileNotExported(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (1 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeInlineWithRegularFunctions(com.google.javascript.jscomp.SpecializeModuleTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testFor(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects10(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testNoClosureVariableReads1(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIf4b(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveLabeledStatment(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties3(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoSimplifyFunctionArgs3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testIncorrectSimple(com.google.javascript.jscomp.CheckUnreachableCodeTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisPropertyReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAliasInstanceof5(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testAssignPropertyOnCreatedObject(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (8 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testAddDummyVarsForRemovedFunctions(com.google.javascript.jscomp.SpecializeModuleTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain18(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign8(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testIssue600b(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemovePrototypeDefinitionsInGlobalScope1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testUnaryOperators3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGlobalFunctionsInGraph2(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (1 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph10(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (0 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag4(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testGlobalFunctionsInGraph(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue284(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testAdvancedModeRemovesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (257 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct10(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new7(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (80 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssign1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects8(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveVarGet2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNew2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation12(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRemoveUnusedPrototypeProperties2(com.google.javascript.jscomp.IntegrationTest) (12 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testIssue600d(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (8 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveVarDeclaration3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testTryCatchFinally(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (9 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveThrow1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testShortCircuit2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedNamesTest.testAnalyzeUnusedPrototypeProperties3(com.google.javascript.jscomp.RemoveUnusedNamesTest) (3 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph3(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (0 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testUnlessUnconditionalContinue(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testUnintendedUseOfInheritsInLocalScope1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFlowSensitiveInlineVariables2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignmentWithComplexLhs(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveDeclaration4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testPropertiesDefinedWithGetElem(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences3(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExternStubs2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveInherits4(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignmentWithComplexLhs4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCrossModuleMethodMotion(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testDoNotChangeLocalScopeReferencedInstanceOf(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testAliasing2(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testDoNotChangeLocalScopeReferencedLocalScopedInstanceOf(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias5a(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOffForDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveAssign2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testExpose(com.google.javascript.jscomp.IntegrationTest) (52 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testPrototypeOfThisAssign(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testClassDefinedInObjectLit1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue5215541_deadVarDeclar(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveAssign5(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCallRegExpWithSideEffects(com.google.javascript.jscomp.PureFunctionIdentifierTest) (27 ms)</li><li>com.google.javascript.jscomp.CompilerTest.testLocalUndefined(com.google.javascript.jscomp.CompilerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testModuleWrapperBaseNameExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testThrow1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithAnd1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testSpuriousBreak(com.google.javascript.jscomp.CheckUnreachableCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveVarDeclaration1(com.google.javascript.jscomp.NameAnalyzerTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveVarDeclaration7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testPrintAstFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testCall1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testMoveMethodsInRightOrder(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (8 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemovePrototypeDefinitionsOutsideGlobalScope5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorAnnotationInExterns3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous8(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNamespacedClass2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testBug2099540(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGlobalFunctionsInGraph5(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation11(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testAliasing3(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGetMsgWiring(com.google.javascript.jscomp.CommandLineRunnerTest) (46 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue730(com.google.javascript.jscomp.IntegrationTest) (36 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testNamespaceAnnotationInExterns3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428_multifinally(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects7(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testNoRemoveUseStrict(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnonymousFunction1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCallFunctionFOrGViaHook(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testConstants1(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignmentWithComplexLhs2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testFoldUselessWhile(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (9 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain20(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testMoveMethodsUsedInTwoModules(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRValueReference4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testFunctionDeclaration(com.google.javascript.jscomp.CheckUnreachableCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveFunction4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveDeclaration5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testAliasing7(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects6(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapFormat2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveFunctionDeclaration2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExternStubs2b(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInference4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveThrowReference2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testDoNotChangeReferencedInstanceOf(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInference3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testFunctions2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveCall3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testCantMovePrototypeProp(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveInstanceOfOnly(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIssue874e(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOutputModuleGraphJson(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveInherits3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNew1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testUnintendedUseOfInheritsInLocalScope3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemoveUselessStrings(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.CallGraphTest.testGetDirectedGraph_backwardOnBackward(com.google.javascript.jscomp.CallGraphTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testMixin7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns_new1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testDoNotChangeLocalScopeReferencedLocalScopedInstanceOf2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testProcessCJSWithModuleOutput(com.google.javascript.jscomp.CommandLineRunnerTest) (9 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIssue874c(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInvalidAnnotation5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (9 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testTopLevelClass7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testOptimizeSwitch(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (46 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testNamespaceAnnotationInExterns4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCharSetExpansion(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testClassDefinedInObjectLit4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSimpleModeLeavesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testReflectedMethods(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForIn1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testTopLevelClass3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testExpressions2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInference5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForIn3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testShortCircuit4(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.CallGraphTest.testGetDirectedGraph_forwardOnBackward(com.google.javascript.jscomp.CallGraphTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct13(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testConstructorAlias(com.google.javascript.jscomp.SymbolTableTest) (293 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testDoNotChangeReferencedLocalScopedInstanceOf(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph2(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (0 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testRemovalRequiresRedeclaration(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testForwardDeclareDroppedTypes(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testDeclarationDisagreement(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPrototypePropertySetInLocalScope3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNaturalSymbolOrdering(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties2(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNamespacedClass4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals6(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveDeclaration7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testHook(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (24 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDefineFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testShortCircuit7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testAnalyzePrototypeProperties(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (6 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testArrayExt(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testCorrectIfReturns(com.google.javascript.jscomp.CheckUnreachableCodeTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPrototypePropertySetInLocalScope5(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInSwitchInput(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveAssign4(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIf4a(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAndOperator3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testConditionalDeadCode(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSymbolForScopeOfNatives(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testConditionallyDefinedFunction3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFormattingSingleQuote(com.google.javascript.jscomp.CommandLineRunnerTest) (38 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass1(com.google.javascript.jscomp.IntegrationTest) (14 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNamelessParameter(com.google.javascript.jscomp.IntegrationTest) (18 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testGenerateExports(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnonymousFunction3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeInlineWithNamespaces(com.google.javascript.jscomp.SpecializeModuleTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testMovePrototypeMethod3(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveVarGet1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalVarReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIf4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testComplexAssigns(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeRemoveUnusedProperties(com.google.javascript.jscomp.SpecializeModuleTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckConstants1(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNamespacedReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testCorrectLoopBreaksAndContinues(com.google.javascript.jscomp.CheckUnreachableCodeTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveDeclaration6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogScopeReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testUnhandledTopNode(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorAnnotationInExterns2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveAlias0(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testUndeclaredFieldReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testFoldLocals2(com.google.javascript.jscomp.IntegrationTest) (16 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingOn(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation2(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveRecursiveFunction2a(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorThatModifiesGlobal1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAssignWithHook9(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph1(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRemoveUnusedPrototypeProperties1(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveInherits2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInWhilePredicate(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue81(com.google.javascript.jscomp.CommandLineRunnerTest) (15 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForIn6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testInherits6(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorAnnotationInExterns5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testWeirdnessOnLeftSideOfPrototype(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testOrOperator1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.graph.GraphReachabilityTest.testSimple(com.google.javascript.jscomp.graph.GraphReachabilityTest) (0 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testUnintendedUseOfInheritsInLocalScope4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAndOperators4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoRemoveWindowPropertyAlias4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSingletonGetter1(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemovePrototypeGet2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testIf(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testFoldConstantCommaExpressions(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (6 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testGetter2(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.CallGraphTest.testGetDirectedGraph_backwardOnForward(com.google.javascript.jscomp.CallGraphTest) (7 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain13(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testCascadedRemovalOfUnlessUnconditonalJumps(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (6 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testUnaryOperators5(com.google.javascript.jscomp.PureFunctionIdentifierTest) (17 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testResultLocalitySimple(com.google.javascript.jscomp.PureFunctionIdentifierTest) (142 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testInherits8(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride1(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveInControlStructure3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph4(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (0 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNoSideEffectAnnotation5(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous9(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSetterInForStruct8(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPrototypePropertySetInLocalScope7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testFoldBlocksWithManyChildren(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous5(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testPreservePropertyMutationsToAlias1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAliasInstanceof4(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.CheckUnreachableCodeTest.testFalseCondition(com.google.javascript.jscomp.CheckUnreachableCodeTest) (3 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testHook2(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemovePrototypeGet1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testSharedFunctionName2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428c(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testComplex1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveFromLabel1(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogRequireReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testVersionFlag2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testNoRemoveCall6(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testAnonymous4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testMoveMethodsInRightOrder2(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (9 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph8(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (1 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testHook1(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest.testAliasing4(com.google.javascript.jscomp.RemoveUnusedPrototypePropertiesTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testShortCircuit3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testRemoveUselessOps(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (42 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSymbolsForType(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testComplex2(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testComplexNestedAssigns4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAndOperator2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (15 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testVarReferencedInClassDefinedInObjectLit2(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIssue838a(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorThatModifiesThis3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain17(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testMixin5(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testDoNotChangeInstanceOfGetElem(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testConstructorThatModifiesThis4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testOnlyClosureDependenciesOneEntryPoint(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testInheritance1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (19 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain7(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testShortCircuit3(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (1 ms)</li><li>com.google.javascript.jscomp.CrossModuleMethodMotionTest.testNoClosureVariableReads2(com.google.javascript.jscomp.CrossModuleMethodMotionTest) (6 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testDontSpecializeLocalNonAnonymousFunctions(com.google.javascript.jscomp.SpecializeModuleTest) (2 ms)</li><li>com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest.testObjectLiteral(com.google.javascript.jscomp.PeepholeRemoveDeadCodeTest) (6 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testNamespaceAnnotationInExterns6(com.google.javascript.jscomp.PureFunctionIdentifierTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOffByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (10 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testShortCircuit1(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testJSDocOnlySymbol(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testNamespaceAnnotationInExterns1(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSideEffectClassification7(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testIssue4177428_continue(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testRemovalOfNamespacedReferencesOfProperties(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testNestedAssign4(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSideEffectClassification4(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testHiddenSideEffect(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testSingletonGetter2(com.google.javascript.jscomp.NameAnalyzerTest) (2 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIssue874a(com.google.javascript.jscomp.NameAnalyzerTest) (5 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testInherits3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemovePrototypeAliases(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveVarDeclaration6(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAnnotationInExterns3(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRhsAssign3(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testIssue874b(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRemoveDeclaration3(com.google.javascript.jscomp.NameAnalyzerTest) (3 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testAssignmentOverride(com.google.javascript.jscomp.PureFunctionIdentifierTest) (27 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalVarInExterns(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testHookOperator2(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVarInExterns(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.NameAnalyzerTest.testRefChain11(com.google.javascript.jscomp.NameAnalyzerTest) (4 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testLocalizedSideEffects4(com.google.javascript.jscomp.PureFunctionIdentifierTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences3(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.UnreachableCodeEliminationTest.testForInLoop(com.google.javascript.jscomp.UnreachableCodeEliminationTest) (1 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testIssue303(com.google.javascript.jscomp.PureFunctionIdentifierTest) (13 ms)</li><li>com.google.javascript.jscomp.FixedPointGraphTraversalTest.testGraph9(com.google.javascript.jscomp.FixedPointGraphTraversalTest) (0 ms)</li><li>com.google.javascript.jscomp.PureFunctionIdentifierTest.testCallFunctionFOrGWithSideEffects(com.google.javascript.jscomp.PureFunctionIdentifierTest) (15 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue598(com.google.javascript.jscomp.IntegrationTest) (17 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

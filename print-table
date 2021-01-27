@@ -1,0 +1,19 @@
+#!/bin/bash
+
+printf "%-30s %s \t %10s %10s %10s %10s %10s\n" "Project Name" "Rev" "PIT (ms)" "MeMu (ms)" "Score" "#Hits" "#Misses"
+echo "-----------------------------------------------------------------------------------------------"
+for basePath in logs/*/; do
+    subjectName=$(basename $basePath | awk 'BEGIN{FS="-"}{if (NF < 3) { print $1 } else if (NF == 3) { print $1"-"$2 } else { print $1"-"$2"-"$3 }}')
+    commitId=$(basename $basePath | awk 'BEGIN{FS="-"}{print $NF}')
+    mutationTestingTimePIT=$(awk '{print $(NF - 1)}' $basePath/before)
+    mutationTestingTimeMeMu="N/A"
+    hits="N/A"
+    misses="N/A"
+    if [ -f $basePath/after ]; then
+	mutationTestingTimeMeMu=$(head -n 1 $basePath/after | awk '{print $(NF - 1)}')
+	hits=$(grep "HITS" $basePath/after | awk '{print $NF}')
+	misses=$(grep "MISSES" $basePath/after | awk '{print $NF}')
+    fi
+    mutationScore=$(head -n 25 $basePath/pit-report/index.html | awk 'BEGIN{FS=">"}{if (NR == 23) { print $6 }}' | awk 'BEGIN{FS="<"}{print $1}' | xargs -I % echo "scale=6; "% | bc)
+    printf "%-30s %s \t %10s %10s %10s %10s %10s\n" $subjectName $commitId $mutationTestingTimePIT $mutationTestingTimeMeMu $mutationScore $hits $misses
+done

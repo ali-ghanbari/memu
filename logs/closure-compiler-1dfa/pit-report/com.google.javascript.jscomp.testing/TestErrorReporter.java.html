@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>TestErrorReporter.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2007 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp.testing;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.head.ErrorReporter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.head.EvaluatorException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import junit.framework.Assert;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;An error reporter for testing that verifies that messages reported to the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * reporter are expected.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;Sample use&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * TestErrorReporter e =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   new TestErrorReporter(null, new String[] { &#34;first warning&#34; });</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ...</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * assertTrue(e.hasEncounteredAllWarnings());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class TestErrorReporter extends Assert implements ErrorReporter {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final String[] errors;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final String[] warnings;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_40'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private int errorsIndex = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_41'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private int warningsIndex = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_43'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public TestErrorReporter(String[] errors, String[] warnings) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.errors = errors;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_45'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.warnings = warnings;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_46'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void error(String message, String sourceName, int line,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      String lineSource, int lineOffset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_51'/>
+51
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_51'>3</a>
+<span>
+1. error : changed conditional boundary &rarr; SURVIVED<br/>
+2. error : negated conditional &rarr; KILLED<br/>
+3. error : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (errors != null &#38;&#38; errorsIndex &#60; errors.length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_52'/>
+52
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_52'>2</a>
+<span>
+1. error : removed call to com/google/javascript/jscomp/testing/TestErrorReporter::assertEquals &rarr; SURVIVED<br/>
+2. error : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      assertEquals(errors[errorsIndex++], message);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_54'/>
+54
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_54'>1</a>
+<span>
+1. error : removed call to com/google/javascript/jscomp/testing/TestErrorReporter::fail &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      fail(&#34;extra error: &#34; + message);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void warning(String message, String sourceName, int line,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      String lineSource, int lineOffset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_61'/>
+61
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_61'>3</a>
+<span>
+1. warning : changed conditional boundary &rarr; SURVIVED<br/>
+2. warning : negated conditional &rarr; KILLED<br/>
+3. warning : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (warnings != null &#38;&#38; warningsIndex &#60; warnings.length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_62'/>
+62
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_62'>2</a>
+<span>
+1. warning : removed call to com/google/javascript/jscomp/testing/TestErrorReporter::assertEquals &rarr; SURVIVED<br/>
+2. warning : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      assertEquals(warnings[warningsIndex++], message);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_64'/>
+64
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_64'>1</a>
+<span>
+1. warning : removed call to com/google/javascript/jscomp/testing/TestErrorReporter::fail &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      fail(&#34;extra warning: &#34; + message);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public EvaluatorException runtimeError(String message, String sourceName,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      int line, String lineSource, int lineOffset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_71'>1</a>
+<span>
+1. runtimeError : mutated return of Object value for com/google/javascript/jscomp/testing/TestErrorReporter::runtimeError to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return new EvaluatorException(&#34;JSCompiler test code: &#34; + message);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Returns whether all warnings were reported to this reporter.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public boolean hasEncounteredAllWarnings() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_78'>4</a>
+<span>
+1. hasEncounteredAllWarnings : negated conditional &rarr; KILLED<br/>
+2. hasEncounteredAllWarnings : negated conditional &rarr; KILLED<br/>
+3. hasEncounteredAllWarnings : negated conditional &rarr; KILLED<br/>
+4. hasEncounteredAllWarnings : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return (warnings == null) ?</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        warningsIndex == 0 :</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        warnings.length == warningsIndex;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Returns whether all errors were reported to this reporter.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public boolean hasEncounteredAllErrors() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_87'>4</a>
+<span>
+1. hasEncounteredAllErrors : negated conditional &rarr; KILLED<br/>
+2. hasEncounteredAllErrors : negated conditional &rarr; KILLED<br/>
+3. hasEncounteredAllErrors : negated conditional &rarr; KILLED<br/>
+4. hasEncounteredAllErrors : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return (errors == null) ?</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        errorsIndex == 0 :</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        errors.length == errorsIndex;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3db39162_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_51'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>error<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>error<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>error<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_52'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>error<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>error<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/testing/TestErrorReporter::assertEquals &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_54'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>error<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/testing/TestErrorReporter::fail &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_61'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>warning<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>warning<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning6(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>warning<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning6(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>warning<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning6(com.google.javascript.jscomp.parsing.ParserTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>warning<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/testing/TestErrorReporter::assertEquals &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_64'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>warning<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/testing/TestErrorReporter::fail &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>runtimeError<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/testing/TestErrorReporter::runtimeError to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasEncounteredAllWarnings<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasEncounteredAllWarnings<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasEncounteredAllWarnings<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testValidTypeAnnotation3(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hasEncounteredAllWarnings<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3db39162_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3db39162_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasEncounteredAllErrors<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasEncounteredAllErrors<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testValidTypeAnnotation3(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasEncounteredAllErrors<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hasEncounteredAllErrors<br/><b>Killed by : </b>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testInterfaceMultiExtends1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam14(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoMod(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoAssign2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtends6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseInheritDoc3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkerNames3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing6(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParamError3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam16(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType18(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefineErrors2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoAnd(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testSeeMissing(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning4(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict18(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning3(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNewline2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoLt(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseMeaning3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadSuppress6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testReferences(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadSuppress5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoMul(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtendsNullable1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseThisType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType16(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLends6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParameterizedType11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType14(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType19(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment14(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testModifies4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplementsNoName(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNumberType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment15(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testIssue477(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNumberType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseOverride2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypedefType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment8(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict20(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadSuppress7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testFileOverviewJSDocDoesNotHoseParsing(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseJavaDispatch1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testInterfaceExtends(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGetPropFunctionName(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testMisplacedTypeAnnotation2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testPrivateType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testModifies1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseReturnType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType13(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testFullRegression3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testPublicType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testSettersForbidden2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType22(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam20(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLends7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseThisType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoAdd(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUndefinedType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam21(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testDocumentationMultipleParameter2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoDiv(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtendsNullable2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment10(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType19(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseThrows2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testYieldForbidden(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseEnum1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression14(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGettersForbidden5(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict24(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testDestructuringAssignForbidden(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseJavaDispatch2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParserWithTemplateDuplicated(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoSub(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict21(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParsePreserve(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing2(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseThisType6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplicitCast1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType16(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testMisplacedTypeAnnotation4(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict16(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkerType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNewline1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testAuthors(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testProtectedType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadTypeDefInterfaceAndConstructor2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType21(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGettersForbidden3(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoGetelem2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExterns2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadTypeDefInterfaceAndConstructor1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseArrayTypeError1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGeneratorsForbidden(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam18(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoForComparison(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDeprecated1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testMisplacedTypeAnnotation3(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNamedTypeError2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefineErrors1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseJavaDispatch3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment13(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionTypeError1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoArrayLiteral(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefine5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNoCheck1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNoAlias1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkers4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtends5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefineErrors5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testFullRegression1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBug907488(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testObjectLiteralDoc1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType16(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testDocumentationParameter(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefineErrors7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLicense(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment12(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testParseBlockDescription(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplements(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseAllType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType13(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (4 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypedefType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplementsNullable2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseObjectType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefine3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNamedType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoGetelem3(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testParse(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoGetProp1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testSuspiciousBlockCommentWarning2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplementsNullable1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (4 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtends1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseArrayType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseThisType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseMeaning1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNewline5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypedefType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtendsGenerics(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoObjectLiteral(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testSetter(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testNonIdentifierAnnotation(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDuplicateImplicitCast(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment3(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment16(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam15(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseBlockComment(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment5(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBug909468(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBug1419535(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNamedType5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIdeModePartialTree(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefine1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseMeaning2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType17(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment11(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testReservedKeywords(com.google.javascript.jscomp.parsing.ParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseInterfaceDoubled(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseErrorTypes(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict15(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseThrows1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExterns3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkers2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testFileOverviewJSDoc1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseBlockComment3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefineErrors4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGettersForbidden4(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression13(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testModifies2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testCatchClauseForbidden(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGettersForbidden1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExterns1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithoutMarkerName(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseInheritDoc2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType14(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testSettersForbidden(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplementsMissingRC(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testUnescapedSlashInRegexpCharClass(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoLe(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParserWithTemplateTypeNameMissing(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLicenseWithAnnotation(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing7(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseReturnType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testModifies3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testValidTypeAnnotation1(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplementsSameTwice(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLicenseAscii(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType20(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam19(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExpose1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParamError1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoShift(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoHook(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNoCompile1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType15(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLends5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testInterfaceMultiExtends2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testFileOverviewSingleLine(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGetter(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGettersForbidden2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testValidTypeAnnotation3(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testDocumentationMultipleParameter(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNewline3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict22(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkers3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseOverride1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLamestWarningEver(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType15(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testKeywordsAsProperties(com.google.javascript.jscomp.parsing.ParserTest) (6 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseArrayTypeError4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoAssign1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testFileOverviewMultiLine(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testWhitelistedAnnotations(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testModifies5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNoCompile2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseOptionalModifier(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType15(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testSuspiciousBlockCommentWarning1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.IRFactoryTest.testAssignmentValidation(com.google.javascript.jscomp.parsing.IRFactoryTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseInterface(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testVersionDuplication(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParamError4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkers6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testConstForbidden(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnknownType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testMultilineDocumentationParameter(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment6(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.IRFactoryTest.testDelete4(com.google.javascript.jscomp.parsing.IRFactoryTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseEnum2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkerType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnknownType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDateType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkerNames2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment4(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoGe(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadSuppress2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseReturnType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseArrayType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testMisplacedTypeAnnotation5(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParamError5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testModifies6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testFileOverviewDuplicate(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplementsTwo(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseStringType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRegExpType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType13(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBug907494(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testUnsupportedJsDocSyntax1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType23(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseArrayTypeError2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoGetProp2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoOr(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullableModifiers6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNamedType4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testMisplacedTypeAnnotation6(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLends3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadExtendsWithNullable(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseStringType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNamedTypeError1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplementsGenerics(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testSourceName(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression17(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testUnnamedFunctionStatement(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLends4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment7(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtends4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict14(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNoCheck2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam13(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExport1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testGetPropFunctionNameIdeMode(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLends1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict19(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing3(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testMalformedThisAnnotation(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing8(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseThisType4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLetForbidden(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testAuthorMissing(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression15(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testWhitelistedConflictingAnnotation(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseBlockComment2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadSuppress1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParameterizedType12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadSuppress3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testDescriptionAnnotation(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testJSDocAttachment9(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning7(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testBracelessFunctionForbidden(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoGetelem1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoBinaryOr(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadClassMultiExtends(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testDestructuringAssignForbidden4(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNamedType6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testFileOverviewJSDoc2(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoCall(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType18(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseBooleanType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testUnfinishedComment(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseArrayTypeError3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExport2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkers5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUndefinedType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testStructuralConstructor(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning6(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseInheritDoc1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict17(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testWhitelistedNewAnnotations(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParserWithTwoTemplates(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBugAnnotation(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseMeaning4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType17(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNamedType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtends2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testSuppress1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNullType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParametrizedType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkerNames1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testSingleTagsReordered(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadSuppress4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType9(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testTrailingCommaWarning5(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict23(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseArrayType3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testVersionMissing(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testConstType(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefine2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseLends2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testForEach(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseWithMarkers1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseAllType1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing5(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseImplicitCast2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoBinaryAnd(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDesc2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing4(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression16(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseRecordType10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNamedType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testUnsupportedJsDocSyntax2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType17(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefineErrors8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNewline4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType12(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParamError2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testDuplicatedParam(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefineErrors3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam17(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType18(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDeprecated2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testSingleTags(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testMisplacedTypeAnnotation1(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadImplementsWithNullable(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testGetOriginalCommentString(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (5 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testLinenoCharnoGt(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testNominalConstructor(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testSuppress2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testIncorrectJSDocDoesNotAlterJSParsing9(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseDefine4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict4(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType13(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType7(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseThisType5(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExpose2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testRegression1(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseBooleanType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseExtendsInvalidName(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseParam11(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testValidTypeAnnotation2(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseEnum3(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testBadModifies6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType10(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseNoAlias2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testDestructuringAssignForbidden3(com.google.javascript.jscomp.parsing.ParserTest) (1 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnknownType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testFullRegression2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalType6(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (3 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUndefinedType2(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseUnionType14(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testParseFunctionalTypeError8(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.ParserTest.testDestructuringAssignForbidden2(com.google.javascript.jscomp.parsing.ParserTest) (2 ms)</li><li>com.google.javascript.jscomp.parsing.JsDocInfoParserTest.testTypeTagConflict13(com.google.javascript.jscomp.parsing.JsDocInfoParserTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

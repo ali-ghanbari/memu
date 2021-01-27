@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SourceInformationAnnotator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2009 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Preconditions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Token;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Annotates nodes with information from their original input file</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * before the compiler performs work that changes this information (such</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * as its original location, its original name, etc).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Information saved:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * - Annotates all NAME nodes with an ORIGINALNAME_PROP indicating its original</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   name.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * - Annotates all string GET_PROP nodes with an ORIGINALNAME_PROP.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * - Annotates all OBJECT_LITERAL unquoted string key nodes with an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   ORIGINALNAME_PROP.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * - Annotates all FUNCTION nodes with an ORIGINALNAME_PROP indicating its</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   nearest original name.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class SourceInformationAnnotator extends</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  NodeTraversal.AbstractPostOrderCallback {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final String sourceFile;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final boolean doSanityChecks;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public SourceInformationAnnotator(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_48'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      String sourceFile, boolean doSanityChecks) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.sourceFile = sourceFile;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_50'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.doSanityChecks = doSanityChecks;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void visit(NodeTraversal t, Node n, Node parent) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Verify the source file is annotated.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_56'/>
+56
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_56'>2</a>
+<span>
+1. visit : negated conditional &rarr; SURVIVED<br/>
+2. visit : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (doSanityChecks &#38;&#38; sourceFile != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_57'/>
+57
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_57'>1</a>
+<span>
+1. visit : removed call to com/google/common/base/Preconditions::checkState &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      Preconditions.checkState(sourceFile.equals(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          n.getSourceFileName()));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Annotate the original name.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    switch (n.getType()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.GETPROP:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node propNode = n.getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_65'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/SourceInformationAnnotator::setOriginalName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        setOriginalName(n, propNode.getString());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.FUNCTION:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String functionName = NodeUtil.getNearestFunctionName(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_70'>1</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (functionName != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_71'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/SourceInformationAnnotator::setOriginalName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          setOriginalName(n, functionName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.NAME:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_76'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/SourceInformationAnnotator::setOriginalName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        setOriginalName(n, n.getString());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_77'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case Token.OBJECTLIT:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_80'/>
+80
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_80'>1</a>
+<span>
+1. visit : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        for (Node key = n.getFirstChild(); key != null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>             key = key.getNext()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>           // We only want keys were unquoted.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_83'/>
+83
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_83'>1</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>           if (!key.isQuotedString()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_84'/>
+84
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_84'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/SourceInformationAnnotator::setOriginalName &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>             setOriginalName(key, key.getString());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>           }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_89'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  void setOriginalName(Node n, String name) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_92'>2</a>
+<span>
+1. setOriginalName : negated conditional &rarr; KILLED<br/>
+2. setOriginalName : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!name.isEmpty() &#38;&#38; n.getProp(Node.ORIGINALNAME_PROP) == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_93'/>
+93
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_93'>1</a>
+<span>
+1. setOriginalName : removed call to com/google/javascript/rhino/Node::putProp &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      n.putProp(Node.ORIGINALNAME_PROP, name);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_95'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5b36efcf_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.SourceInformationAnnotatorTest.testPreserveAnnotatedName(com.google.javascript.jscomp.SourceInformationAnnotatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_57'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testFunctionNameOutput2(com.google.debugging.sourcemap.SourceMapGeneratorV1Test)</span></span> removed call to com/google/javascript/jscomp/SourceInformationAnnotator::setOriginalName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testLiteralMappingsGoldenOutput(com.google.debugging.sourcemap.SourceMapGeneratorV3Test)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testLiteralMappingsGoldenOutput(com.google.debugging.sourcemap.SourceMapGeneratorV3Test)</span></span> removed call to com/google/javascript/jscomp/SourceInformationAnnotator::setOriginalName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testSourceMapMerging(com.google.debugging.sourcemap.SourceMapGeneratorV3Test)</span></span> removed call to com/google/javascript/jscomp/SourceInformationAnnotator::setOriginalName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_80'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testFunctionNameOutput4(com.google.debugging.sourcemap.SourceMapGeneratorV1Test)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_84'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/SourceInformationAnnotator::setOriginalName &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setOriginalName<br/><b>Killed by : </b>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testSourceMapMerging(com.google.debugging.sourcemap.SourceMapGeneratorV3Test)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setOriginalName<br/><b>Killed by : </b>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testSourceMapMerging(com.google.debugging.sourcemap.SourceMapGeneratorV3Test)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5b36efcf_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5b36efcf_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setOriginalName<br/><b>Killed by : </b>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testSourceMapMerging(com.google.debugging.sourcemap.SourceMapGeneratorV3Test)</span></span> removed call to com/google/javascript/rhino/Node::putProp &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testBasicDeterminism(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (10 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testGoldenOutput2(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (4 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testGoldenOutput1(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (11 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testGoldenOutput1(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (13 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testLiteralMappings(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (4 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testBasicMappingGoldenOutput(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (3 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testBasicMapping(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (4 ms)</li><li>com.google.javascript.jscomp.SourceMapTest.testPrefixReplacement3(com.google.javascript.jscomp.SourceMapTest) (1 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testGoldenOutput4(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (3 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testFunctionNameOutput1(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (3 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testLiteralMappings(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (3 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testGoldenOutput0(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (2 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testGoldenOutput0(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (1 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testMultiFunctionMapping(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (6 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testGoldenOutput3(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (3 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testGoldenOutput0a(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (2 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testGoldenOutput3(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (2 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testBasicMappingGoldenOutput(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion3(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testLiteralMappingsGoldenOutput(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (4 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testLiteralMappings(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (5 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testGoldenOutput0(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (3 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testFunctionNameOutput4(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (5 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testGoldenOutput3(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (3 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testGoldenOutput5(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (9 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testMultilineMapping2(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIssue63SourceMap(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.SourceMapTest.testPrefixReplacement2(com.google.javascript.jscomp.SourceMapTest) (1 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testGoldenOutput2(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (5 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testBasicDeterminism(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (12 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testMultilineMapping(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (4 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion2(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testGoldenOutput5(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (41 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testMultilineMapping(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (4 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testGoldenOutput1(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (8 ms)</li><li>com.google.javascript.jscomp.SourceMapTest.testPrefixReplacement4(com.google.javascript.jscomp.SourceMapTest) (1 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testBasicMapping1(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (7 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testFunctionNameOutput2(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (5 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testParseSourceMetaMap(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (26 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testGoldenOutput2(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (5 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testBasicMapping2(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (3 ms)</li><li>com.google.javascript.jscomp.SourceInformationAnnotatorTest.testPreserveAnnotatedName(com.google.javascript.jscomp.SourceInformationAnnotatorTest) (1 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testLiteralMappingsGoldenOutput(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (4 ms)</li><li>com.google.javascript.jscomp.SourceMapTest.testPrefixReplacement1(com.google.javascript.jscomp.SourceMapTest) (1 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testFunctionNameOutput3(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (4 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testGoldenOutput4(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceMapExpansion1(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testMultilineMapping(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (4 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testSourceMapMerging(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (5 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testGoldenOutput4(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (4 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testBasicDeterminism(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (300 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV3Test.testGoldenOutput5(com.google.debugging.sourcemap.SourceMapGeneratorV3Test) (11 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testBasicMapping(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (15 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV2Test.testMultiFunctionMapping(com.google.debugging.sourcemap.SourceMapGeneratorV2Test) (6 ms)</li><li>com.google.debugging.sourcemap.SourceMapGeneratorV1Test.testMultiFunctionMapping(com.google.debugging.sourcemap.SourceMapGeneratorV1Test) (6 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

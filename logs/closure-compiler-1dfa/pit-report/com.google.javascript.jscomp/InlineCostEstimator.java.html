@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>InlineCostEstimator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2008 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * For use with CodeGenerator to determine the cost of generated code.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see CodeGenerator</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see CodePrinter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class InlineCostEstimator {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // For now simply assume identifiers are 2 characters.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static final String ESTIMATED_IDENTIFIER = &#34;ab&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_30'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  static final int ESTIMATED_IDENTIFIER_COST = ESTIMATED_IDENTIFIER.length();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_32'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  private InlineCostEstimator() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_33'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Determines the size of the JS code.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  static int getCost(Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_39'/>
+39
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_39'>1</a>
+<span>
+1. getCost : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return getCost(root, Integer.MAX_VALUE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Determines the estimated size of the JS snippet represented by the node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  static int getCost(Node root, int costThreshhold) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_46'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    CompiledSizeEstimator estimator = new CompiledSizeEstimator(costThreshhold);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_47'>1</a>
+<span>
+1. getCost : removed call to com/google/javascript/jscomp/InlineCostEstimator$CompiledSizeEstimator::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    estimator.add(root);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_48'>1</a>
+<span>
+1. getCost : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return estimator.getCost();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Code consumer that estimates compiled size by assuming names are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * shortened and all whitespace is stripped.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static class CompiledSizeEstimator extends CodeConsumer {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private int maxCost;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private int cost = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_58'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private char last = &#39;\0&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_59'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private boolean continueProcessing = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    CompiledSizeEstimator(int costThreshhold) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      this.maxCost = costThreshhold;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_63'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void add(Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      CodeGenerator cg = CodeGenerator.forCostEstimation(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_67'/>
+67
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_67'>1</a>
+<span>
+1. add : removed call to com/google/javascript/jscomp/CodeGenerator::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      cg.add(root);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_68'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getCost() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_71'>1</a>
+<span>
+1. getCost : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return cost;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    boolean continueProcessing() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_76'>1</a>
+<span>
+1. continueProcessing : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return continueProcessing;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    char getLastChar() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_81'/>
+81
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_81'>1</a>
+<span>
+1. getLastChar : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return last;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void append(String str){</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_86'>1</a>
+<span>
+1. append : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      last = str.charAt(str.length() - 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_87'>1</a>
+<span>
+1. append : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      cost += str.length();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_88'/>
+88
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_88'>2</a>
+<span>
+1. append : changed conditional boundary &rarr; SURVIVED<br/>
+2. append : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (maxCost &#60;= cost) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_89'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        continueProcessing = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_91'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void addIdentifier(String identifier) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_95'/>
+95
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_95'>1</a>
+<span>
+1. addIdentifier : removed call to com/google/javascript/jscomp/InlineCostEstimator$CompiledSizeEstimator::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      add(ESTIMATED_IDENTIFIER);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_96'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constants (true, false, null) are considered basically free,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * because it&#39;s likely that they will get folded when we&#39;re done.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void addConstant(String newcode) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_104'/>
+104
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_104'>1</a>
+<span>
+1. addConstant : removed call to com/google/javascript/jscomp/InlineCostEstimator$CompiledSizeEstimator::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      add(&#34;0&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_105'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70a5c82c_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_39'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCost<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd_b1992789(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCost<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd_b1992789(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> removed call to com/google/javascript/jscomp/InlineCostEstimator$CompiledSizeEstimator::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCost<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd_b1992789(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_67'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd_b1992789(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> removed call to com/google/javascript/jscomp/CodeGenerator::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCost<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd_b1992789(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>continueProcessing<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd_b1992789(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_81'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getLastChar<br/><b>Killed by : </b>com.google.javascript.jscomp.InlineFunctionsTest.testMixedModeInliningCosting4(com.google.javascript.jscomp.InlineFunctionsTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>append<br/><b>Killed by : </b>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeCascadedInline(com.google.javascript.jscomp.SpecializeModuleTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>append<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd_b1992789(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_88'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>append<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>append<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addIdentifier<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest)</span></span> removed call to com/google/javascript/jscomp/InlineCostEstimator$CompiledSizeEstimator::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70a5c82c_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70a5c82c_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addConstant<br/><b>Killed by : </b>com.google.javascript.jscomp.InlineFunctionsTest.testMixedModeInliningCosting4(com.google.javascript.jscomp.InlineFunctionsTest)</span></span> removed call to com/google/javascript/jscomp/InlineCostEstimator$CompiledSizeEstimator::add &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining11(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest) (20 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining6(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testShadowVariables16(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag4(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testAdvancedModeRemovesUnusedParams(com.google.javascript.jscomp.CommandLineRunnerTest) (257 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining7(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInliningComplex2(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInliningComplex5(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDebugFlag3(com.google.javascript.jscomp.CommandLineRunnerTest) (80 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testInlineConstructor3(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testComplexFunctionWithFunctionDefinition2a(com.google.javascript.jscomp.InlineFunctionsTest) (7 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining10(com.google.javascript.jscomp.InlineFunctionsTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testInlineConstructor2(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining8(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testReplaceGetter1(com.google.javascript.jscomp.FunctionRewriterTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCrossModuleInlining2(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testReplaceSetter2(com.google.javascript.jscomp.FunctionRewriterTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testInlineConstructor4(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining2(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testOneSideEffectCallDoesNotRuinOthers(com.google.javascript.jscomp.InlineFunctionsTest) (3 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testReplaceEmptyFunction1(com.google.javascript.jscomp.FunctionRewriterTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining4(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testShadowVariables2(com.google.javascript.jscomp.InlineFunctionsTest) (3 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testReplaceSetter1(com.google.javascript.jscomp.FunctionRewriterTest) (5 ms)</li><li>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAdd_b1992789(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testBug4944818(com.google.javascript.jscomp.InlineFunctionsTest) (7 ms)</li><li>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testStringJoinAddSparse(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest) (1 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCrossModuleInlining3(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testMixedModeInliningCosting2(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInliningComplex4(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testIssue728(com.google.javascript.jscomp.InlineFunctionsTest) (11 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInliningComplex7(com.google.javascript.jscomp.InlineFunctionsTest) (7 ms)</li><li>com.google.javascript.jscomp.InlineCostEstimatorTest.testCost(com.google.javascript.jscomp.InlineCostEstimatorTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testFunctionExpressionYCombinator(com.google.javascript.jscomp.InlineFunctionsTest) (16 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testInlineFunctions22(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testShadowVariables18(com.google.javascript.jscomp.InlineFunctionsTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNamelessParameter(com.google.javascript.jscomp.IntegrationTest) (18 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testInlineFunctions10(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testIssue538(com.google.javascript.jscomp.FunctionRewriterTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testComplexSample(com.google.javascript.jscomp.InlineFunctionsTest) (7 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInliningComplex3(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testReplaceEmptyFunction3(com.google.javascript.jscomp.FunctionRewriterTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining9(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testMixedModeInlining4(com.google.javascript.jscomp.InlineFunctionsTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testMixedModeInliningCosting4(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining5(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testShadowVariables7(com.google.javascript.jscomp.InlineFunctionsTest) (6 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testReplaceIdentityFunction1(com.google.javascript.jscomp.FunctionRewriterTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testMixedModeInlining3(com.google.javascript.jscomp.InlineFunctionsTest) (3 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining3(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testComplexFunctionWithFunctionDefinition2(com.google.javascript.jscomp.InlineFunctionsTest) (7 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testReplaceReturnConst3(com.google.javascript.jscomp.FunctionRewriterTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInliningComplex6(com.google.javascript.jscomp.InlineFunctionsTest) (7 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRewriteFunctionExpressions(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testInlineFunctions23(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testMixedModeInliningCosting1(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testMixedModeInliningCosting3(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testInlineFunctions14(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testShadowVariables1(com.google.javascript.jscomp.InlineFunctionsTest) (16 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInliningComplex9(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testNegativeZero(com.google.javascript.jscomp.IntegrationTest) (19 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testCostBasedInlining12(com.google.javascript.jscomp.InlineFunctionsTest) (4 ms)</li><li>com.google.javascript.jscomp.SpecializeModuleTest.testSpecializeCascadedInline(com.google.javascript.jscomp.SpecializeModuleTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testInlineEmptyFunction3(com.google.javascript.jscomp.InlineFunctionsTest) (3 ms)</li><li>com.google.javascript.jscomp.FunctionRewriterTest.testReplaceReturnConst1(com.google.javascript.jscomp.FunctionRewriterTest) (4 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testReplacePropertyFunction(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testIssue423(com.google.javascript.jscomp.InlineFunctionsTest) (10 ms)</li><li>com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest.testJoinBug(com.google.javascript.jscomp.PeepholeReplaceKnownMethodsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testFunctionExpressionOmega(com.google.javascript.jscomp.InlineFunctionsTest) (5 ms)</li><li>com.google.javascript.jscomp.InlineFunctionsTest.testShadowVariables17(com.google.javascript.jscomp.InlineFunctionsTest) (3 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

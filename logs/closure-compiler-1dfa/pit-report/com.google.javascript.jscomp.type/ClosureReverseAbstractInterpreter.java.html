@@ -1,0 +1,4287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ClosureReverseAbstractInterpreter.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2007 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp.type;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.javascript.rhino.jstype.JSTypeNative.ARRAY_TYPE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.javascript.rhino.jstype.JSTypeNative.NO_OBJECT_TYPE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.javascript.rhino.jstype.JSTypeNative.NULL_TYPE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.javascript.rhino.jstype.JSTypeNative.NULL_VOID;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.javascript.rhino.jstype.JSTypeNative.NUMBER_STRING_BOOLEAN;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.javascript.rhino.jstype.JSTypeNative.OBJECT_TYPE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.javascript.rhino.jstype.JSTypeNative.VOID_TYPE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Function;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.CodingConvention;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.jstype.FunctionType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.jstype.JSType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.jstype.JSTypeRegistry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.jstype.ObjectType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.jstype.Visitor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A reverse abstract interpreter (RAI) for specific closure patterns such as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * {@code goog.isDef}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_44'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class ClosureReverseAbstractInterpreter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    extends ChainableReverseAbstractInterpreter {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * For when {@code goog.isArray} returns true.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_50'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private final Visitor&#60;JSType&#62; restrictToArrayVisitor =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      new RestrictByTrueTypeOfResultVisitor() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        protected JSType caseTopType(JSType topType) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // Ideally, we would like to return any subtype of Array.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // Since that&#39;s not possible, we don&#39;t restrict the type.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_56'>1</a>
+<span>
+1. caseTopType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$1::caseTopType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return topType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType caseObjectType(ObjectType type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          JSType arrayType = getNativeType(ARRAY_TYPE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_62'>2</a>
+<span>
+1. caseObjectType : negated conditional &rarr; KILLED<br/>
+2. caseObjectType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$1::caseObjectType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return arrayType.isSubtype(type) ? arrayType : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * For when {@code goog.isArray} returns false.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private final Visitor&#60;JSType&#62; restrictToNotArrayVisitor =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      new RestrictByFalseTypeOfResultVisitor() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType caseObjectType(ObjectType type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_73'/>
+73
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_73'>2</a>
+<span>
+1. caseObjectType : negated conditional &rarr; KILLED<br/>
+2. caseObjectType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$2::caseObjectType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return type.isSubtype(getNativeType(ARRAY_TYPE)) ? null : type;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * For when {@code goog.isObject} returns true. This includes functions, but</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * not {@code null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private final Visitor&#60;JSType&#62; restrictToObjectVisitor =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      new RestrictByTrueTypeOfResultVisitor() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        protected JSType caseTopType(JSType topType) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_85'>1</a>
+<span>
+1. caseTopType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$3::caseTopType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return getNativeType(NO_OBJECT_TYPE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType caseObjectType(ObjectType type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_90'>1</a>
+<span>
+1. caseObjectType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$3::caseObjectType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return type;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType caseFunctionType(FunctionType type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_95'>1</a>
+<span>
+1. caseFunctionType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$3::caseFunctionType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          return type;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * For when {@code goog.isObject} returns false.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_102'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private final Visitor&#60;JSType&#62; restrictToNotObjectVisitor =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_103'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      new RestrictByFalseTypeOfResultVisitor() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType caseAllType() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_107'>1</a>
+<span>
+1. caseAllType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$4::caseAllType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return typeRegistry.createUnionType(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              getNativeType(NUMBER_STRING_BOOLEAN), getNativeType(NULL_VOID));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType caseObjectType(ObjectType type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_113'>1</a>
+<span>
+1. caseObjectType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$4::caseObjectType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType caseFunctionType(FunctionType type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_118'>1</a>
+<span>
+1. caseFunctionType : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$4::caseFunctionType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** Functions used to restrict types. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private Map&#60;String, Function&#60;TypeRestriction, JSType&#62;&#62; restricters;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Creates a {@link ClosureReverseAbstractInterpreter}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ClosureReverseAbstractInterpreter(CodingConvention convention,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      final JSTypeRegistry typeRegistry) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_130'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    super(convention, typeRegistry);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_131'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.restricters =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      new ImmutableMap.Builder&#60;String, Function&#60;TypeRestriction, JSType&#62;&#62;()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isDef&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_136'>1</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (p.outcome) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_137'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$13::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return getRestrictedWithoutUndefined(p.type);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_139'>2</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+2. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$13::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return  p.type != null ?</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                getNativeType(VOID_TYPE).getGreatestSubtype(p.type) : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>         }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_144'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isNull&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_147'>1</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (p.outcome) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_148'/>
+148
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_148'>2</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+2. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$12::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return p.type != null ?</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                getNativeType(NULL_TYPE).getGreatestSubtype(p.type) : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_151'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$12::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return getRestrictedWithoutNull(p.type);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_155'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isDefAndNotNull&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_158'/>
+158
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_158'>1</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (p.outcome) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_159'/>
+159
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_159'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$11::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return getRestrictedWithoutUndefined(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                getRestrictedWithoutNull(p.type));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_162'/>
+162
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_162'>2</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+2. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$11::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return p.type != null ?</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                getNativeType(NULL_VOID).getGreatestSubtype(p.type) : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_167'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isString&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_170'/>
+170
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_170'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$10::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return getRestrictedByTypeOfResult(p.type, &#34;string&#34;, p.outcome);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_173'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isBoolean&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_176'/>
+176
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_176'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$9::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return getRestrictedByTypeOfResult(p.type, &#34;boolean&#34;, p.outcome);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_179'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isNumber&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_182'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$8::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return getRestrictedByTypeOfResult(p.type, &#34;number&#34;, p.outcome);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_185'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isFunction&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_188'/>
+188
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_188'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$7::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return getRestrictedByTypeOfResult(p.type, &#34;function&#34;, p.outcome);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_191'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isArray&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_194'/>
+194
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_194'>1</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (p.type == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_195'/>
+195
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_195'>2</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+2. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$6::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return p.outcome ? getNativeType(ARRAY_TYPE) : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_198'/>
+198
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_198'>1</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          Visitor&#60;JSType&#62; visitor = p.outcome ? restrictToArrayVisitor :</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              restrictToNotArrayVisitor;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_200'/>
+200
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_200'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$6::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return p.type.visit(visitor);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_203'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      .put(&#34;isObject&#34;, new Function&#60;TypeRestriction, JSType&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JSType apply(TypeRestriction p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_206'/>
+206
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_206'>1</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (p.type == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_207'/>
+207
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_207'>2</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+2. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$5::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return p.outcome ? getNativeType(OBJECT_TYPE) : null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_210'/>
+210
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_210'>1</a>
+<span>
+1. apply : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          Visitor&#60;JSType&#62; visitor = p.outcome ? restrictToObjectVisitor :</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              restrictToNotObjectVisitor;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_212'/>
+212
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_212'>1</a>
+<span>
+1. apply : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$5::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return p.type.visit(visitor);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      })</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      .build();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_216'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public FlowScope getPreciserScopeKnowingConditionOutcome(Node condition,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      FlowScope blindScope, boolean outcome) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_221'/>
+221
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_221'>2</a>
+<span>
+1. getPreciserScopeKnowingConditionOutcome : negated conditional &rarr; KILLED<br/>
+2. getPreciserScopeKnowingConditionOutcome : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (condition.isCall() &#38;&#38; condition.getChildCount() == 2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_222'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node callee = condition.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_223'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Node param = condition.getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_224'/>
+224
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_224'>2</a>
+<span>
+1. getPreciserScopeKnowingConditionOutcome : negated conditional &rarr; KILLED<br/>
+2. getPreciserScopeKnowingConditionOutcome : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (callee.isGetProp() &#38;&#38; param.isQualifiedName()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_225'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        JSType paramType =  getTypeIfRefinable(param, blindScope);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_226'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node left = callee.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_227'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Node right = callee.getLastChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_228'/>
+228
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_228'>3</a>
+<span>
+1. getPreciserScopeKnowingConditionOutcome : negated conditional &rarr; KILLED<br/>
+2. getPreciserScopeKnowingConditionOutcome : negated conditional &rarr; KILLED<br/>
+3. getPreciserScopeKnowingConditionOutcome : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (left.isName() &#38;&#38; &#34;goog&#34;.equals(left.getString()) &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            right.isString()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_230'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          Function&#60;TypeRestriction, JSType&#62; restricter =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              restricters.get(right.getString());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_232'/>
+232
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_232'>1</a>
+<span>
+1. getPreciserScopeKnowingConditionOutcome : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (restricter != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_233'/>
+233
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_233'>1</a>
+<span>
+1. getPreciserScopeKnowingConditionOutcome : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::getPreciserScopeKnowingConditionOutcome to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return restrictParameter(param, paramType, blindScope, restricter,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                outcome);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_239'/>
+239
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_239'>1</a>
+<span>
+1. getPreciserScopeKnowingConditionOutcome : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::getPreciserScopeKnowingConditionOutcome to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return nextPreciserScopeKnowingConditionOutcome(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        condition, blindScope, outcome);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private FlowScope restrictParameter(Node parameter, JSType type,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      FlowScope blindScope, Function&#60;TypeRestriction, JSType&#62; restriction,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      boolean outcome) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // restricting</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_247'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    type = restriction.apply(new TypeRestriction(type, outcome));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // changing the scope</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_250'/>
+250
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_250'>1</a>
+<span>
+1. restrictParameter : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (type != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_251'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      FlowScope informed = blindScope.createChildFlowScope();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_252'/>
+252
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_252'>1</a>
+<span>
+1. restrictParameter : removed call to com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::declareNameInScope &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      declareNameInScope(informed, parameter, type);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_253'/>
+253
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_253'>1</a>
+<span>
+1. restrictParameter : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::restrictParameter to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return informed;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_255'/>
+255
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_255'>1</a>
+<span>
+1. restrictParameter : mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::restrictParameter to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return blindScope;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_256'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_259'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static class TypeRestriction {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final JSType type;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final boolean outcome;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_263'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private TypeRestriction(JSType type, boolean outcome) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_264'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      this.type = type;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_265'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      this.outcome = outcome;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_266'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_267'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2860f86b_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_268'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseTopType<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsArray3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$1::caseTopType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseObjectType<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction10(com.google.javascript.jscomp.TypeCheckTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>caseObjectType<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction10(com.google.javascript.jscomp.TypeCheckTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$1::caseObjectType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseObjectType<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction9(com.google.javascript.jscomp.TypeCheckTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>caseObjectType<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction9(com.google.javascript.jscomp.TypeCheckTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$2::caseObjectType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseTopType<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObject4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$3::caseTopType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseObjectType<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction13(com.google.javascript.jscomp.TypeCheckTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$3::caseObjectType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_95'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseFunctionType<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$3::caseFunctionType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseAllType<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObject1(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$4::caseAllType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseObjectType<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction13(com.google.javascript.jscomp.TypeCheckTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$4::caseObjectType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_118'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>caseFunctionType<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$4::caseFunctionType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$13::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDef3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDef3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$13::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testAssertWithNotIsNull(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testNoThisInference(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testNoThisInference(com.google.javascript.jscomp.TypeInferenceTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$12::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testNoThisInference(com.google.javascript.jscomp.TypeInferenceTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$12::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testAssertWithIsDefAndNotNull(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_159'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testAssertWithIsDefAndNotNull(com.google.javascript.jscomp.TypeInferenceTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$11::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_162'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDefAndNotNull4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDefAndNotNull4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$11::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_170'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction8(com.google.javascript.jscomp.TypeCheckTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$10::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_176'>176</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_176'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsBoolean4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$9::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsNumber(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$8::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_188'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testInnerFunction8(com.google.javascript.jscomp.TypeCheckTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$7::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_194'>194</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_194'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction9(com.google.javascript.jscomp.TypeCheckTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_195'>195</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_195'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsArrayOnNull(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsArrayOnNull(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$6::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_198'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction9(com.google.javascript.jscomp.TypeCheckTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_200'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction9(com.google.javascript.jscomp.TypeCheckTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$6::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction13(com.google.javascript.jscomp.TypeCheckTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_207'>207</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_207'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObjectOnNull(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObjectOnNull(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$5::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_210'>210</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_210'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction13(com.google.javascript.jscomp.TypeCheckTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_212'>212</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_212'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>apply<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction13(com.google.javascript.jscomp.TypeCheckTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter$5::apply to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_221'>221</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_221'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_224'>224</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_224'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_228'>228</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_228'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_232'>232</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_232'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_233'>233</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_233'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testNoThisInference(com.google.javascript.jscomp.TypeInferenceTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::getPreciserScopeKnowingConditionOutcome to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_239'>239</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_239'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getPreciserScopeKnowingConditionOutcome<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testWhile2(com.google.javascript.jscomp.TypeInferenceTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::getPreciserScopeKnowingConditionOutcome to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_250'>250</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_250'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>restrictParameter<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_252'>252</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_252'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>restrictParameter<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> removed call to com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::declareNameInScope &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_253'>253</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_253'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>restrictParameter<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::restrictParameter to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2860f86b_255'>255</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2860f86b_255'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>restrictParameter<br/><b>Killed by : </b>com.google.javascript.jscomp.TypeInferenceTest.testNoThisInference(com.google.javascript.jscomp.TypeInferenceTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/type/ClosureReverseAbstractInterpreter::restrictParameter to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction15(com.google.javascript.jscomp.TypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDefAndNotNull4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testEnumRAI1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testDo(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testInstanceOf5(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDefAndNotNull3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (2 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsString1(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsNumber(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testTypeOfReduction13(com.google.javascript.jscomp.LooseTypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDef1(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testClosure4(com.google.javascript.jscomp.TypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert8(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssertWithNotIsNull(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testClosure4(com.google.javascript.jscomp.LooseTypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction9(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testInnerFunction8(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsFunction3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDef3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction16(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testInnerFunction6(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction10(com.google.javascript.jscomp.TypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testReturn1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testTypeOfReduction15(com.google.javascript.jscomp.LooseTypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert1a(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObject4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testClosure2(com.google.javascript.jscomp.LooseTypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testInstanceOf1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsFunction(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testFor1(com.google.javascript.jscomp.TypeInferenceTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testGetElem(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction8(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testClosure3(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testClosure1(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssignInCondition(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testEnumRAI3(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObject1(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testDuplicateStaticPropertyDecl5(com.google.javascript.jscomp.TypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsBoolean2(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssertTypeofProp(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testHook(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert7(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testSwitch2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testFor4(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testInstanceOf2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testShortCircuitingOr(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testIf3(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssertWithIsDefAndNotNull(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMultipleExtends(com.google.javascript.jscomp.SymbolTableTest) (22 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsString2(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testTypeOfReduction8(com.google.javascript.jscomp.LooseTypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testReturn2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testInnerFunction8(com.google.javascript.jscomp.LooseTypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testJoin1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testWhile1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testFor5(com.google.javascript.jscomp.TypeInferenceTest) (2 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testTypeOfReduction9(com.google.javascript.jscomp.LooseTypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testSwitch4(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testInfiniteLoop2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObjectOnNull(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsBoolean3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testMissingProperty27(com.google.javascript.jscomp.TypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testClosure2(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsArray4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsArray1(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (10 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsFunctionOnNull(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testTypeOfReduction11(com.google.javascript.jscomp.LooseTypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testDuplicateStaticPropertyDecl4(com.google.javascript.jscomp.LooseTypeCheckTest) (6 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testEnumRAI2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalRichObjectReference(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testInstanceOf6(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testClosure1(com.google.javascript.jscomp.LooseTypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsArrayOnNull(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testDeclarationDisagreement(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsNull1(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testFlattening(com.google.javascript.jscomp.TypeInferenceTest) (16 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testShortCircuitingAnd2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDefAndNotNull2(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testQualifiedNameReduction4(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testInfiniteLoop1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsArray3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testTypeOfReduction10(com.google.javascript.jscomp.LooseTypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsNull4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testInnerFunction6(com.google.javascript.jscomp.LooseTypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction14(com.google.javascript.jscomp.TypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDef2(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testEnumRAI4(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testJoin2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testShortCircuitingAnd(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testSwitch3(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSymbolsForType(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObject2(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testIf1a(com.google.javascript.jscomp.TypeInferenceTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testPropertyInference1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testWhile2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDef4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testClosure5(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testClosure7(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testInstanceOf4(com.google.javascript.jscomp.TypeInferenceTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testThrow(com.google.javascript.jscomp.TypeInferenceTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testIsDefAndNoResolvedType(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsBoolean1(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (3 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert4(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testSwitch1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsNull2(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert5(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert6(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testQualifiedNameReduction4(com.google.javascript.jscomp.LooseTypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testTypeOfReduction14(com.google.javascript.jscomp.LooseTypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testClosure5(com.google.javascript.jscomp.LooseTypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert10(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testClosure6(com.google.javascript.jscomp.TypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testFor6(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDefAndNotNull1(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction11(com.google.javascript.jscomp.TypeCheckTest) (9 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testClosure3(com.google.javascript.jscomp.LooseTypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testDuplicateStaticPropertyDecl4(com.google.javascript.jscomp.TypeCheckTest) (8 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testInnerFunction7(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testTypeOfReduction13(com.google.javascript.jscomp.TypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride2(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testIf2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert3(com.google.javascript.jscomp.TypeInferenceTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testShortCircuitingOr2(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testArrayLit(com.google.javascript.jscomp.TypeInferenceTest) (2 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsObject3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (2 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testInstanceOf3(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testDuplicateStaticPropertyDecl5(com.google.javascript.jscomp.LooseTypeCheckTest) (6 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testNoThisInference(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsArray2(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testAssert9(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsDefAndNotNull5(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsFunction2(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.TypeCheckTest.testTypeInferenceWithNoEntry2(com.google.javascript.jscomp.TypeCheckTest) (11 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsNull3(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testMissingProperty27(com.google.javascript.jscomp.LooseTypeCheckTest) (6 ms)</li><li>com.google.javascript.jscomp.TypeInferenceTest.testIf1(com.google.javascript.jscomp.TypeInferenceTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testClosure6(com.google.javascript.jscomp.LooseTypeCheckTest) (10 ms)</li><li>com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest.testGoogIsBoolean4(com.google.javascript.jscomp.ClosureReverseAbstractInterpreterTest) (1 ms)</li><li>com.google.javascript.jscomp.LooseTypeCheckTest.testInnerFunction7(com.google.javascript.jscomp.LooseTypeCheckTest) (8 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

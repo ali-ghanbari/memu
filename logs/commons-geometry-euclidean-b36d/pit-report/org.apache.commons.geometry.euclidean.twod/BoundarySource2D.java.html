@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>BoundarySource2D.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.geometry.euclidean.twod;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.geometry.core.partitioning.BoundarySource;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Extension of the {@link BoundarySource} interface for Euclidean 2D space.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public interface BoundarySource2D extends BoundarySource&#60;LineConvexSubset&#62;, Linecastable2D {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Return a BSP tree constructed from the boundaries contained in this instance. This is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * a convenience method for quickly constructing BSP trees and may produce unbalanced trees</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * with unacceptable performance characteristics when used with large numbers of boundaries.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * In these cases, alternate tree construction approaches should be used, such as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link RegionBSPTree2D.PartitionedRegionBuilder2D}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a BSP tree constructed from the boundaries in this instance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see RegionBSPTree2D#partitionedRegionBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    default RegionBSPTree2D toTree() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_38'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final RegionBSPTree2D tree = RegionBSPTree2D.empty();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_39'/>
+39
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_39'>1</a>
+<span>
+1. toTree : removed call to org/apache/commons/geometry/euclidean/twod/RegionBSPTree2D::insert &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        tree.insert(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_41'/>
+41
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_41'>1</a>
+<span>
+1. toTree : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::toTree to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return tree;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    default List&#60;LinecastPoint2D&#62; linecast(final LineConvexSubset subset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_47'>1</a>
+<span>
+1. linecast : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::linecast to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new BoundarySourceLinecaster2D(this).linecast(subset);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    default LinecastPoint2D linecastFirst(final LineConvexSubset subset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_53'/>
+53
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_53'>1</a>
+<span>
+1. linecastFirst : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::linecastFirst to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new BoundarySourceLinecaster2D(this).linecastFirst(subset);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Get a {@link Bounds2D} object defining the axis-aligned box containing all vertices</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * in the boundaries for this instance. Null is returned if any boundaries are infinite</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * or no vertices were found.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the bounding box for this instance or null if no valid bounds could be determined</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    default Bounds2D getBounds() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_62'>1</a>
+<span>
+1. getBounds : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::getBounds to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new BoundarySourceBoundsBuilder2D().getBounds(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Return a {@link BoundarySource2D} instance containing the given boundaries.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param boundaries line subsets to include in the boundary source</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a boundary source containing the given boundaries</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static BoundarySource2D from(final LineConvexSubset... boundaries) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_70'>1</a>
+<span>
+1. from : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::from to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return from(Arrays.asList(boundaries));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Return a {@link BoundarySource2D} instance containing the given boundaries. The given</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * collection is used directly as the source of the line subsets; no copy is made.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param boundaries line subsets to include in the boundary source</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a boundary source containing the given boundaries</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static BoundarySource2D from(final Collection&#60;LineConvexSubset&#62; boundaries) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_79'>1</a>
+<span>
+1. from : mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::from to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return boundaries::stream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@51b0ba44_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51b0ba44_39'>39</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_39'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toTree<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testToTree(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest)</span></span> removed call to org/apache/commons/geometry/euclidean/twod/RegionBSPTree2D::insert &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51b0ba44_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_41'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toTree<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testToTree_noBoundaries(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::toTree to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51b0ba44_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>linecast<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testLinecast_full(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::linecast to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51b0ba44_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_53'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>linecastFirst<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testLinecast_full(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::linecastFirst to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51b0ba44_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getBounds<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFull(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::getBounds to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51b0ba44_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testFrom_varargs_empty(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::from to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@51b0ba44_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@51b0ba44_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>from<br/><b>Killed by : </b>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testFrom_list_empty(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest)</span></span> mutated return of Object value for org/apache/commons/geometry/euclidean/twod/BoundarySource2D::from to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testRegionBSPTree2DExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (4 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testFrom_list(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest.testGetBounds_singleInfiniteBoundary(org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_singleSpan_producesInfiniteRegion(org.apache.commons.geometry.euclidean.threed.PlanesTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testFrom_list_empty(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest.testGetBounds_multipleFiniteBoundaries(org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_emptyPath(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_invalidExtrusionVector(org.apache.commons.geometry.euclidean.threed.PlanesTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testAddMethods_rotatesEquivalentPlanesWithDifferentUAndV_singleConvexArea(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testGetBounds_noBounds(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_singleSegment_producesInfiniteRegion_extrudingOnPlus(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testLinecast(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_nonConvex(org.apache.commons.geometry.euclidean.threed.PlanesTest) (4 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testFrom_varargs_empty(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_convex(org.apache.commons.geometry.euclidean.threed.PlanesTest) (8 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testLinecast_empty(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.DocumentationExamplesTest.testLinecast2DExample(org.apache.commons.geometry.euclidean.DocumentationExamplesTest) (9 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testGetBounds_square(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_line_removesDuplicatePoints(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_singleSegment_producesInfiniteRegion_extrudingOnMinus(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_vertexLoop_clockwiseWinding(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testToTree_noBoundaries(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_infiniteNonConvex(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testLinecast_full(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_noVertices(org.apache.commons.geometry.euclidean.threed.PlanesTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest.testSlightlyConcavePrism(org.apache.commons.geometry.euclidean.threed.RegionBSPTree3DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testToTree(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGetBounds_noBounds(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.path.LinePathTest.testLinecast(org.apache.commons.geometry.euclidean.twod.path.LinePathTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_intersectingInfiniteLines_extrudingOnMinus(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testToTree(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest.testGetBounds_noBoundaries(org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest.testLinecast_segment_removesDuplicatePoints(org.apache.commons.geometry.euclidean.twod.BoundarySourceLinecaster2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testGetBounds_noBounds(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_twoVertices_producesInfiniteRegion(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.threed.EmbeddedAreaPlaneConvexSubsetTest) (3 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest.testGetBounds_mixedFiniteAndInfiniteBoundaries(org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest.testGetBounds_singleFiniteBoundary(org.apache.commons.geometry.euclidean.twod.BoundarySourceBoundsBuilder2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testAddMethods_rotatesEquivalentPlanesWithDifferentUAndV_singleTree(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest.testAddMethods_rotatesEquivalentPlanesWithDifferentUAndV(org.apache.commons.geometry.euclidean.threed.EmbeddedTreePlaneSubsetTest) (2 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_intersectingInfiniteLines_extrudingOnPlus(org.apache.commons.geometry.euclidean.threed.PlanesTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testGetBounds_hasBounds(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest.testLinecast_complexRegion(org.apache.commons.geometry.euclidean.twod.RegionBSPTree2DTest) (1 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testFull(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.twod.ConvexAreaTest.testGetBounds_infinite(org.apache.commons.geometry.euclidean.twod.ConvexAreaTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrudeVertexLoop_regionsConsistentBetweenExtrusionPlanes(org.apache.commons.geometry.euclidean.threed.PlanesTest) (639 ms)</li><li>org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest.testFrom_varargs(org.apache.commons.geometry.euclidean.twod.BoundarySource2DTest) (0 ms)</li><li>org.apache.commons.geometry.euclidean.threed.PlanesTest.testExtrude_linePath_clockwiseWinding(org.apache.commons.geometry.euclidean.threed.PlanesTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

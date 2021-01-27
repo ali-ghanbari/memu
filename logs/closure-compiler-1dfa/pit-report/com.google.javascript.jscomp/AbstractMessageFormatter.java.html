@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>AbstractMessageFormatter.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2007 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.CheckLevel;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Abstract message formatter providing default behavior for implementations</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of {@link MessageFormatter} needing a {@link SourceExcerptProvider}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class AbstractMessageFormatter implements MessageFormatter {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final SourceExcerptProvider source;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean colorize;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_32'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public AbstractMessageFormatter(SourceExcerptProvider source) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_33'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.source = source;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_34'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void setColorize(boolean colorize) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_37'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this.colorize = colorize;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_38'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Get the source excerpt provider.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  protected final SourceExcerptProvider getSource() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_44'/>
+44
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_44'>1</a>
+<span>
+1. getSource : mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::getSource to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return source;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_47'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Set&#60;String&#62; SUPPORTED_COLOR_TERMINALS =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      ImmutableSet.of(&#34;xterm&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                      &#34;xterm-color&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                      &#34;xterm-256color&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                      &#34;screen-bce&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  static boolean termSupportsColor(String term) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_54'/>
+54
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_54'>1</a>
+<span>
+1. termSupportsColor : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return SUPPORTED_COLOR_TERMINALS.contains(term);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static enum Color {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_58'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    ERROR(&#34;\033[31m&#34;),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_59'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    WARNING(&#34;\033[35m&#34;),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_60'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    RESET(&#34;\033[39m&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String controlCharacter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Color(String controlCharacter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_65'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      this.controlCharacter = controlCharacter;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String getControlCharacter() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_69'/>
+69
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_69'>1</a>
+<span>
+1. getControlCharacter : mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter$Color::getControlCharacter to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return controlCharacter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  String getLevelName(CheckLevel level) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    switch (level) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_75'/>
+75
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_75'>1</a>
+<span>
+1. getLevelName : mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::getLevelName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      case ERROR: return maybeColorize(&#34;ERROR&#34;, Color.ERROR);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_76'/>
+76
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_76'>1</a>
+<span>
+1. getLevelName : mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::getLevelName to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      case WARNING: return maybeColorize(&#34;WARNING&#34;, Color.WARNING);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_77'/>
+77
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_77'>1</a>
+<span>
+1. getLevelName : mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::getLevelName to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      default: return level.toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private String maybeColorize(String text, Color color) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_82'>2</a>
+<span>
+1. maybeColorize : negated conditional &rarr; KILLED<br/>
+2. maybeColorize : mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::maybeColorize to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!colorize) return text;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_84'/>
+84
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_84'>1</a>
+<span>
+1. maybeColorize : mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::maybeColorize to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return color.getControlCharacter() +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        text + Color.RESET.getControlCharacter();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@55b8cd99_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@55b8cd99_44'>44</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_44'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getSource<br/><b>Killed by : </b>com.google.javascript.jscomp.LightweightMessageFormatterTest.testFormatErrorTabs(com.google.javascript.jscomp.LightweightMessageFormatterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::getSource to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@55b8cd99_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_54'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>termSupportsColor<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@55b8cd99_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_69'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getControlCharacter<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter$Color::getControlCharacter to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@55b8cd99_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_75'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getLevelName<br/><b>Killed by : </b>com.google.javascript.jscomp.LightweightMessageFormatterTest.testFormatErrorTabs(com.google.javascript.jscomp.LightweightMessageFormatterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::getLevelName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@55b8cd99_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_76'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getLevelName<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::getLevelName to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@55b8cd99_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_77'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getLevelName<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::getLevelName to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@55b8cd99_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeColorize<br/><b>Killed by : </b>com.google.javascript.jscomp.LightweightMessageFormatterTest.testFormatErrorTabs(com.google.javascript.jscomp.LightweightMessageFormatterTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeColorize<br/><b>Killed by : </b>com.google.javascript.jscomp.LightweightMessageFormatterTest.testFormatErrorTabs(com.google.javascript.jscomp.LightweightMessageFormatterTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::maybeColorize to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@55b8cd99_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@55b8cd99_84'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeColorize<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/AbstractMessageFormatter::maybeColorize to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOnWithErrorFlag(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testExternsLifting2(com.google.javascript.jscomp.CommandLineRunnerTest) (30 ms)</li><li>com.google.javascript.jscomp.JsMessageExtractorTest.testSyntaxError1(com.google.javascript.jscomp.JsMessageExtractorTest) (0 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingCircularDeps2(com.google.javascript.jscomp.CommandLineRunnerTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckProvidesWarning(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.JsMessageExtractorTest.testSyntaxError2(com.google.javascript.jscomp.JsMessageExtractorTest) (1 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (11 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testExportProperty(com.google.javascript.jscomp.ExternExportsPassTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue70a(com.google.javascript.jscomp.CommandLineRunnerTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVarReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSuppressCastWarning(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocName(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testFieldReferencesMissingTypeInfo(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.LightweightMessageFormatterTest.testFormatErrorSpaceEndOfLine2(com.google.javascript.jscomp.LightweightMessageFormatterTest) (0 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testProvidedNamespaceIsConst(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTwoParseErrors(com.google.javascript.jscomp.CommandLineRunnerTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNamespaceDefinitionOrder(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testBug5786871(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.CheckRequiresForConstructorsTest.testRequiresAreCaughtBeforeProcessed(com.google.javascript.jscomp.CheckRequiresForConstructorsTest) (32 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeParsingOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testDeprecation(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testIncompleteNamespacedReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDuplicateParams(com.google.javascript.jscomp.CommandLineRunnerTest) (13 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckGlobalThisOnWithAdvancedMode(com.google.javascript.jscomp.CommandLineRunnerTest) (24 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocType2(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testFieldReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOverrideForQuiet(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testStrictWarningsGuardEmergencyMode(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testLanguageMode2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering4(com.google.javascript.jscomp.CommandLineRunnerTest) (8 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckGlobalThisOn(com.google.javascript.jscomp.IntegrationTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourcePruningOn5(com.google.javascript.jscomp.CommandLineRunnerTest) (5 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodInAnonObject2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testUnboundedArrayLiteralInfiniteLoop(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testClosurePassOn(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences3(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testVisibility(com.google.javascript.jscomp.IntegrationTest) (9 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogRequireReferences2(com.google.javascript.jscomp.SymbolTableTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWithKeywordDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (7 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testExportSymbolDefinedInVar(com.google.javascript.jscomp.ExternExportsPassTest) (5 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testMissingReturnCheckOnWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (12 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testGoogDefineClass3(com.google.javascript.jscomp.IntegrationTest) (15 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testExportMultiple3(com.google.javascript.jscomp.ExternExportsPassTest) (9 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIncompleteFunction2(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testExportSymbol(com.google.javascript.jscomp.ExternExportsPassTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRecoverOnBadExterns(com.google.javascript.jscomp.IntegrationTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testUnreachableCode(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences3(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckSymbolsOnForVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (18 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSuperClassReference(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testWarnOnExportFunctionWithUnknownReturnType(com.google.javascript.jscomp.ExternExportsPassTest) (4 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testJSDocAssociationWithBadNamespace(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMultipleExtends(com.google.javascript.jscomp.SymbolTableTest) (22 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckRequiresOn(com.google.javascript.jscomp.IntegrationTest) (2 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testFunctionStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (32 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckProvidesOn(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testInnerEnum(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testWarningGuardOrdering2(com.google.javascript.jscomp.CommandLineRunnerTest) (5 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSuperClassMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodInAnonObject1(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testConstructorCycle(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.LightweightMessageFormatterTest.testFormatErrorTabs(com.google.javascript.jscomp.LightweightMessageFormatterTest) (0 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodReferencesMissingTypeInfo(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences5(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testRegExp2(com.google.javascript.jscomp.IntegrationTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInlineVariables(com.google.javascript.jscomp.IntegrationTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5Strict(com.google.javascript.jscomp.CommandLineRunnerTest) (45 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCssNameCheck(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSusiciousCodeOff(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testConstructorAlias(com.google.javascript.jscomp.SymbolTableTest) (293 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalRichObjectReference(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testExportMultiple2(com.google.javascript.jscomp.ExternExportsPassTest) (11 ms)</li><li>com.google.javascript.jscomp.jsonml.SecureCompilerTest.testCompilerInterface(com.google.javascript.jscomp.jsonml.SecureCompilerTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences4(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogRequireReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testForwardDeclareDroppedTypes(com.google.javascript.jscomp.CommandLineRunnerTest) (47 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testDeclarationDisagreement(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.LightweightMessageFormatterTest.testFormatErrorSpaces(com.google.javascript.jscomp.LightweightMessageFormatterTest) (0 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckConsts(com.google.javascript.jscomp.IntegrationTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVar(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testTypeCheckingOff(com.google.javascript.jscomp.SymbolTableTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testTightenTypesWithoutTypeCheck(com.google.javascript.jscomp.IntegrationTest) (2 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNaturalSymbolOrdering(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties2(com.google.javascript.jscomp.CommandLineRunnerTest) (25 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testStaticMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMethodReferences(com.google.javascript.jscomp.SymbolTableTest) (13 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testSortingOff(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSymbolsForType(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties1(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckGlobalNames(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES5ChecksInVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (22 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckSymbolsOn(com.google.javascript.jscomp.IntegrationTest) (2 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testWarnOnExportFunctionWithUnknownParameterTypes(com.google.javascript.jscomp.ExternExportsPassTest) (5 ms)</li><li>com.google.javascript.jscomp.LightweightMessageFormatterTest.testFormatErrorSpaceEndOfLine1(com.google.javascript.jscomp.LightweightMessageFormatterTest) (1 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testTypeCheckAndInference(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testProvidedNamespaceIsConst2(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testSymbolForScopeOfNatives(com.google.javascript.jscomp.SymbolTableTest) (8 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue70b(com.google.javascript.jscomp.CommandLineRunnerTest) (6 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testQuietMode(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testJSDocOnlySymbol(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testRemovalOfNamespacedReferencesOfProperties(com.google.javascript.jscomp.SymbolTableTest) (9 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testHiddenSideEffect(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testBadBreakStatementInIdeMode(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckTypes(com.google.javascript.jscomp.IntegrationTest) (6 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckReferencesOn(com.google.javascript.jscomp.IntegrationTest) (2 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testStrictWarningsGuard(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testLanguageMode(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testTypeNameParser(com.google.javascript.jscomp.IntegrationTest) (5 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testScriptStrictModeNoWarning(com.google.javascript.jscomp.CommandLineRunnerTest) (17 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testTypeCheckOverride2(com.google.javascript.jscomp.CommandLineRunnerTest) (23 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testES3ByDefault(com.google.javascript.jscomp.CommandLineRunnerTest) (14 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testExportEnum(com.google.javascript.jscomp.ExternExportsPassTest) (7 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testMissingConstructorTag(com.google.javascript.jscomp.SymbolTableTest) (12 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testDepreciationWithVerbose(com.google.javascript.jscomp.CommandLineRunnerTest) (21 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSyntheticExterns(com.google.javascript.jscomp.CommandLineRunnerTest) (16 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisReferences2(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testIssue504(com.google.javascript.jscomp.CommandLineRunnerTest) (20 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalVarReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testReferencesInJSDocType(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalVarInExterns(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalQualifiedNamesInLocalScopes(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testExportMultiple(com.google.javascript.jscomp.ExternExportsPassTest) (11 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testCheckConstants2(com.google.javascript.jscomp.IntegrationTest) (3 ms)</li><li>com.google.javascript.jscomp.ExternExportsPassTest.testExportFunctionWithOptionalArguments(com.google.javascript.jscomp.ExternExportsPassTest) (5 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testNamespacedReferences(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalVarInExterns(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testCheckUndefinedProperties3(com.google.javascript.jscomp.CommandLineRunnerTest) (26 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testIncompleteFunction1(com.google.javascript.jscomp.IntegrationTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testClosurePassPreservesJsDoc(com.google.javascript.jscomp.IntegrationTest) (12 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testPrototypeReferences2(com.google.javascript.jscomp.SymbolTableTest) (11 ms)</li><li>com.google.javascript.jscomp.CommandLineRunnerTest.testSourceSortingCircularDeps1(com.google.javascript.jscomp.CommandLineRunnerTest) (4 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testInferTypes(com.google.javascript.jscomp.IntegrationTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testLocalThisReferences3(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGoogScopeReferences(com.google.javascript.jscomp.SymbolTableTest) (14 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testMissingReturn(com.google.javascript.jscomp.IntegrationTest) (12 ms)</li><li>com.google.javascript.jscomp.IntegrationTest.testBug2592659(com.google.javascript.jscomp.IntegrationTest) (7 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testGlobalThisPropertyReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li><li>com.google.javascript.jscomp.SymbolTableTest.testUndeclaredFieldReferences(com.google.javascript.jscomp.SymbolTableTest) (10 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>
